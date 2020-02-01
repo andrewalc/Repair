@@ -7,6 +7,7 @@ public class ClickManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public Camera cam;
+    public GameObject thing;
     void Start()
     {
     }
@@ -14,7 +15,13 @@ public class ClickManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 screenPos = cam.ScreenToWorldPoint(target.position);
-        Debug.Log("target is " + screenPos.x + " pixels from the left");
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit ray;
+            if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), out ray))
+            {
+                Instantiate(thing, ray.point, Quaternion.identity);
+            }
+        }
     }
 }
