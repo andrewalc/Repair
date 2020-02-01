@@ -19,6 +19,7 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
     {
         subGenerators = new List<ICarGenerator>();
         subGenerators.Add(new SimpleMachinePlacer(Host, Config, ResultGrid, random));
+        subGenerators.Add(new SimpleObstaclePlacer(Host, Config, ResultGrid, random));
     }
 
     protected override IEnumerator PlaceObjects()
