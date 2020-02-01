@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DarkConfig;
+﻿using DarkConfig;
 using UnityEngine;
 
 public class Game : MonoBehaviour {
@@ -7,13 +6,14 @@ public class Game : MonoBehaviour {
 
     public bool finishedLoadingConfigs { get; private set; }
 
-    Dictionary<string, CarGrid> testGrids = new Dictionary<string, CarGrid>();
+    public SimulationSettingsConfig SimulationSettings = new SimulationSettingsConfig();
 
     void LoadConfigs() {
         UnityPlatform.Setup();
         Config.FileManager.AddSource(new ResourcesSource(hotload: true));
         Config.Preload();
         Config.OnPreload += () => {
+            Config.Apply("simulationSettings", ref SimulationSettings);
             finishedLoadingConfigs = true;
         };
     }
