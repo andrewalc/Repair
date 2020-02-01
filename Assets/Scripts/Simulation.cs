@@ -2,9 +2,11 @@
 
 public class Simulation {
     public CarGrid currentState;
+    public SimulationSettingsConfig config;
 
-    public Simulation(CarGrid grid) {
+    public Simulation(CarGrid grid, SimulationSettingsConfig config) {
         currentState = grid.Clone();
+        this.config = config;
     }
 
     public void Step() {

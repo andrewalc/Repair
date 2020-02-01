@@ -30,8 +30,8 @@ public class Game : MonoBehaviour {
         LoadConfigs();
 
         yield return new WaitUntil(() => finishedLoadingConfigs);
-
-        simulation = new Simulation(SimulationSettings.testGrids[0]);
+        
+        simulation = new Simulation(SimulationSettings.testGrids[0], SimulationSettings);
         Debug.Log(simulation.currentState);
     }
 

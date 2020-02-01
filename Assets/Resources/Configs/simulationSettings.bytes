@@ -1,5 +1,22 @@
 
+plantStartingHealth: 100
+plantMaxHealth: 150
 
+# How much the plant health changes every ticksBeforePlantHealthChanges ticks.
+# Added if it's adequately watered, subtracted if it's not.
+plantWateredHealthGain: 20
+
+# How many ticks between watered-state-driven health changes for a plant.
+ticksBeforePlantHealthChanges: 3
+
+# How much plant matter a plant produces as a multiple of its health.
+# e.g. a plant with 120 health will produce 120 * 0.2 = 24 plant matter per tick.
+plantMatterHealthMultiplier: 0.2
+
+# Chance that a plant will reproduce to an adjacent square in a tick as a multiple of its health.
+plantChanceOfReproducingMultiplier: 0.1
+
+# Test grid for simulation work.
 testGrids:
   - |
     ..s..
