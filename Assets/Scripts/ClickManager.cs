@@ -15,7 +15,8 @@ public class ClickManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        // middle click
+        if (Input.GetMouseButtonDown(2))
         {
             RaycastHit ray;
             if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), out ray))
