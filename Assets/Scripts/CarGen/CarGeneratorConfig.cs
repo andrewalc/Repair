@@ -1,8 +1,8 @@
 public class CarGeneratorConfig
 {
-    public int width;
-    public int height;
+    public int width = 12;
+    public int height = 6;
 
-    public int numMachinesMin;
-    public int numMachinesMax;
+    public int numMachinesMin = 10;
+    public int numMachinesMax = 10;
 }

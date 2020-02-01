@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class SimpleFullCarGenerator : CoroutineCarGenerator
 {
@@ -11,7 +12,7 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     private int nextGenerator;
 
-    public SimpleFullCarGenerator(CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(config, gridToUse)
+    public SimpleFullCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
     {
         this.random = random;
 
@@ -21,27 +22,29 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
     private void InitGenerators()
     {
         subGenerators = new List<ICarGenerator>();
-        subGenerators.Add(new SimpleMachinePlacer(Config, ResultGrid, random));
+        subGenerators.Add(new SimpleMachinePlacer(Host, Config, ResultGrid, random));
     }
 
     protected override IEnumerator PlaceObjects()
     {
         nextGenerator = 0;
-        // TODO: maybe have a max run-time here, to avoid infinite loops
-        while (true)
+        // TODO: do a wait until sub-generator instead of this loop stuff
+        while( true )
         {
-            if ( null != inProgressGenerator )
+            // TODO: maybe have a max run-time here, to avoid infinite loops
+            while (null != inProgressGenerator)
             {
-                // Wait for the generator to finish.
                 yield return null;
             }
 
             if (nextGenerator >= subGenerators.Count)
             {
+                Debug.Log("No more generators.");
                 // We are done.
                 break;
             }
 
+            Debug.Log("Generator " + nextGenerator + " finished.");
             // Start the next generator.
             inProgressGenerator = subGenerators[nextGenerator];
             inProgressGenerator.RegisterOnComplete(OnGeneratorComplete);
