@@ -1,3 +1,4 @@
+[ConfigMandatory]
 public class CarGeneratorConfig
 {
     public int width = 12;

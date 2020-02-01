@@ -1,0 +1,7 @@
+# Width and height of the car
+width: 12
+height: 6
+
+# Number of machines to generate (random between min and max)
+numMachinesMin: 5
+numMachinesMax: 10

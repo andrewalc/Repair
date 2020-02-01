@@ -8,10 +8,6 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     private System.Random random;
 
-    private ICarGenerator inProgressGenerator;
-
-    private int nextGenerator;
-
     public SimpleFullCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
     {
         this.random = random;
@@ -27,37 +23,21 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     protected override IEnumerator PlaceObjects()
     {
-        nextGenerator = 0;
-        // TODO: do a wait until sub-generator instead of this loop stuff
-        while( true )
+        foreach( ICarGenerator generator in subGenerators)
         {
-            // TODO: maybe have a max run-time here, to avoid infinite loops
-            while (null != inProgressGenerator)
+            bool generatorComplete = false;
+            GenerationComplete eventHandler = () =>
             {
-                yield return null;
-            }
+                generatorComplete = true;
+            };
 
-            if (nextGenerator >= subGenerators.Count)
-            {
-                Debug.Log("No more generators.");
-                // We are done.
-                break;
-            }
+            generator.RegisterOnComplete(eventHandler);
 
-            Debug.Log("Generator " + nextGenerator + " finished.");
-            // Start the next generator.
-            inProgressGenerator = subGenerators[nextGenerator];
-            inProgressGenerator.RegisterOnComplete(OnGeneratorComplete);
-            ++nextGenerator;
-            inProgressGenerator.Start();
+            generator.Start();
+            yield return new WaitUntil(() => generatorComplete);
 
-            yield return null;
+            generator.UnregisterOnComplete(eventHandler);
         }
     }
 
-    private void OnGeneratorComplete()
-    {
-        inProgressGenerator.UnregisterOnComplete(OnGeneratorComplete);
-        inProgressGenerator = null;
-    }
 }

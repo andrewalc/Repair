@@ -13,6 +13,9 @@ public class Game : MonoBehaviour
     private System.Random random;
 
     public SimulationSettingsConfig SimulationSettings = new SimulationSettingsConfig();
+
+    private CarGeneratorConfig CarGenConfig = new CarGeneratorConfig();
+
     Simulation simulation;
 
     public CarGrid currGrid { get; private set; }
@@ -25,6 +28,7 @@ public class Game : MonoBehaviour
         Config.OnPreload += () =>
         {
             Config.Apply("simulationSettings", ref SimulationSettings);
+            Config.Apply("carGeneratorSettings", ref CarGenConfig);
             finishedLoadingConfigs = true;
         };
     }
@@ -57,12 +61,10 @@ public class Game : MonoBehaviour
 
         yield return new WaitUntil(() => finishedLoadingConfigs);
 
-        // TODO: grab real car config
-        CarGeneratorConfig config = new CarGeneratorConfig();
-        currGrid = new CarGrid(config.width, config.height);
+        currGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
 
         // TODO: should we have a list of previous CarGrids, rather than just one current one?
-        GenerateLevel(config, currGrid, random);
+        GenerateLevel(CarGenConfig, currGrid, random);
         Debug.Log("Generating level...");
 
         yield return new WaitUntil(() => finishedGeneratingLevel);
