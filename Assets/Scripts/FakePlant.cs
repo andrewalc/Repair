@@ -6,13 +6,14 @@ using UnityEngine.Events;
 
 public class FakePlant : MonoBehaviour
 {
+    private float baseWaterGen = -1;
     void Start()
     {
-        Tick.Instance.AddEventListener(addWater);
+        Tick.Instance.AddEventListener(AddWater);
     }
 
-    void addWater()
+    void AddWater()
     {
-        WaterResource.Increment();
+        WaterResource.updateWater(baseWaterGen);
     }
 }

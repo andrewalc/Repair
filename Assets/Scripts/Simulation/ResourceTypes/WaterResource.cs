@@ -1,12 +1,11 @@
 ﻿public static class WaterResource
 {
     public static float value;
-    public static float rate;
     public static float max;
 
-    public static void Increment()
+    public static void updateWater(float amount)
     {
-        value += rate;
+        value += amount;
         
         if (value < 0)
         {
