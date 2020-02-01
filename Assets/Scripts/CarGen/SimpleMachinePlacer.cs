@@ -4,39 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class SimpleMachinePlacer : CoroutineCarGenerator
+public class SimpleMachinePlacer : SimpleCarObjectPlacer
 {
-    private System.Random random;
+    public SimpleMachinePlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse, random)
+    {}
 
-    public SimpleMachinePlacer(CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(config, gridToUse)
+    protected override int GetNumObjectsToGenerate()
     {
-        this.random = random;
+        return Random.Next(Config.numMachinesMin, Config.numMachinesMax);
     }
 
-    protected override IEnumerator PlaceObjects()
-    {
-        int numMachinesToGenerate = random.Next(Config.numMachinesMin, Config.numMachinesMax);
-
-        for ( int i = 0; i < numMachinesToGenerate; ++i)
-        {
-            IEnumerable<GridSquare> possibleSquares = ResultGrid.SquaresEnumerable().Where(
-                                                            (square) => null == square.ContainedObject || square.ContainedObject.IsEmpty()
-                                                        );
-
-            int selectedSquareIdx = random.Next(possibleSquares.Count() - 1);
-            GridSquare selectedSquare = possibleSquares.ElementAt(selectedSquareIdx);
-
-            MachineCarObject machine = GenerateMachine();
-            
-            selectedSquare.ContainedObject = machine;
-
-            ResultGrid.SetSquare(selectedSquare);
-
-            yield return null;
-        }
-    }
-
-    private MachineCarObject GenerateMachine()
+    protected override ICarObject GenerateCarObject()
     {
         // TODO: Give the machine properties if necessary.
         return new MachineCarObject();

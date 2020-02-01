@@ -6,6 +6,7 @@
     public GridSquare(int x, int y) {
         X = x;
         Y = y;
+        ContainedObject = new EmptyCarObject();
     }
 
     public GridSquare Clone() {

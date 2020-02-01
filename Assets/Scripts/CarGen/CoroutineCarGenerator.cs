@@ -1,8 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class CoroutineCarGenerator : MonoBehaviour, ICarGenerator
+public abstract class CoroutineCarGenerator : ICarGenerator
 {
+    private MonoBehaviour host;
+    public MonoBehaviour Host
+    { get{ return host; }}
+
     private GenerationComplete generationComplete;
 
     private CarGeneratorConfig config;
@@ -23,15 +27,18 @@ public abstract class CoroutineCarGenerator : MonoBehaviour, ICarGenerator
         }
     }
 
-    private IEnumerator generationProcess;
+    public delegate IEnumerator GenerationProcess();
+    private GenerationProcess generationProcess;
 
-    public CoroutineCarGenerator(CarGeneratorConfig config)
+    public CoroutineCarGenerator(MonoBehaviour host, CarGeneratorConfig config)
     {
+        this.host = host;
         this.config = config;
     }
 
-    public CoroutineCarGenerator(CarGeneratorConfig config, CarGrid gridToUse)
+    public CoroutineCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse)
     {
+        this.host = host;
         this.config = config;
         this.resultGrid = gridToUse;
     }
@@ -44,13 +51,14 @@ public abstract class CoroutineCarGenerator : MonoBehaviour, ICarGenerator
             return;
         }
 
-        generationProcess = PlaceObjectsManager();
-        StartCoroutine(generationProcess);
+        generationProcess = PlaceObjectsManager;
+        host.StartCoroutine(generationProcess());
     }
 
     private IEnumerator PlaceObjectsManager()
     {
-        yield return PlaceObjects();
+        yield return host.StartCoroutine(PlaceObjects());
+        
         OnGenerationComplete();
     }
 

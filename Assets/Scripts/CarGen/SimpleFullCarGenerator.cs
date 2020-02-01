@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class SimpleFullCarGenerator : CoroutineCarGenerator
 {
@@ -7,11 +8,7 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     private System.Random random;
 
-    private ICarGenerator inProgressGenerator;
-
-    private int nextGenerator;
-
-    public SimpleFullCarGenerator(CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(config, gridToUse)
+    public SimpleFullCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
     {
         this.random = random;
 
@@ -21,40 +18,27 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
     private void InitGenerators()
     {
         subGenerators = new List<ICarGenerator>();
-        subGenerators.Add(new SimpleMachinePlacer(Config, ResultGrid, random));
+        subGenerators.Add(new SimpleMachinePlacer(Host, Config, ResultGrid, random));
+        subGenerators.Add(new SimpleObstaclePlacer(Host, Config, ResultGrid, random));
     }
 
     protected override IEnumerator PlaceObjects()
     {
-        nextGenerator = 0;
-        // TODO: maybe have a max run-time here, to avoid infinite loops
-        while (true)
+        foreach( ICarGenerator generator in subGenerators)
         {
-            if ( null != inProgressGenerator )
+            bool generatorComplete = false;
+            GenerationComplete eventHandler = () =>
             {
-                // Wait for the generator to finish.
-                yield return null;
-            }
+                generatorComplete = true;
+            };
 
-            if (nextGenerator >= subGenerators.Count)
-            {
-                // We are done.
-                break;
-            }
+            generator.RegisterOnComplete(eventHandler);
 
-            // Start the next generator.
-            inProgressGenerator = subGenerators[nextGenerator];
-            inProgressGenerator.RegisterOnComplete(OnGeneratorComplete);
-            ++nextGenerator;
-            inProgressGenerator.Start();
+            generator.Start();
+            yield return new WaitUntil(() => generatorComplete);
 
-            yield return null;
+            generator.UnregisterOnComplete(eventHandler);
         }
     }
 
-    private void OnGeneratorComplete()
-    {
-        inProgressGenerator.UnregisterOnComplete(OnGeneratorComplete);
-        inProgressGenerator = null;
-    }
 }
