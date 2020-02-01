@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using DarkConfig;
 
 public class CarGrid {
@@ -25,6 +26,26 @@ public class CarGrid {
         return clone;
     }
 
+    public override string ToString() {
+        var sb = new StringBuilder();
+        for (int x = 0; x < Squares.GetLength(0); ++x) {
+            for (int y = Squares.GetLength(1) - 1; y >= 0; --y) {
+                switch (Squares[x, y].ContainedObject.Type) {
+                    case CarObjectType.Empty: sb.Append("."); break;
+                    case CarObjectType.Obstacle: sb.Append("#"); break;
+                    case CarObjectType.Plant: sb.Append("p"); break;
+                    case CarObjectType.Spigot: sb.Append("s"); break;
+                    case CarObjectType.Machine: sb.Append("m"); break;
+                    default: throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
+    }
+
     public static CarGrid FromDoc(CarGrid existing, DocNode doc) {
         var docString = doc.AsString();
         int width = docString.IndexOf('\n');
@@ -39,12 +60,12 @@ public class CarGrid {
                 ICarObject carObject;
                 
                 // lines is row=major, but we want column-major for the grid.
-                var c = lines[height - y - 1][x];
+                var c = lines[x][height - y - 1];
                 switch (c) {
                     case '.': carObject = new EmptyCarObject(); break;
                     case 'p': carObject = new PlantCarObject(); break;
                     case 'm': carObject = new MachineCarObject(); break;
-                    case 'o': carObject = new ObstacleCarObject(); break;
+                    case '#': carObject = new ObstacleCarObject(); break;
                     case 's': carObject = new SpigotCarObject(); break;
                     default: throw new ArgumentOutOfRangeException();
                 }

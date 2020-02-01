@@ -1,4 +1,5 @@
-﻿using DarkConfig;
+﻿using System.Collections;
+using DarkConfig;
 using UnityEngine;
 
 public class Game : MonoBehaviour {
@@ -7,6 +8,7 @@ public class Game : MonoBehaviour {
     public bool finishedLoadingConfigs { get; private set; }
 
     public SimulationSettingsConfig SimulationSettings = new SimulationSettingsConfig();
+    Simulation simulation;
 
     void LoadConfigs() {
         UnityPlatform.Setup();
@@ -18,7 +20,7 @@ public class Game : MonoBehaviour {
         };
     }
 
-    void Awake() {
+    IEnumerator Start() {
         if (Instance == null) {
             Instance = this;
         } else {
@@ -26,5 +28,17 @@ public class Game : MonoBehaviour {
         }
         
         LoadConfigs();
+
+        yield return new WaitUntil(() => finishedLoadingConfigs);
+        
+        simulation = new Simulation(SimulationSettings.testGrids[0], SimulationSettings);
+        Debug.Log(simulation.currentState);
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.S)) {
+            simulation.Step();
+            Debug.Log(simulation.currentState);
+        }
     }
 }
