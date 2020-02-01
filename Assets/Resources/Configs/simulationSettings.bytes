@@ -1,3 +1,5 @@
+# tickSpeed of auto resource generation in seconds
+tickSpeed: 2
 
 plantStartingHealth: 100
 plantMaxHealth: 150

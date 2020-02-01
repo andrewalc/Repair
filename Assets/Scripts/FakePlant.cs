@@ -14,6 +14,5 @@ public class FakePlant : MonoBehaviour
     void addWater()
     {
         WaterResource.Increment();
-        print(WaterResource.value);
     }
 }

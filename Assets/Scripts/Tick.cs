@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Tick : MonoBehaviour
@@ -11,8 +12,12 @@ public class Tick : MonoBehaviour
 
     private void Start()
     {
-        _timePerTick = 2;
-        _timeUntilTick = _timePerTick;
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Debug.LogError("Can only have one tick manager instance!");
+        }
+        
     }
 
     public void FixedUpdate()
@@ -38,12 +43,15 @@ public class Tick : MonoBehaviour
     {
         TickEvent -= action;
     }
-    
+
     void Awake() {
         if (Instance == null) {
             Instance = this;
         } else {
-            Debug.LogError("Can only have one game instance!");
+            Debug.LogError("Can only have one tick manager instance!");
         }
+
+        _timePerTick = 2;
+        _timeUntilTick = _timePerTick;
     }
 }
