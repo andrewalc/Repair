@@ -13,6 +13,18 @@ public class CarGrid {
         }
     }
 
+    public CarGrid Clone() {
+        var clone = new CarGrid(Squares.GetLength(0), Squares.GetLength(1));
+
+        for (int x = 0; x < Squares.GetLength(0); ++x) {
+            for (int y = 0; y < Squares.GetLength(1); ++y) {
+                clone.Squares[x,y] = Squares[x, y].Clone();
+            }
+        }
+        
+        return clone;
+    }
+
     public static CarGrid FromDoc(CarGrid existing, DocNode doc) {
         var docString = doc.AsString();
         int width = docString.IndexOf('\n');
@@ -33,7 +45,7 @@ public class CarGrid {
                     case 'p': carObject = new PlantCarObject(); break;
                     case 'm': carObject = new MachineCarObject(); break;
                     case 'o': carObject = new ObstacleCarObject(); break;
-                    case 's': carObject = new ObstacleCarObject(); break;
+                    case 's': carObject = new SpigotCarObject(); break;
                     default: throw new ArgumentOutOfRangeException();
                 }
                 existing.Squares[x, y] = new GridSquare(x, y) {
