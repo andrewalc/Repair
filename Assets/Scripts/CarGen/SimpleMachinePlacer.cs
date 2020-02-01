@@ -8,7 +8,7 @@ public class SimpleMachinePlacer : CoroutineCarGenerator
 {
     private System.Random random;
 
-    public SimpleMachinePlacer(CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(config, gridToUse)
+    public SimpleMachinePlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
     {
         this.random = random;
     }
@@ -25,6 +25,7 @@ public class SimpleMachinePlacer : CoroutineCarGenerator
 
             int selectedSquareIdx = random.Next(possibleSquares.Count() - 1);
             GridSquare selectedSquare = possibleSquares.ElementAt(selectedSquareIdx);
+            Debug.Log("Placing machine at square: " + selectedSquare.X + ", " + selectedSquare.Y);
 
             MachineCarObject machine = GenerateMachine();
             

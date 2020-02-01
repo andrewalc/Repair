@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 
 [ConfigMandatory]
-public class SimulationSettingsConfig {
+public class SimulationSettingsConfig
+{
+    public float tickSpeed;
     public float plantStartingHealth;
     public float plantMaxHealth;
 
