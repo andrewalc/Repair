@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using DarkConfig;
 
 public class CarGrid {
@@ -23,6 +24,26 @@ public class CarGrid {
         }
         
         return clone;
+    }
+
+    public override string ToString() {
+        var sb = new StringBuilder();
+        for (int x = 0; x < Squares.GetLength(0); ++x) {
+            for (int y = Squares.GetLength(1) - 1; y >= 0; --y) {
+                switch (Squares[x, y].ContainedObject.Type) {
+                    case CarObjectType.Empty: sb.Append("."); break;
+                    case CarObjectType.Obstacle: sb.Append("#"); break;
+                    case CarObjectType.Plant: sb.Append("p"); break;
+                    case CarObjectType.Spigot: sb.Append("s"); break;
+                    case CarObjectType.Machine: sb.Append("m"); break;
+                    default: throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
     }
 
     public static CarGrid FromDoc(CarGrid existing, DocNode doc) {
