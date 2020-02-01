@@ -2,5 +2,5 @@
 
 [ConfigMandatory]
 public class SimulationSettingsConfig {
-    public Dictionary<string, CarGrid> testGrids = new Dictionary<string, CarGrid>();
+    public List<CarGrid> testGrids = new List<CarGrid>();
 }
