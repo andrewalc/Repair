@@ -1,42 +1,60 @@
 using System.Collections;
 using UnityEngine;
 
-public class SimpleCarGenerator : MonoBehaviour, ICarGenerator
+public abstract class CoroutineCarGenerator : MonoBehaviour, ICarGenerator
 {
     private GenerationComplete generationComplete;
 
     private CarGeneratorConfig config;
+    protected CarGeneratorConfig Config { get { return config; } }
 
     private CarGrid resultGrid;
 
+    protected CarGrid ResultGrid
+    {
+        get { return resultGrid; }
+        set
+        {
+            if (resultGrid != null)
+            {
+                Debug.LogError("Result grid already set.");
+            }
+            resultGrid = value;
+        }
+    }
+
     private IEnumerator generationProcess;
 
-    public SimpleCarGenerator(CarGeneratorConfig config)
+    public CoroutineCarGenerator(CarGeneratorConfig config)
     {
         this.config = config;
     }
 
+    public CoroutineCarGenerator(CarGeneratorConfig config, CarGrid gridToUse)
+    {
+        this.config = config;
+        this.resultGrid = gridToUse;
+    }
+
     public void Start()
     {
-        if ( null != generationProcess )
+        if (null != generationProcess)
         {
             Debug.LogError("Tried to start a new generation while there was already one in progress.");
             return;
         }
 
-        generationProcess = PlaceObjects();
+        generationProcess = PlaceObjectsManager();
         StartCoroutine(generationProcess);
     }
 
-    private IEnumerator PlaceObjects()
+    private IEnumerator PlaceObjectsManager()
     {
-        resultGrid = new CarGrid(config.width, config.height);
-
-        // TODO: place objects
-        yield return null;
-
+        yield return PlaceObjects();
         OnGenerationComplete();
     }
+
+    protected abstract IEnumerator PlaceObjects();
 
     public void RegisterOnComplete(GenerationComplete registrant)
     {
@@ -50,7 +68,7 @@ public class SimpleCarGenerator : MonoBehaviour, ICarGenerator
 
     private void OnGenerationComplete()
     {
-        if ( null != generationComplete )
+        if (null != generationComplete)
         {
             generationComplete();
         }
