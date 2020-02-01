@@ -69,3 +69,4 @@ crashlytics-build.properties
 
 Assets/Plugins.meta
 Assets/Plugins/Editor.meta
+ProjectSettings/ProBuilderSettings.json
