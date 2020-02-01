@@ -39,12 +39,12 @@ public class CarGrid {
                 ICarObject carObject;
                 
                 // lines is row=major, but we want column-major for the grid.
-                var c = lines[height - y - 1][x];
+                var c = lines[x][height - y - 1];
                 switch (c) {
                     case '.': carObject = new EmptyCarObject(); break;
                     case 'p': carObject = new PlantCarObject(); break;
                     case 'm': carObject = new MachineCarObject(); break;
-                    case 'o': carObject = new ObstacleCarObject(); break;
+                    case '#': carObject = new ObstacleCarObject(); break;
                     case 's': carObject = new SpigotCarObject(); break;
                     default: throw new ArgumentOutOfRangeException();
                 }
