@@ -68,7 +68,7 @@ public class Game : MonoBehaviour
         yield return new WaitUntil(() => finishedGeneratingLevel);
         Debug.Log("Level generation finished, starting simulation...");
 
-        simulation = new Simulation(currGrid);
+        simulation = new Simulation(currGrid, SimulationSettings);
         Debug.Log(simulation.currentState);
     }
 
