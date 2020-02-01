@@ -9,4 +9,6 @@
     bool IsEmpty();
 
     bool IsWaterSource();
+    
+    ICarObject Clone();
 }

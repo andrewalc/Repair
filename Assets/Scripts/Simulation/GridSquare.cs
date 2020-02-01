@@ -7,4 +7,10 @@
         X = x;
         Y = y;
     }
+
+    public GridSquare Clone() {
+        return new GridSquare(X, Y) {
+            ContainedObject = ContainedObject == null ? null : ContainedObject.Clone()
+        };
+    }
 }

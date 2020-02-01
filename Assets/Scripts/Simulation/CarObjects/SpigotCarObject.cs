@@ -8,4 +8,5 @@
     public bool BlocksIrrigation() { return false; }
     public bool IsEmpty() { return false; }
     public bool IsWaterSource() { return true; }
+    public ICarObject Clone() { return new SpigotCarObject(); }
 }
