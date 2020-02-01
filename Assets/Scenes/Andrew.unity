@@ -1065,12 +1065,12 @@ GameObject:
   - component: {fileID: 484455160}
   - component: {fileID: 484455164}
   m_Layer: 0
-  m_Name: floortile3
+  m_Name: floortile1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &484455159
 Transform:
   m_ObjectHideFlags: 0
@@ -1370,7 +1370,7 @@ Animator:
   m_GameObject: {fileID: 484455158}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8bd1b94b3eefb4eedb48694dbca4fc37, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3205,12 +3205,18 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 6975691621320870959, guid: fba4b032d0ff94d74add092f53634896, type: 2}
     value: {fileID: 1121257475}
-  - key: {fileID: 3442170555950128797, guid: fba4b032d0ff94d74add092f53634896, type: 2}
-    value: {fileID: 2056111314}
-  - key: {fileID: 9113488230143714264, guid: fba4b032d0ff94d74add092f53634896, type: 2}
-    value: {fileID: 1653255890}
-  - key: {fileID: -4894593200381999256, guid: fba4b032d0ff94d74add092f53634896, type: 2}
+  - key: {fileID: -4952160084106393960, guid: fba4b032d0ff94d74add092f53634896, type: 2}
     value: {fileID: 484455164}
+  - key: {fileID: 2689928944174393533, guid: fba4b032d0ff94d74add092f53634896, type: 2}
+    value: {fileID: 2056111314}
+  - key: {fileID: -5473929786942181155, guid: fba4b032d0ff94d74add092f53634896, type: 2}
+    value: {fileID: 1653255890}
+  - key: {fileID: 3132707889735073226, guid: fba4b032d0ff94d74add092f53634896, type: 2}
+    value: {fileID: 2056111308}
+  - key: {fileID: 3348209561108944071, guid: fba4b032d0ff94d74add092f53634896, type: 2}
+    value: {fileID: 484455158}
+  - key: {fileID: 6247095153595502618, guid: fba4b032d0ff94d74add092f53634896, type: 2}
+    value: {fileID: 1653255884}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1121257477
@@ -4954,12 +4960,12 @@ GameObject:
   - component: {fileID: 1653255886}
   - component: {fileID: 1653255890}
   m_Layer: 0
-  m_Name: floortile1
+  m_Name: floortile3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1653255885
 Transform:
   m_ObjectHideFlags: 0
