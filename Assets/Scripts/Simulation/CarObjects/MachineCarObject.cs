@@ -1,5 +1,13 @@
 ﻿public class MachineCarObject : ICarObject {
+    public enum MachineTypes
+    {
+        Aero,
+        Hydro
+    }
+
     public CarObjectType Type => CarObjectType.Machine;
+
+    public MachineTypes MachineType { get; set; }
 
     public int level = 3;
     
