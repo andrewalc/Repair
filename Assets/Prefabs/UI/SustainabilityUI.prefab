@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5925108489295469360}
   - component: {fileID: 6994018103949131729}
   m_Layer: 5
-  m_Name: PlantMatterQuantity
+  m_Name: SustainabilityQuantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 1862662364636033805}
   - component: {fileID: 2196739558915320922}
   m_Layer: 5
-  m_Name: Plant
+  m_Name: SustainabilityLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

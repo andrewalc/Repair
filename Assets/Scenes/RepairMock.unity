@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6096,6 +6096,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoverInfoPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 6329387419235375700, guid: 41928cfd72f0046cd8fe8e3a916c056d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8596853708602875135, guid: 41928cfd72f0046cd8fe8e3a916c056d,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -9571,47 +9576,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1674668224500252566, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_Name
-      value: SustainabilityQuantity
-      objectReference: {fileID: 0}
     - target: {fileID: 2027474429597815517, guid: c80ce9799e228108a9d0eb418403b9e1,
         type: 3}
       propertyPath: m_Name
       value: SustainabilityUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 2196739558915320922, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2196739558915320922, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2196739558915320922, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2196739558915320922, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2703607883840535296, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_Name
-      value: SustainabilityLabel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3046794141437237219, guid: c80ce9799e228108a9d0eb418403b9e1,
-        type: 3}
-      propertyPath: m_Text
-      value: '
-
-'
       objectReference: {fileID: 0}
     - target: {fileID: 9118939527607535685, guid: c80ce9799e228108a9d0eb418403b9e1,
         type: 3}
@@ -9718,28 +9686,8 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7446404656359898265, guid: c80ce9799e228108a9d0eb418403b9e1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c80ce9799e228108a9d0eb418403b9e1, type: 3}
---- !u!1 &1057380350 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1674668224500252566, guid: c80ce9799e228108a9d0eb418403b9e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1057380349}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1057380352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057380350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b171c85cb0baa88528f25363c2cfdbb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textToUpdate: {fileID: 0}
 --- !u!1 &1058517359
 GameObject:
   m_ObjectHideFlags: 0
