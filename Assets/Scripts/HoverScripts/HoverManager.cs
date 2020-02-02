@@ -11,7 +11,18 @@ public class HoverManager : MonoBehaviour
     public TextMeshProUGUI t3;
     public TextMeshProUGUI t4;
     public static HoverManager Instance { get; private set; }
-    
+
+    bool _disabled;
+    public bool disabled {
+        get => _disabled;
+        set {
+            _disabled = value;
+            if (_disabled) {
+                Deactivate();
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +36,10 @@ public class HoverManager : MonoBehaviour
 
     public void Display(GridSquare square)
     {
+        if (disabled) {
+            return;
+        }
+        
         if (!Game.Instance.finishedLoadingConfigs)
         {
             return;

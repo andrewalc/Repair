@@ -10,6 +10,14 @@ public class IrrigationUI : MonoBehaviour {
     [SerializeField] GameObject CellPrefab;
     [SerializeField] GameObject PipePrefab;
 
+    void Awake() {
+        HoverManager.Instance.disabled = true;
+    }
+
+    void OnDestroy() {
+        HoverManager.Instance.disabled = false;
+    }
+
     public void Init() {
         foreach (Transform child in cellGrid.transform) {
             Destroy(child.gameObject);
