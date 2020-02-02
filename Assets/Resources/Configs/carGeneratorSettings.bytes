@@ -9,3 +9,12 @@ numMachinesMax: 10
 # Number of obstacles to generate (random between min and max)
 numObstaclesMin: 5
 numObstaclesMax: 10
+
+# Number of plants to generate (random between min and max)
+numPlantsMin: 3
+numPlantsMax: 5
+
+
+# Number of spigots to generate (random between min and max)
+numSpigotsMin: 1
+numSpigotsMax: 1
