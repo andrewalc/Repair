@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 683831850007970005}
   - component: {fileID: 8894472155844531630}
   - component: {fileID: 2455552517593062010}
+  - component: {fileID: 1030628957}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -102,6 +103,18 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &1030628957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87707882739551168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa771f571b6d648cbbfb1025f971a7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5385210620203743242
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +283,7 @@ GameObject:
   - component: {fileID: 4158146853087494800}
   - component: {fileID: 2806418094928205340}
   - component: {fileID: 8926273606836586403}
-  - component: {fileID: 8792206596393108602}
+  - component: {fileID: 427312033291059036}
   m_Layer: 5
   m_Name: MachineHoverInfo
   m_TagString: Untagged
@@ -358,7 +371,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8792206596393108602
+--- !u!114 &427312033291059036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -367,9 +380,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6329387419235375700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa771f571b6d648cbbfb1025f971a7d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ad4450dee40e4f28bcf33c31aa407ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t1: {fileID: 7744018233140758103}
+  t2: {fileID: 2190901511464814539}
+  t3: {fileID: 8533351643153094093}
 --- !u!1 &7134684860065042121
 GameObject:
   m_ObjectHideFlags: 0

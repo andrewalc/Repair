@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
+using UnityEngine.UI;
 
 public class CanvasHover : MonoBehaviour
 {
-    void FixedUpdate()
+    void Update()
     {
         transform.position = Input.mousePosition;
     }

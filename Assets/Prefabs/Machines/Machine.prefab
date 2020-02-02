@@ -102,6 +102,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1608721570436769779}
   - component: {fileID: 6255076443261054575}
+  - component: {fileID: 3850411762777319145}
+  - component: {fileID: 5899497839485636254}
   m_Layer: 0
   m_Name: Machine
   m_TagString: Untagged
@@ -137,8 +139,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea20a9bf25c841348f9d367a530405a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 
   hydroObject: {fileID: 1797466148}
   aeroObject: {fileID: 511340878515959863}
+--- !u!65 &3850411762777319145
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8246679545154276376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5899497839485636254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8246679545154276376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5b9053764394e67b7a65df5917b5a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6329387419235375700, guid: 41928cfd72f0046cd8fe8e3a916c056d, type: 3}
 --- !u!1001 &8374805004579184958
 PrefabInstance:
   m_ObjectHideFlags: 0
