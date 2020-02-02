@@ -23,7 +23,7 @@ public class Simulation {
                         break;
                     case CarObjectType.Machine: {
                         var machine = (MachineCarObject) contents;
-                        machine.level = Mathf.RoundToInt(config.maxMachineLevel / 2f);
+                        machine.level = 1;
                     } break;
                     case CarObjectType.Empty:
                     case CarObjectType.Obstacle:
@@ -47,11 +47,11 @@ public class Simulation {
                     MachineCarObject machineObj = (MachineCarObject)currentState.Squares[x, y].ContainedObject;
                     if ( machineObj.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        newState.waterLevel += config.hydroWaterGenRate;
+                        newState.waterLevel += config.hydroWaterGenRate * machineObj.level;
                     }
                     else
                     {
-                        newState.waterLevel += config.aeroWaterGenRate;
+                        newState.waterLevel += config.aeroWaterGenRate * machineObj.level;
                     }
                 }
             }

@@ -4,9 +4,9 @@ tickSpeed: 2
 plantStartingHealth: 75
 plantMaxHealth: 150
 
-baseWaterGenRate: 5
-hydroWaterGenRate: 5
-aeroWaterGenRate: 3
+baseWaterGenRate: 1
+hydroWaterGenRate: 2
+aeroWaterGenRate: 1
 sprinklerUseRate: 1
 
 # Air Quality
@@ -36,7 +36,7 @@ goodReproductionChanceCoefficient: 1.5
 neutralReproductionChanceCoefficient: 1
 badReproductionChanceCoefficient: 0.5
 
-maxMachineLevel: 5
+maxMachineLevel: 3
 
 # How much the plant health changes every ticksBeforePlantHealthChanges ticks.
 # Added if it's adequately watered, subtracted if it's not.
