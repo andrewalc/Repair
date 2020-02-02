@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: 6c02f0eaa33a84540af8f428b486f77f
+guid: 68a409ced0647485297edd8cfd0d8d68
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Curved BLue
-    second: {fileID: 2100000, guid: de93100f64a531d4b97fac44f851646d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fill Up Bar
-    second: {fileID: 2100000, guid: 3ef157a47971c2fdeb569d685cceff59, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: HUD Element
-    second: {fileID: 2100000, guid: 7d9a7cac3eef23243add2a814d9cb06a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Light Blue
-    second: {fileID: 2100000, guid: 9bc5be14696c9f0498c607ee8dfa393c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: White
-    second: {fileID: 2100000, guid: ff42afb73cf5b644e830c068d9e48948, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -112,7 +87,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

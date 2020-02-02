@@ -112,9 +112,7 @@ MonoBehaviour:
   obstacle_prefabs:
   - {fileID: 3235373019610702643, guid: e2137d76a0ff140a48b02658b3712077, type: 3}
   - {fileID: 3130501019320146065, guid: c92808ea9c33d4a2a8fa3882841c6e66, type: 3}
-  aeromachine_prefab: {fileID: 2954468371421697399, guid: 18392496c460a44aeaf41e336304fc49,
-    type: 3}
-  hydromachine_prefab: {fileID: 2954468371421697399, guid: 53c2c776a60434e22aca815673dec42d,
+  machine_prefab: {fileID: 8246679545154276376, guid: fc072b8ca57c0487b9ecb63ca8fbf94c,
     type: 3}
 --- !u!1 &6770094927301423763
 GameObject:

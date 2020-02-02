@@ -18,5 +18,12 @@
     public bool BlocksIrrigation() { return true; }
     public bool IsEmpty() { return false; }
     public bool IsWaterSource() { return false; }
-    public ICarObject Clone() { return new MachineCarObject(); }
+
+    public ICarObject Clone()
+    {
+        MachineCarObject machine = new MachineCarObject();
+        machine.level = this.level;
+        machine.MachineType = this.MachineType;
+        return machine;
+    }
 }

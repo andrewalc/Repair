@@ -5,6 +5,7 @@ using UnityEngine.Experimental.PlayerLoop;
 public class PlantState : MonoBehaviour
 {
     public string State;
+    public GridSquare square;
     private MeshRenderer mesh;
 
     public StringToMaterial[] materialMap;
