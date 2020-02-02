@@ -133,23 +133,4 @@ public class Game : MonoBehaviour
     {
         StartCoroutine(GenerateNewCarInternal());
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Simulation.Step();
-            Debug.Log(Simulation.currentState);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (IrrigationPanelInstance != null) {
-                Destroy(IrrigationPanelInstance);
-            } else {
-                IrrigationPanelInstance = Instantiate(IrrigationPanelPrefab);
-                IrrigationPanelInstance.GetComponent<IrrigationUI>().Init();
-            }
-        }
-    }
 }
