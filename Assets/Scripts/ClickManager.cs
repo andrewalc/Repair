@@ -16,12 +16,12 @@ public class ClickManager : MonoBehaviour
     void Update()
     {
         // middle click
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit ray;
-            if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), out ray))
+            RaycastHit hit;
+            if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)), out hit))
             {
-                Instantiate(thing, ray.point, Quaternion.identity);
+//                hit.transform.parent.GetComponent<>()
             }
         }
     }
