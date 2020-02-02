@@ -84,8 +84,8 @@ public class CarGrid {
 
     public override string ToString() {
         var sb = new StringBuilder();
-        for (int x = 0; x < Squares.GetLength(0); ++x) {
-            for (int y = Squares.GetLength(1) - 1; y >= 0; --y) {
+        for (int y = Height - 1; y >= 0; --y) {
+            for (int x = 0; x < Width; ++x) {
                 switch (Squares[x, y].ContainedObject.Type) {
                     case CarObjectType.Empty: sb.Append("."); break;
                     case CarObjectType.Obstacle: sb.Append("#"); break;
