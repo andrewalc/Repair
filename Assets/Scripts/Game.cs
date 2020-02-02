@@ -144,6 +144,7 @@ public class Game : MonoBehaviour
                 Destroy(IrrigationPanelInstance);
             } else {
                 IrrigationPanelInstance = Instantiate(IrrigationPanelPrefab);
+                IrrigationPanelInstance.GetComponent<IrrigationUI>().Init();
             }
         }
     }

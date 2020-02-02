@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8722038459370083477}
   - component: {fileID: 8722038459370083474}
   - component: {fileID: 8722038459370083475}
-  - component: {fileID: 6455724593806058567}
+  - component: {fileID: -5540438100024221490}
   m_Layer: 0
-  m_Name: IrrigationCell
+  m_Name: PipeCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a602b0ad4b26648afa0394d073616d6a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6455724593806058567
+--- !u!114 &-5540438100024221490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,21 +127,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8722038459370083473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c761802259f4af5bde64db692938f0, type: 3}
+  m_Script: {fileID: 11500000, guid: e9fadd8b154145acb96034708f1ecf46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteMap:
-  - name: machine
-    sprite: {fileID: 21300000, guid: a1ad162e1c59b48b2812474749ce227d, type: 3}
-  - name: obstacle
-    sprite: {fileID: 21300000, guid: 35d33c40b015a446a9e17d33a2b923d2, type: 3}
-  - name: pipe
-    sprite: {fileID: 21300000, guid: a602b0ad4b26648afa0394d073616d6a, type: 3}
-  - name: plant
-    sprite: {fileID: 21300000, guid: 53a609be3893a4e29aa8bcb3e9800450, type: 3}
-  - name: plantwithsprinker
-    sprite: {fileID: 21300000, guid: 66f441491e0fb47d89d69a7957cefdb1, type: 3}
-  - name: sprinkler
-    sprite: {fileID: 21300000, guid: b99ac39db32d84c009f466ebece43e4f, type: 3}
-  - name: spigot
-    sprite: {fileID: 21300000, guid: 39adf7c988fe64e71a6b0302056de8d5, type: 3}
+  pipeSprite: {fileID: 21300000, guid: a602b0ad4b26648afa0394d073616d6a, type: 3}
+  emptySprite: {fileID: 21300000, guid: 8c3e600cca87445479d2df315e9d74b7, type: 3}
+  ButtonImage: {fileID: 8722038459370083474}

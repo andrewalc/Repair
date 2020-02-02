@@ -47,6 +47,7 @@ public class IrrigationCellUi : MonoBehaviour {
 
         if (spriteName == null) {
             img.sprite = null;
+            img.color = new Color(0, 0, 0, 0);
         } else {
             foreach (var sts in spriteMap) {
                 if (sts.name == spriteName) {
