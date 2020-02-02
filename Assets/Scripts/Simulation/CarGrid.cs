@@ -1,11 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using DarkConfig;
+
+public enum IrrigationCell {
+    Empty,
+    Pipe,
+    Sprinkler
+}
 
 public class CarGrid {
     public GridSquare[,] Squares;
 
-    public bool[,] Watered;
+    public IrrigationCell[,] Irrigation;
 
     public float airQuality = 0;
     public float plantMatter = 0;
@@ -22,12 +29,36 @@ public class CarGrid {
             }
         }
 
-        Watered = new bool[width, height];
+        Irrigation = new IrrigationCell[width, height];
         for (int x = 0; x < width; ++x) {
             for (int y = 0; y < height; ++y) {
-                Watered[x, y] = false;
+                Irrigation[x, y] = IrrigationCell.Empty;
             }
         }
+    }
+
+    public bool IsWatered(int x, int y) {
+        var seenCells = new HashSet<Tuple<int, int>>();
+        return IsWateredImpl(x, y, seenCells);
+    }
+
+    bool IsWateredImpl(int x, int y, HashSet<Tuple<int, int>> seenCells) {
+        if (x < 0 || x >= Width || y < 0 || y >= Height || seenCells.Contains(new Tuple<int, int>(x, y))) {
+            return false;
+        }
+        
+        if (Squares[x, y].ContainedObject.Type == CarObjectType.Spigot) {
+            return true;
+        }
+        
+        if (Irrigation[x, y] == IrrigationCell.Empty) {
+            return false;
+        }
+
+        return IsWatered(x - 1, y) || 
+               IsWatered(x + 1, y) || 
+               IsWatered(x, y - 1) || 
+               IsWatered(x, y + 1);
     }
 
     public CarGrid Clone() {
@@ -41,7 +72,7 @@ public class CarGrid {
 
         for (int x = 0; x < Width; ++x) {
             for (int y = 0; y < Height; ++y) {
-                clone.Watered[x,y] = Watered[x, y];
+                clone.Irrigation[x,y] = Irrigation[x, y];
             }
         }
         

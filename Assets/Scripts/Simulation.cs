@@ -94,8 +94,8 @@ public class Simulation {
                         var plant = (PlantCarObject) newState.Squares[x, y].ContainedObject;
                         
                         // ============= Update plant health =============
-                        var delta = currentState.Watered[x, y] ? config.lifeRate : -config.deathRate;
-                        if (currentState.Watered[x, y] && currentState.airQuality <= config.badAQThreshold) {
+                        var delta = currentState.IsWatered(x, y) ? config.lifeRate : -config.deathRate;
+                        if (currentState.IsWatered(x, y) && currentState.airQuality <= config.badAQThreshold) {
                             delta *= config.badAQCoefficient;
                         }
                         
