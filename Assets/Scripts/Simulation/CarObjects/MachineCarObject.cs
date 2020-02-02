@@ -1,5 +1,7 @@
 ﻿public class MachineCarObject : ICarObject {
     public CarObjectType Type => CarObjectType.Machine;
+
+    public int level = 3;
     
     public float GetPlantGrowthModifier() {
         throw new System.NotImplementedException();
