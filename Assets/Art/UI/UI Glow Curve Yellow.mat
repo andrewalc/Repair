@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI GlowWhite
+  m_Name: UI Glow Curve Yellow
   m_Shader: {fileID: -6465566751694194690, guid: ddc5a92d83dc90d4fa2b78d0c5b0343f,
     type: 3}
   m_ShaderKeywords: _EMISSION
@@ -72,7 +72,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_8776A5BC: {r: 1, g: 1, b: 1, a: 1}
+    - Color_8776A5BC: {r: 1, g: 0.59, b: 0.043, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
