@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI Water Fill
+  m_Name: UI Air Fill
   m_Shader: {fileID: -6465566751694194690, guid: b43b2b00b39612e439160c223059fbf8,
     type: 3}
   m_ShaderKeywords: 
