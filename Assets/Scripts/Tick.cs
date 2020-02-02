@@ -7,16 +7,23 @@ public class Tick : MonoBehaviour
     private float _timePerTick = 1.0f;
     private float _timeUntilTick;
     private event Action TickEvent;
+    private bool paused;
     
     public static Tick Instance { get; private set; }
 
     private void Start()
     {
         _timeUntilTick = _timePerTick;
+        paused = true;
     }
 
     public void FixedUpdate()
     {
+        if (paused)
+        {
+            return;
+        }
+        
         _timeUntilTick -= Time.deltaTime;
 
         if (_timeUntilTick < 0)
