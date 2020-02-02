@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
 		{
 			Instance = this;
 		}
-		SetTrack(0);
+		//SetTrack(2);
 	}
 
 	public void PlayNewTrack()
@@ -48,26 +48,6 @@ public class SoundManager : MonoBehaviour
 
 	public void Update()
 	{
-		if (Input.GetKey(KeyCode.Alpha1))
-		{
-			SetLevel(1);
-		}else if (Input.GetKey(KeyCode.Alpha2))
-		{
-			SetLevel(2);
-		}
-		else if (Input.GetKey(KeyCode.Alpha3))
-		{
-			SetLevel(3);
-		}
-		else if (Input.GetKey(KeyCode.Alpha4))
-		{
-			SetLevel(4);
-		}
-		else if (Input.GetKey(KeyCode.Alpha5))
-		{
-			SetLevel(5);
-		}
-
 		if (musicLayers[0].AudioSource.time >= musicTracks[currentTrackIndex].loopTime)
 		{
 			for(int i = 0; i < 5; ++i)
