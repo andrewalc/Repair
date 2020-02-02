@@ -15,10 +15,10 @@ aeroPollutionRate: 2
 plantAQGenRate: 0.25
 
 # Plant Material
-basePMGenRate: 0
-badPMCoefficient: 0
-neutralPMCoefficient: 0
-goodPMCoefficient: 0
+basePMGenRate: 2
+badPMCoefficient: 0.5
+neutralPMCoefficient: 1
+goodPMCoefficient: 1.5
 
 # Plant Health
 lifeRate: 12.5
