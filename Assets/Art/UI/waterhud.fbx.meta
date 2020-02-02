@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Fill Up Bar
-    second: {fileID: 2100000, guid: ef14fa87a8d5bfb46962f3e8730baf13, type: 2}
+    second: {fileID: 2100000, guid: 3ef157a47971c2fdeb569d685cceff59, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
