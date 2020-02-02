@@ -1,30 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaterResourceDisplay : MonoBehaviour
+public class WaterResourceDisplay : ResourceDisplay
 {
-    private float levelToDisplay;
-
-    [SerializeField]
-    private Material material;
-
-    void Start()
+    protected override float UpdateLevelToDisplay()
     {
-    }
-    
-    public void FixedUpdate()
-    {
-        levelToDisplay = UpdateLevelToDisplay();
-
-        material.SetFloat("_Level", levelToDisplay/100.0f);
-    }
-
-    protected virtual float UpdateLevelToDisplay()
-    {
-        if ( !Game.Instance.finishedGeneratingLevel )
-        {
-            return 0;
-        }
         return Game.Instance.Simulation.currentState.waterLevel;
     }
 }
