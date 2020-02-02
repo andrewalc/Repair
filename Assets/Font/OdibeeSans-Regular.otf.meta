@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 02fdcd0c65a614b4b94e089a6f2d1372
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Odibee Sans
+  fontNames:
+  - Odibee Sans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 08986d3dd28a648659b5a82de9d91800, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
