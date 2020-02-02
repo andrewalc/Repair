@@ -20,6 +20,8 @@ public class Game : MonoBehaviour
     public GameObject IrrigationPanelPrefab;
     GameObject IrrigationPanelInstance;
 
+    public SoundManager soundManager;
+
     public Simulation Simulation
     {
         get
@@ -127,6 +129,16 @@ public class Game : MonoBehaviour
         }
         CurrCarNum++;
         Tick.Instance.AddEventListener(newSim.Step);
+
+        // Change the music.
+        if ( null != soundManager)
+        {
+            soundManager.PlayNewTrack();
+        }
+        else
+        {
+            Debug.LogWarning("No sound manager.");
+        }
     }
 
     public void GenerateNewCar()
