@@ -63,11 +63,12 @@ public class CarElementsGenerator : MonoBehaviour
                 break;
         }
 
+        CarGrid grid = Game.Instance.Simulation.currentState;
         var position = transform.position;
         Vector3 objectPosition = new Vector3(
-            position.x - (square.Y * 2),
+            position.x + (square.X * 2),
             position.y + 1,
-            position.z + (square.X * 2)
+            (position.z + (square.Y - (grid.Squares.GetLength(1)))* 2)
         );
 
         if (prefab == null) return;
