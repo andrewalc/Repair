@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tick : MonoBehaviour
 {
-    private float _timePerTick;
+    private float _timePerTick = 1.0f;
     private float _timeUntilTick;
     private event Action TickEvent;
     
@@ -12,12 +12,7 @@ public class Tick : MonoBehaviour
 
     private void Start()
     {
-        if (Instance == null) {
-            Instance = this;
-        } else {
-            Debug.LogError("Can only have one tick manager instance!");
-        }
-        
+        _timeUntilTick = _timePerTick;
     }
 
     public void FixedUpdate()
@@ -50,8 +45,5 @@ public class Tick : MonoBehaviour
         } else {
             Debug.LogError("Can only have one tick manager instance!");
         }
-
-        _timePerTick = 2;
-        _timeUntilTick = _timePerTick;
     }
 }

@@ -15,16 +15,21 @@ aeroPollutionRate: 2
 plantAQGenRate: 0.25
 
 # Plant Material
-basePMGenRate: 0
-badPMCoefficient: 0
-neutralPMCoefficient: 0
-goodPMCoefficient: 0
+basePMGenRate: 2
+badPMCoefficient: 0.5
+neutralPMCoefficient: 1
+goodPMCoefficient: 1.5
 
 # Plant Health
 lifeRate: 12.5
 deathRate: 25
 badAQCoefficient: .75
 badAQThreshold: 30
+
+# Item costs
+pipePrice: 2
+sprinklerPrice: 5
+avgReclaimCost: 20
 
 baseReproductionChance: 0.1
 goodReproductionChanceCoefficient: 1.5
