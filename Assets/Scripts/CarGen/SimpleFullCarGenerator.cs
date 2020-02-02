@@ -21,7 +21,7 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
         subGenerators.Add(new SimpleSpigotPlacer(Host, Config, ResultGrid, random));
         subGenerators.Add(new SimpleMachinePlacer(Host, Config, ResultGrid, random));
         subGenerators.Add(new SimpleObstaclePlacer(Host, Config, ResultGrid, random));
-        subGenerators.Add(new SimplePlantPlacer(Host, Config, ResultGrid, random));
+        subGenerators.Add(new DistanceBasedPlantPlacer(Host, Config, ResultGrid, random));
     }
 
     protected override IEnumerator PlaceObjects()

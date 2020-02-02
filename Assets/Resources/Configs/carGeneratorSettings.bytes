@@ -1,10 +1,10 @@
 # Width and height of the car
-width: 12
-height: 6
+width: 10
+height: 5
 
 # Number of machines to generate (random between min and max)
-numMachinesMin: 5
-numMachinesMax: 10
+numMachinesMin: 2
+numMachinesMax: 5
 
 # Number of obstacles to generate (random between min and max)
 numObstaclesMin: 5
@@ -12,8 +12,11 @@ numObstaclesMax: 10
 
 # Number of plants to generate (random between min and max)
 numPlantsMin: 3
-numPlantsMax: 5
+numPlantsMax: 6
 
+# Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+plantDistanceDifficultyRatioMin: 0.5
+plantDistanceDifficultyRatioMax: 0.8
 
 # Number of spigots to generate (random between min and max)
 numSpigotsMin: 1

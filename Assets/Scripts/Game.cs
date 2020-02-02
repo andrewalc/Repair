@@ -72,6 +72,8 @@ public class Game : MonoBehaviour
 
         simulation = new Simulation(currGrid, SimulationSettings);
         Debug.Log(simulation.currentState);
+
+        // TODO: provide a callback for when this is ready
     }
 
     void Update()

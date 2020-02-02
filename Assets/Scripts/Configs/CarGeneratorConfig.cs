@@ -13,6 +13,9 @@ public class CarGeneratorConfig
     public int numPlantsMin = 5;
     public int numPlantsMax = 5;
 
+    public float plantDistanceDifficultyRatioMin = 0.5f;
+    public float plantDistanceDifficultyRatioMax = 0.7f;
+
 
     public int numSpigotsMin = 1;
     public int numSpigotsMax = 1;
