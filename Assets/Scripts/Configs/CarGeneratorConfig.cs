@@ -9,4 +9,11 @@ public class CarGeneratorConfig
 
     public int numObstaclesMin = 10;
     public int numObstaclesMax = 10;
+
+    public int numPlantsMin = 5;
+    public int numPlantsMax = 5;
+
+
+    public int numSpigotsMin = 1;
+    public int numSpigotsMax = 1;
 }

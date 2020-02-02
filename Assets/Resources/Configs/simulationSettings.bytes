@@ -1,12 +1,41 @@
 # tickSpeed of auto resource generation in seconds
 tickSpeed: 2
 
-plantStartingHealth: 100
+plantStartingHealth: 75
 plantMaxHealth: 150
+
+baseWaterGenRate: 5
+hydroWaterGenRate: 5
+aeroWaterGenRate: 3
+sprinklerUseRate: 1
+
+# Air Quality
+hydroPollutionRate: 1
+aeroPollutionRate: 2
+plantAQGenRate: 0.25
+
+# Plant Material
+basePMGenRate: 0
+badPMCoefficient: 0
+neutralPMCoefficient: 0
+goodPMCoefficient: 0
+
+# Plant Health
+lifeRate: 12.5
+deathRate: 25
+badAQCoefficient: .75
+badAQThreshold: 30
+
+baseReproductionChance: 0.1
+goodReproductionChanceCoefficient: 1.5
+neutralReproductionChanceCoefficient: 1
+badReproductionChanceCoefficient: 0.5
+
+maxMachineLevel: 5
 
 # How much the plant health changes every ticksBeforePlantHealthChanges ticks.
 # Added if it's adequately watered, subtracted if it's not.
-plantWateredHealthGain: 20
+plantWateredHealthGain: 10
 
 # How many ticks between watered-state-driven health changes for a plant.
 ticksBeforePlantHealthChanges: 3

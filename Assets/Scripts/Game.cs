@@ -16,7 +16,7 @@ public class Game : MonoBehaviour
 
     private CarGeneratorConfig CarGenConfig = new CarGeneratorConfig();
 
-    Simulation simulation;
+    public Simulation simulation;
 
     public CarGrid currGrid { get; private set; }
 

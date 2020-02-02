@@ -6,20 +6,36 @@ public class SimulationSettingsConfig
     public float tickSpeed;
     public float plantStartingHealth;
     public float plantMaxHealth;
+    
+    public float baseWaterGenRate;
+    public float hydroWaterGenRate;
+    public float aeroWaterGenRate;
+    public float sprinklerUseRate;
 
-    /// How much the plant health changes every ticksBeforePlantHealthChanges ticks.
-    /// Added if it's adequately watered, subtracted if it's not.
-    public float plantWateredHealthGain;
+    public int maxMachineLevel;
 
-    /// How many ticks between watered-state-driven health changes for a plant.
-    public uint ticksBeforePlantHealthChanges;
+    // Air Quality
+    public float hydroPollutionRate;
+    public float aeroPollutionRate;
+    public float plantAQGenRate;
 
-    /// How much plant matter a plant produces as a multiple of its health.
-    /// e.g. a plant with 120 health will produce 120 * 0.2 = 24 plant matter per tick.
-    public float plantMatterHealthMultiplier = 0.2f;
+    // Plant Material
+    public float basePMGenRate;
+    public float badPMCoefficient;
+    public float neutralPMCoefficient;
+    public float goodPMCoefficient;
+
+    // Plant Health
+    public float lifeRate;
+    public float deathRate;
+    public float badAQCoefficient;
+    public float badAQThreshold;
 
     /// Chance that a plant will reproduce to an adjacent square in a tick as a multiple of its health.
-    public float plantChanceOfReproducingMultiplier = 0.1f;
+    public float baseReproductionChance;
+    public float goodReproductionChanceCoefficient;
+    public float neutralReproductionChanceCoefficient;
+    public float badReproductionChanceCoefficient;
     
     public List<CarGrid> testGrids = new List<CarGrid>();
 }
