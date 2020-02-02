@@ -382,6 +382,8 @@ GameObject:
   - component: {fileID: 5938552516073508170}
   - component: {fileID: 4660497403775558107}
   - component: {fileID: 969145488064797278}
+  - component: {fileID: 7608238812323041543}
+  - component: {fileID: 63556082813087993}
   m_Layer: 5
   m_Name: IrrigationOverlayPanel
   m_TagString: Untagged
@@ -489,3 +491,39 @@ MonoBehaviour:
     type: 3}
   PipePrefab: {fileID: 8722038459370083473, guid: d693fa809358542498ef1c9f07081ca9,
     type: 3}
+--- !u!222 &7608238812323041543
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144003152229921424}
+  m_CullTransparentMesh: 0
+--- !u!114 &63556082813087993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144003152229921424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.3137255}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

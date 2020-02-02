@@ -42,6 +42,12 @@ public class PipeButton : MonoBehaviour {
             case pipeState.Sprinkler: ButtonImage.sprite = sprinklerSprite; break;
             default: throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
+
+        if (state == pipeState.Empty) {
+            ButtonImage.color = new Color(1, 1, 1, 0.1f);
+        } else {
+            ButtonImage.color = new Color(1, 1, 1, 1);
+        }
     }
 }
 

@@ -33,7 +33,7 @@ public class IrrigationUI : MonoBehaviour {
                 bool visible = (y % 2 == 0) != (x % 2 == 0);
                 
                 if (!visible) {
-                    button.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+                    button.GetComponent<Image>().color = new Color(1, 1, 1, 0.1f);
                 }
             }
         }
