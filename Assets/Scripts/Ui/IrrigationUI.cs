@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class IrrigationUI : MonoBehaviour {
@@ -28,16 +27,13 @@ public class IrrigationUI : MonoBehaviour {
         for (int y = 0; y < grid.Height * 2 - 1; ++y) {
             for (int x = 0; x < grid.Width * 2 - 1; ++x) {
                 var button = Instantiate(PipePrefab, pipeGrid.transform);
-                
-                button.GetComponent<PipeButton>().Init(false);
+
+                button.GetComponent<PipeButton>().Init(pipeState.Empty, x, y);
                 
                 bool visible = (y % 2 == 0) != (x % 2 == 0);
                 
                 if (!visible) {
-                    Destroy(button.GetComponent<Image>());
-                    Destroy(button.GetComponent<Button>());
-                } else {
-                    // TODO Assign button callback
+                    button.GetComponent<Image>().color = new Color(0, 0, 0, 0);
                 }
             }
         }
