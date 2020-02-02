@@ -26,7 +26,7 @@ public class CarElementsGenerator : MonoBehaviour
 
     void generateGrid()
     {
-        CarGrid grid = Game.Instance.simulation.currentState;
+        CarGrid grid = Game.Instance.Simulation.currentState;
         
         for (int x = 0; x < grid.Squares.GetLength(0); ++x) {
             for (int y = grid.Squares.GetLength(1) - 1; y >= 0; --y) 
