@@ -8,6 +8,6 @@ public class CanvasHover : MonoBehaviour
 {
     void Update()
     {
-        transform.position = Input.mousePosition;
+        transform.position = Input.mousePosition + (Vector3.up * 75);
     }
 }

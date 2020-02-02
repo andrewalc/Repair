@@ -42,9 +42,9 @@ public class CarElementsGenerator : MonoBehaviour
         CarGrid grid = Game.Instance.Simulation.currentState;
         var position = transform.position;
         Vector3 objectPosition = new Vector3(
-            position.x + (square.X * 2),
+            position.x + (square.X * 2.4f),
             position.y + 1,
-            (position.z + (square.Y - (grid.Squares.GetLength(1)))* 2)
+            (position.z + (square.Y - (grid.Squares.GetLength(1)))* 2.2f)
         );
         GameObject prefab;
         GameObject child;
@@ -78,6 +78,8 @@ public class CarElementsGenerator : MonoBehaviour
                 break;
         }
         if (child == null) return;
+//        float scale = .05f;
+//        child.transform.localScale = new Vector3(scale, scale, scale);
         child.transform.parent = transform;
     }
 }

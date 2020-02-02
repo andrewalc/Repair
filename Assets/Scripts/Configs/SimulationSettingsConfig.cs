@@ -30,6 +30,11 @@ public class SimulationSettingsConfig
     public float deathRate;
     public float badAQCoefficient;
     public float badAQThreshold;
+    
+    // Costs
+    public float pipePrice;
+    public float sprinklerPrice;
+    public float avgReclaimCost;
 
     /// Chance that a plant will reproduce to an adjacent square in a tick as a multiple of its health.
     public float baseReproductionChance;
