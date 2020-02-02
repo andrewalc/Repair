@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079007585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.4, y: 7.5, z: -6.7}
-  m_LocalScale: {x: 20, y: 1, z: 10}
+  m_LocalPosition: {x: 6, y: 7.5, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6770094927301423762}
   m_RootOrder: 8
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079007585}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -105,10 +105,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa67aff8f2075446db1dbd383586b850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plant_prefabs: []
-  obstacle_prefabs: []
-  aeromachine_prefab: {fileID: 0}
-  hydromachine_prefab: {fileID: 0}
+  plant_prefabs:
+  - {fileID: 1155662150078963768, guid: b1baad6182ce5414888fa9d386952730, type: 3}
+  - {fileID: 1155662150078963768, guid: 972bf6451602c4d92a69dcae682e4c68, type: 3}
+  - {fileID: 1155662150078963768, guid: 4b23eac64771b40e58d3bd86e9aadd9b, type: 3}
+  obstacle_prefabs:
+  - {fileID: 3235373019610702643, guid: e2137d76a0ff140a48b02658b3712077, type: 3}
+  - {fileID: 3130501019320146065, guid: c92808ea9c33d4a2a8fa3882841c6e66, type: 3}
+  aeromachine_prefab: {fileID: 2954468371421697399, guid: 18392496c460a44aeaf41e336304fc49,
+    type: 3}
+  hydromachine_prefab: {fileID: 2954468371421697399, guid: 53c2c776a60434e22aca815673dec42d,
+    type: 3}
 --- !u!1 &6770094927301423763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,7 +2455,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: daf2ef0d4c94346d9afaa24cbe81ea49, type: 2}
     - target: {fileID: -927199367670048503, guid: a22e872962a894fa3a6fadc07cdac3e1,
         type: 3}
       propertyPath: m_Name
