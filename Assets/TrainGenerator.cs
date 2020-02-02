@@ -29,15 +29,15 @@ public class TrainGenerator : MonoBehaviour
     IEnumerator GenFirstCar()
     {
         yield return null;
-        //GenerateLevel(0);
-        //yield return new WaitUntil( () => Game.Instance.finishedGeneratingLevel);
+        /*GenerateLevel(0);
+        yield return new WaitUntil( () => Game.Instance.finishedGeneratingLevel);*/
         CreateTrainCar();
         while (true)
         {
             yield return null;
-            if (!generated && Game.Instance.finishedGeneratingLevel)
+            if (!generated)
             {
-            GenerateLevel(trains.Count - 1);
+            GenerateLevel(trains.Count - 2);
             generated = true;
             }
         }
@@ -66,7 +66,6 @@ public class TrainGenerator : MonoBehaviour
         GameObject newTrain = Instantiate(trainPrefab, new Vector3(trainPos.x - (33f * trains.Count), trainPos.y, trainPos.z), Quaternion.identity);
         newTrain.transform.parent = transform;
         trains.Add(newTrain);
-        FindObjectOfType<CameraShift>().AnimateForward();
     }
 
     public void GenerateLevel(int index)
@@ -84,6 +83,7 @@ public class TrainGenerator : MonoBehaviour
         if (Game.Instance.Simulation.currentState.Sustainability >= 100)
         {
             CreateTrainCar();
+            FindObjectOfType<CameraShift>().AnimateForward();
         }
     }
 }

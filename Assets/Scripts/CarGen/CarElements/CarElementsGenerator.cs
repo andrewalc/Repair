@@ -35,12 +35,10 @@ public class CarElementsGenerator : MonoBehaviour
     }
     void generateGrid()
     {
-        
         for (int x = 0; x < carGrid.Squares.GetLength(0); ++x) {
             for (int y = carGrid.Squares.GetLength(1) - 1; y >= 0; --y) 
             {
-                GridSquare square = carGrid.Squares[x, y].Clone();
-                generateCarElement(square);
+                generateCarElement(carGrid.Squares[x, y]);
             }
         }
     }

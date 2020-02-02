@@ -7,11 +7,15 @@ public class Simulation {
     public CarGrid currentState;
     public SimulationSettingsConfig config;
 
+    public int SimNum;
+
     // TODO: this should be a config val.
     public static int goodPlantHealth = 100;
 
-    public Simulation(CarGrid grid, SimulationSettingsConfig config) {
+    public Simulation(CarGrid grid, SimulationSettingsConfig config, int simNum) {
         currentState = grid.Clone();
+
+        SimNum = simNum;
 
         for (int x = 0; x < currentState.Width; ++x) {
             for (int y = currentState.Height - 1; y >= 0; --y) {
@@ -140,7 +144,7 @@ public class Simulation {
             }
         }
 
-        newState.Sustainability = CalculateSustainability();
+        newState.Sustainability = CalculateSustainability(newState);
 
         currentState = newState;
     }
@@ -167,19 +171,19 @@ public class Simulation {
         }
     }
 
-    private float CalculateSustainability()
+    private float CalculateSustainability(CarGrid newState)
     {
-        int numPlots = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).Where((obj) => !obj.BlocksIrrigation()).Count();
+        int numPlots = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).Where((obj) => !obj.BlocksIrrigation()).Count();
 
-        int goodPlantCount = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<PlantCarObject>().Where((plant) => plant.health > goodPlantHealth).Count();
-        
-        int totalMachineLevels = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level).Sum();
-        
-        int machineCount = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Count();
+        int goodPlantCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<PlantCarObject>().Where((plant) => plant.health > goodPlantHealth).Count();
+
+        int totalMachineLevels = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level).Sum();
+
+        int machineCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Count();
 
         int maxMachineLevel = Game.Instance.Simulation.config.maxMachineLevel;
 
-        float sustainability = (float)(100*(.6f * totalMachineLevels / (machineCount * maxMachineLevel)) + (.4f * goodPlantCount / numPlots));;
+        float sustainability = (float)(100*(.6f * totalMachineLevels / (machineCount * maxMachineLevel)) + (.4f * goodPlantCount / numPlots));
 
         return sustainability;
     }

@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
 
         CurrCarNum = -1;
 
-        yield return StartCoroutine(GenerateNewCarInternal());
+        //yield return StartCoroutine(GenerateNewCarInternal());
 
         // TODO: provide a callback for when this is ready
     }
@@ -119,7 +119,7 @@ public class Game : MonoBehaviour
         yield return new WaitUntil(() => finishedGeneratingLevel);
         Debug.Log("Level generation finished, starting simulation...");
 
-        Simulation newSim = new Simulation(newGrid, SimulationSettings);
+        Simulation newSim = new Simulation(newGrid, SimulationSettings, CurrCarNum + 1);
         Debug.Log(newSim.currentState);
 
         carSims.Add(newSim);
@@ -129,6 +129,7 @@ public class Game : MonoBehaviour
         }
         CurrCarNum++;
         Tick.Instance.AddEventListener(newSim.Step);
+        Debug.Log("Current sim num: " + carSims.Count + " curr car num: " + CurrCarNum);
 
         // Change the music.
         if ( null != soundManager)

@@ -15,7 +15,7 @@ public class PurchaseMachineUpgrade : MonoBehaviour
 
             if (square.level > 0 && plantMatter > upgradeCost)
             {
-                square.level++;
+                Game.Instance.Simulation.currentState.UpgradeMachineAt(machineState.square.X, machineState.square.Y);
                 Game.Instance.Simulation.currentState.plantMatter -= upgradeCost;
             }
         }

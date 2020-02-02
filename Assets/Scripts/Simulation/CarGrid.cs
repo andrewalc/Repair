@@ -122,7 +122,7 @@ public class CarGrid {
         if (containedObject.Type == CarObjectType.Machine) {
             var machine = (MachineCarObject) containedObject;
             machine.level++;
-            machine.level = Mathf.Clamp(machine.level, 1, 5);
+            machine.level = Mathf.Clamp(machine.level, 1, Game.Instance.Simulation.config.maxMachineLevel);
         }
     }
 
