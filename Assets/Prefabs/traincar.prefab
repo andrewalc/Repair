@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1079007586}
   - component: {fileID: 1079007587}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: GridGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,12 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa67aff8f2075446db1dbd383586b850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plant_prefab: {fileID: 2954468371421697399, guid: 18392496c460a44aeaf41e336304fc49,
-    type: 3}
-  obstacle_prefab: {fileID: 2954468371421697399, guid: 53c2c776a60434e22aca815673dec42d,
-    type: 3}
-  empty_prefab: {fileID: 2954468371421697399, guid: 70f78476cfbd14ef48dba71e4fe2f018,
-    type: 3}
 --- !u!1 &6770094927301423763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,6 +2377,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: a22e872962a894fa3a6fadc07cdac3e1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: a22e872962a894fa3a6fadc07cdac3e1,
         type: 3}
