@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class TextIntDisplay : MonoBehaviour
 {
     private int amountToDisplay;
 
     [SerializeField]
-    private Text textToUpdate;
+    private TMP_Text textToUpdate;
 
     void Start()
     {
