@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1079007585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079007586}
+  - component: {fileID: 1079007587}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079007586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079007585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26, y: 7.5, z: -11.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6770094927301423762}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079007587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079007585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa67aff8f2075446db1dbd383586b850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plant_prefab: {fileID: 2954468371421697399, guid: 18392496c460a44aeaf41e336304fc49,
+    type: 3}
+  obstacle_prefab: {fileID: 2954468371421697399, guid: 53c2c776a60434e22aca815673dec42d,
+    type: 3}
+  empty_prefab: {fileID: 2954468371421697399, guid: 70f78476cfbd14ef48dba71e4fe2f018,
+    type: 3}
 --- !u!1 &6770094927301423763
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,6 +84,7 @@ Transform:
   - {fileID: 6770094928421855926}
   - {fileID: 6770094928811025578}
   - {fileID: 7490475674030503801}
+  - {fileID: 1079007586}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
