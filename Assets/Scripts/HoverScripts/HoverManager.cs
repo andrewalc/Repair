@@ -30,6 +30,9 @@ public class HoverManager : MonoBehaviour
             return;
         }
         
+        
+        SimulationSettingsConfig settings = Game.Instance.SimulationSettings;
+        
         if (square.ContainedObject.Type == CarObjectType.Plant)
         {
             PlantCarObject plant = (PlantCarObject) square.ContainedObject;
@@ -39,6 +42,7 @@ public class HoverManager : MonoBehaviour
             t3.text = "";
             t4.text = "";
         }
+        
         if (square.ContainedObject.Type == CarObjectType.Machine)
         {
             MachineCarObject machine = (MachineCarObject) square.ContainedObject;
@@ -46,23 +50,22 @@ public class HoverManager : MonoBehaviour
             float pollution;
             float watergen;
             int level = machine.level;
-            float cost = Game.Instance.SimulationSettings.avgReclaimCost;
-            
+            float cost = settings.avgReclaimCost;
             
             if (machine.MachineType == MachineCarObject.MachineTypes.Aero)
             {
-                pollution = Game.Instance.SimulationSettings.aeroPollutionRate;
-                watergen = Game.Instance.SimulationSettings.aeroWaterGenRate;
+                pollution = (settings.maxMachineLevel - machine.level) / (float) settings.maxMachineLevel * settings.aeroPollutionRate;
+                watergen = settings.aeroWaterGenRate;
             }
             else
             {
-                pollution = Game.Instance.SimulationSettings.hydroPollutionRate;
-                watergen = Game.Instance.SimulationSettings.hydroWaterGenRate;
+                pollution = (settings.maxMachineLevel - machine.level) / (float) settings.maxMachineLevel * settings.hydroPollutionRate;
+                watergen = settings.hydroWaterGenRate;
             }
 
             t1.text = "AirQuality/tick: " + pollution;
             t2.text = "Water/tick: " + watergen;
-            t3.text = "Level: " + level;
+            t3.text = "Level: " + level + "/" + settings.maxMachineLevel;
             t4.text = "Cost: " + cost;
         }
         
