@@ -7,6 +7,9 @@ public class Simulation {
     public CarGrid currentState;
     public SimulationSettingsConfig config;
 
+    // TODO: this should be a config val.
+    public static int goodPlantHealth = 100;
+
     public Simulation(CarGrid grid, SimulationSettingsConfig config) {
         currentState = grid.Clone();
 
@@ -137,6 +140,8 @@ public class Simulation {
             }
         }
 
+        newState.Sustainability = CalculateSustainability();
+
         currentState = newState;
     }
 
@@ -160,6 +165,23 @@ public class Simulation {
         if (y < currentState.Height - 1 && predicate(currentState.Squares[x, y + 1].ContainedObject)) {
             yield return currentState.Squares[x, y + 1].ContainedObject;
         }
+    }
+
+    private float CalculateSustainability()
+    {
+        int numPlots = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).Where((obj) => !obj.BlocksIrrigation()).Count();
+
+        int goodPlantCount = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<PlantCarObject>().Where((plant) => plant.health > goodPlantHealth).Count();
+        
+        int totalMachineLevels = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level).Sum();
+        
+        int machineCount = currentState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Count();
+
+        int maxMachineLevel = Game.Instance.Simulation.config.maxMachineLevel;
+
+        float sustainability = (float)(100*(.6f * totalMachineLevels / (machineCount * maxMachineLevel)) + (.4f * goodPlantCount / numPlots));;
+
+        return sustainability;
     }
 }
 

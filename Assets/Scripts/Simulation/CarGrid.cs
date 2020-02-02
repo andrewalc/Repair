@@ -29,6 +29,8 @@ public class CarGrid {
     public float plantMatter = 0;
     public float waterLevel = 0;
 
+    public float Sustainability = 0;
+
     public int Width => Squares.GetLength(0);
     public int Height => Squares.GetLength(1);
 
