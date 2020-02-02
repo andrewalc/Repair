@@ -11,6 +11,7 @@ public class InSceneMenu : MonoBehaviour
 
     public void Transistion()
     {
+        Tick.Instance.UnPause();
         cam.SetActive(false);
         GetComponent<CanvasGroup>()
             .DOFade(0, 0.5f)
