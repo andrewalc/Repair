@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SimpleFullCarGenerator : CoroutineCarGenerator
 {
@@ -26,21 +27,44 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     protected override IEnumerator PlaceObjects()
     {
-        foreach( ICarGenerator generator in subGenerators)
+        bool validLevel = false;
+        while (!validLevel)
         {
-            bool generatorComplete = false;
-            GenerationComplete eventHandler = () =>
+            foreach (ICarGenerator generator in subGenerators)
             {
-                generatorComplete = true;
-            };
+                bool generatorComplete = false;
+                GenerationComplete eventHandler = () =>
+                {
+                    generatorComplete = true;
+                };
 
-            generator.RegisterOnComplete(eventHandler);
+                generator.RegisterOnComplete(eventHandler);
 
-            generator.Start();
-            yield return new WaitUntil(() => generatorComplete);
+                generator.Start();
+                yield return new WaitUntil(() => generatorComplete);
 
-            generator.UnregisterOnComplete(eventHandler);
+                generator.UnregisterOnComplete(eventHandler);
+            }
+
+            validLevel = CheckLevelConstraints(ResultGrid);
+            if (!validLevel)
+            {
+                Debug.Log("Invalid level, re-generating.");
+                ResultGrid.Clear();
+            }
         }
+    }
+
+    private bool CheckLevelConstraints(CarGrid grid)
+    {
+        // Check if there is at least one plant.
+        if (grid.SquaresEnumerable().Select((square) => square.ContainedObject.Type == CarObjectType.Plant).Count() == 0)
+        {
+            Debug.Log("Level does not have any plants.");
+            return false;
+        }
+
+        return true;
     }
 
 }

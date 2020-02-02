@@ -8,7 +8,8 @@ public class DistanceBasedPlantPlacer : DistanceBasedCarObjectPlacer
 
     protected override int GetNumObjectsToGenerate()
     {
-        return Random.Next(Config.numPlantsMin, Config.numPlantsMax);
+        // Always generate at least one plant, but between min and max.
+        return Math.Max(1, Random.Next(Config.numPlantsMin, Config.numPlantsMax));
     }
 
     protected override ICarObject GenerateCarObject()

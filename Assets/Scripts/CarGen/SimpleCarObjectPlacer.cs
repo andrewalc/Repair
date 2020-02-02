@@ -27,6 +27,10 @@ public abstract class SimpleCarObjectPlacer : CoroutineCarGenerator
                                                             (square) => null == square.ContainedObject || square.ContainedObject.IsEmpty()
                                                         );
 
+            if ( possibleSquares.Count() == 0)
+            {
+                break;
+            }
             int selectedSquareIdx = Random.Next(possibleSquares.Count() - 1);
             GridSquare selectedSquare = possibleSquares.ElementAt(selectedSquareIdx);
 
