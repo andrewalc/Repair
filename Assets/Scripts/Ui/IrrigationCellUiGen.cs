@@ -26,9 +26,9 @@ public class IrrigationCellUiGen : MonoBehaviour
 
     public void UpdateCellGrid()
     {
-        CarGrid grid = Game.Instance.currGrid;
+        CarGrid grid = Game.Instance.simulation.currentState;
         for (int x = 0; x < grid.Squares.GetLength(0); ++x) {
-            for (int y = 0; y < grid.Squares.GetLength(1); ++y)
+            for (int y = grid.Squares.GetLength(1) - 1; y >= 0; --y) 
             {
                 GameObject button = Instantiate(CellPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 IrrigationCellUi cell = button.GetComponent<IrrigationCellUi>();
