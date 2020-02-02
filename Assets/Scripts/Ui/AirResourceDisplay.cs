@@ -21,6 +21,10 @@ public class AirResourceDisplay : MonoBehaviour
 
     protected virtual float UpdateLevelToDisplay()
     {
+        if ( !Game.Instance.finishedGeneratingLevel )
+        {
+            return 0;
+        }
         return Game.Instance.Simulation.currentState.airQuality;
     }
 }
