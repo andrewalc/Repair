@@ -16,6 +16,7 @@ public abstract class TextIntDisplay : MonoBehaviour
 
     protected virtual void UpdateAmount()
     {
+        print("TICK");
         if (!Game.Instance.finishedGeneratingLevel)
         {
             return;

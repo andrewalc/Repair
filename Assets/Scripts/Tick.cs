@@ -17,6 +17,10 @@ public class Tick : MonoBehaviour
         paused = true;
     }
 
+    public void UnPause()
+    {
+        paused = false;
+    }
     public void FixedUpdate()
     {
         if (paused)
@@ -31,6 +35,7 @@ public class Tick : MonoBehaviour
             _timeUntilTick += _timePerTick;
             if (TickEvent != null)
             {
+                print("ticking source");
                 TickEvent();
             }
         }
