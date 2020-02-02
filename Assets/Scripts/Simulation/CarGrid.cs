@@ -85,7 +85,7 @@ public class CarGrid {
                 ICarObject carObject;
                 
                 // lines is row=major, but we want column-major for the grid.
-                var c = lines[x][height - y - 1];
+                var c = lines[height - y - 1][x];
                 switch (c) {
                     case '.': carObject = new EmptyCarObject(); break;
                     case 'p': carObject = new PlantCarObject(); break;
