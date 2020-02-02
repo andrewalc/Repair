@@ -4,13 +4,23 @@ using System.Linq;
 
 public class SustainabilityLevelDisplay : TextIntDisplay
 {
+    // TODO: This should be a setting.
+    public static int goodPlantHealth = 100;
+
     protected override int GetAmount()
     {
         CarGrid currentGrid = Game.Instance.Simulation.currentState;
         
-        int numPlots = currentGrid.Width * currentGrid.Height;
+        int numPlots = currentGrid.SquaresEnumerable().Select((square) => square.ContainedObject ).Where((obj) => !obj.BlocksIrrigation()).Count();
 
-        int goodPlantCount = currentGrid.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<PlantCarObject>().Where((plant) => plant.health >= 100).Count();
-        return (int)(.4 * goodPlantCount / numPlots);
+        int goodPlantCount = currentGrid.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<PlantCarObject>().Where((plant) => plant.health > goodPlantHealth).Count();
+        
+        int totalMachineLevels = currentGrid.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level).Sum();
+        
+        int machineCount = currentGrid.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Count();
+
+        int maxMachineLevel = Game.Instance.Simulation.config.maxMachineLevel;
+
+        return (int)(100*(.6 * totalMachineLevels / (machineCount * maxMachineLevel)) + (.4 * goodPlantCount / numPlots));
     }
 }
