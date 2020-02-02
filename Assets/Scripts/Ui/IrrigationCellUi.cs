@@ -1,65 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IrrigationCellUi : MonoBehaviour
-{
-    public GridSquare square;
-
-    private Image img;
-
-    public StringToSprite[] spriteMap;
-    [System.Serializable] 
-    
-    public class StringToSprite
-    {
+public class IrrigationCellUi : MonoBehaviour {
+    [Serializable]
+    public class StringToSprite {
         /// Name of the variable
         public string name;
+
         /// Value of the variable
         public Sprite sprite;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
+    
+    [SerializeField] StringToSprite[] spriteMap;
+
+    Image img;
+
+    void Awake() {
         img = GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Render();
-    }
-
-    void Render()
-    {
-        string name = "";
-        switch (square.ContainedObject.Type)
-        {
-            case CarObjectType.Machine: {}
-                name = "machine";
+    public void Init(CarObjectType type) {
+        string spriteName;
+        switch (type) {
+            case CarObjectType.Machine:
+                spriteName = "machine";
                 break;
             case CarObjectType.Obstacle:
-                name = "obstacle";
+                spriteName = "obstacle";
                 break;
             case CarObjectType.Plant:
-                name = "plant";
+                spriteName = "plant";
                 break;
             case CarObjectType.Spigot:
-                name = "spigot";
+                spriteName = "spigot";
                 break;
             case CarObjectType.Empty:
-                name = "pipe";
+                spriteName = null;
                 break;
             default:
-                name = "sprinkler";
+                spriteName = null;
                 break;
         }
-        foreach (StringToSprite sts in spriteMap)
-        {
-            if (sts.name != name) continue;
-            img.sprite = sts.sprite;
-            break;
+
+        // TODO Sprinklers
+
+        if (spriteName == null) {
+            img.sprite = null;
+            img.color = new Color(0, 0, 0, 0);
+        } else {
+            foreach (var sts in spriteMap) {
+                if (sts.name == spriteName) {
+                    img.sprite = sts.sprite;
+                    break;
+                }
+            }
         }
     }
 }

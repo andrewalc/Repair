@@ -255,7 +255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &28899178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1427,6 +1427,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1211207179}
     m_Modifications:
+    - target: {fileID: 1079007587, guid: fc4bc06d8760d4726a63ed2faf9ce8e3, type: 3}
+      propertyPath: machine_prefab
+      value: 
+      objectReference: {fileID: 8246679545154276376, guid: fc072b8ca57c0487b9ecb63ca8fbf94c,
+        type: 3}
     - target: {fileID: 5301876010873926070, guid: fc4bc06d8760d4726a63ed2faf9ce8e3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1491,6 +1496,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: traincar (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770094927301423763, guid: fc4bc06d8760d4726a63ed2faf9ce8e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6770094928107751180, guid: fc4bc06d8760d4726a63ed2faf9ce8e3,
         type: 3}
@@ -11490,6 +11500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: traincar (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770094927301423763, guid: fc4bc06d8760d4726a63ed2faf9ce8e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc4bc06d8760d4726a63ed2faf9ce8e3, type: 3}

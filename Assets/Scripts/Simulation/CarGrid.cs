@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DarkConfig;
+using UnityEngine;
 
 public enum IrrigationCell {
     Empty,
@@ -111,6 +112,15 @@ public class CarGrid {
                 PipeConnections[firstX, firstY] |= PipeConnection.Right;
                 PipeConnections[secondX, secondX] |= PipeConnection.Left;
             }
+        }
+    }
+
+    public void UpgradeMachineAt(int x, int y) {
+        var containedObject = Squares[x, y].ContainedObject;
+        if (containedObject.Type == CarObjectType.Machine) {
+            var machine = (MachineCarObject) containedObject;
+            machine.level++;
+            machine.level = Mathf.Clamp(machine.level, 1, 5);
         }
     }
 

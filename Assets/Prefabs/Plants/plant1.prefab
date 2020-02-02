@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 1155662150078963775}
   - component: {fileID: 3143800037581414371}
   - component: {fileID: 7013351737645928908}
+  - component: {fileID: 4108645054948171073}
   m_Layer: 0
-  m_Name: plant1-medium
+  m_Name: plant1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,3 +128,15 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 6fa89ad4a0ed74b15b0e39483a43ea36, type: 2}
   - name: yeet
     material: {fileID: 2100000, guid: 4cdd260b7c847439390b04a36123efd2, type: 2}
+--- !u!114 &4108645054948171073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155662150078963768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd50b1c4a7f84a59acff451a9c60e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

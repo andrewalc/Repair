@@ -6,8 +6,7 @@ public class CarElementsGenerator : MonoBehaviour
 {
     public List<GameObject> plant_prefabs;
     public List<GameObject> obstacle_prefabs;
-    public GameObject aeromachine_prefab;
-    public GameObject hydromachine_prefab;
+    public GameObject machine_prefab;
     private bool generated;
     
     // Start is called before the first frame update
@@ -40,8 +39,15 @@ public class CarElementsGenerator : MonoBehaviour
     void generateCarElement(GridSquare square)
     {
         CarObjectType type = square.ContainedObject.Type;
+        CarGrid grid = Game.Instance.Simulation.currentState;
+        var position = transform.position;
+        Vector3 objectPosition = new Vector3(
+            position.x + (square.X * 2),
+            position.y + 1,
+            (position.z + (square.Y - (grid.Squares.GetLength(1)))* 2)
+        );
         GameObject prefab;
-
+        GameObject child;
         System.Random r = new System.Random();
         int index;
         
@@ -50,29 +56,28 @@ public class CarElementsGenerator : MonoBehaviour
             case CarObjectType.Plant:
                 index = r.Next(0, plant_prefabs.Count);
                 prefab = plant_prefabs[index];
+                child = Instantiate(prefab, objectPosition, Quaternion.identity);
+                child.GetComponent<PlantState>().square = square;
                 break;
             case CarObjectType.Obstacle:
                 index = r.Next(0, obstacle_prefabs.Count);
                 prefab = obstacle_prefabs[index];
+                child = Instantiate(prefab, objectPosition, Quaternion.identity);
+
                 break;
             case CarObjectType.Machine:
-                prefab = aeromachine_prefab;
+                print(((MachineCarObject) square.ContainedObject).MachineType);
+                prefab = machine_prefab;
+                child = Instantiate(prefab, objectPosition, Quaternion.identity);
+                child.GetComponent<MachineObject>().square = square;
+
                 break;
             default:
                 prefab = null;
+                child = null;
                 break;
         }
-
-        CarGrid grid = Game.Instance.Simulation.currentState;
-        var position = transform.position;
-        Vector3 objectPosition = new Vector3(
-            position.x + (square.X * 2),
-            position.y + 1,
-            (position.z + (square.Y - (grid.Squares.GetLength(1)))* 2)
-        );
-
-        if (prefab == null) return;
-        GameObject child = Instantiate(prefab, objectPosition, Quaternion.identity);
+        if (child == null) return;
         child.transform.parent = transform;
     }
 }
