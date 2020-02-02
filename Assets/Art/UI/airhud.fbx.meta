@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Fill Up Yellow
-    second: {fileID: 2100000, guid: 3eeb9a15974370c4cb9324b222b984d8, type: 2}
+    second: {fileID: 2100000, guid: c2884844e45acdb4882790bbdc784ca0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
