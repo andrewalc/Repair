@@ -5,7 +5,7 @@ using UnityEngine;
 public class PurchaseMachineUpgrade : MonoBehaviour
 {
     void OnMouseOver(){
-        if(Input.GetMouseButtonDown(0))
+        if (!UiDisable.Instance.disabled && Input.GetMouseButtonDown(0))
         {
             MachineObject machineState = GetComponent<MachineObject>();
             MachineCarObject square = (MachineCarObject) machineState.square.ContainedObject;

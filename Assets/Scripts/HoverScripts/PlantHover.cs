@@ -7,8 +7,12 @@ public class PlantHover : MonoBehaviour
 {
     void OnMouseOver()
     {
-        PlantState plantState = GetComponent<PlantState>();
-        HoverManager.Instance.Display(plantState.square);
+        if (!UiDisable.Instance.disabled)
+        {
+            PlantState plantState = GetComponent<PlantState>();
+            HoverManager.Instance.Display(plantState.square);
+        }
+
     }
 
     void OnMouseExit()
