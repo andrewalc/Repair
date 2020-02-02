@@ -1,27 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlantMatterDisplay : MonoBehaviour
+public class PlantMatterDisplay : TextIntDisplay
 {
-    private int amountToDisplay;
-
-    [SerializeField]
-    private Text textToUpdate;
-
-    void Start()
+    protected override int GetAmount()
     {
-        Tick.Instance.AddEventListener(UpdateAmount);
-    }
-
-    protected virtual void UpdateAmount()
-    {
-        if (!Game.Instance.finishedGeneratingLevel)
-        {
-            return;
-        }
-
-        amountToDisplay = (int)(Game.Instance.Simulation.currentState.plantMatter);
-
-        textToUpdate.text = amountToDisplay.ToString();
+        return (int)(Game.Instance.Simulation.currentState.plantMatter);
     }
 }
