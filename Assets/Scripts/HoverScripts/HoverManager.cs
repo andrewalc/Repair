@@ -51,8 +51,8 @@ public class HoverManager : MonoBehaviour
                 watergen = 5;
             }
 
-            t1.text = "AirQuality/sec: " + pollution;
-            t2.text = "Water/sec: " + watergen;
+            t1.text = "AirQuality/tick: " + pollution;
+            t2.text = "Water/tick: " + watergen;
             t3.text = "Level: " + level;
         }
         
