@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class IrrigationCellUiGen : MonoBehaviour
@@ -27,14 +28,20 @@ public class IrrigationCellUiGen : MonoBehaviour
     public void UpdateCellGrid()
     {
         CarGrid grid = Game.Instance.Simulation.currentState;
-        for (int x = 0; x < grid.Squares.GetLength(0); ++x) {
-            for (int y = grid.Squares.GetLength(1) - 1; y >= 0; --y) 
-            {
+        print("NEW CELL GEN");
+        print(grid);
+        for (int y = grid.Squares.GetLength(1) - 1; y >= 0; --y)
+        {
+            for (int x = 0; x < grid.Squares.GetLength(0); ++x) {
+            
                 GameObject button = Instantiate(CellPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 IrrigationCellUi cell = button.GetComponent<IrrigationCellUi>();
                 cell.square = grid.Squares[x, y].Clone();
                 button.transform.parent = transform;
+            
             }
         }
+
+
     }
 }
