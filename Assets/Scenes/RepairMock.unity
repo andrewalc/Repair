@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9e3604084e38dcc4d8c21d43ed33ade3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.14881545, g: 0.13450342, b: 0.14948934, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1175,9 +1175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fee32cfd0eec4193aee126548a8beae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellPrefab: {fileID: 8722038459370083473, guid: 070a7c21ce639400898f59982d1f4e55,
-    type: 3}
-  updated: 0
 --- !u!114 &165513961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5975,7 +5972,7 @@ PrefabInstance:
     - target: {fileID: 3896977919712656266, guid: 41928cfd72f0046cd8fe8e3a916c056d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3896977919712656266, guid: 41928cfd72f0046cd8fe8e3a916c056d,
         type: 3}
@@ -9778,7 +9775,7 @@ PrefabInstance:
     - target: {fileID: 2519596827954324989, guid: d359a50fc880f70249416e928702f880,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2519596827954324989, guid: d359a50fc880f70249416e928702f880,
         type: 3}
@@ -19141,6 +19138,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: waterhud
       objectReference: {fileID: 0}
+    - target: {fileID: 5986028134213839422, guid: 405d42fb84661c6938ca7848d4f3e98d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7298642879866050605, guid: 405d42fb84661c6938ca7848d4f3e98d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19221,6 +19223,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: airhud
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642604512282897160, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2346636819892115739, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
         type: 3}
