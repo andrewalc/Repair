@@ -122,7 +122,11 @@ public class Game : MonoBehaviour
 
         carSims.Add(newSim);
         carGrids.Add(newGrid);
+        if (CurrCarNum >= 0) {
+            Tick.Instance.RemoveEventListener(carSims[CurrCarNum].Step);   
+        }
         CurrCarNum++;
+        Tick.Instance.AddEventListener(newSim.Step);
     }
 
     public void GenerateNewCar()
