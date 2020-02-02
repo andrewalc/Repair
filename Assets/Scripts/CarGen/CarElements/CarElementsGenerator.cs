@@ -7,30 +7,39 @@ public class CarElementsGenerator : MonoBehaviour
     public List<GameObject> plant_prefabs;
     public List<GameObject> obstacle_prefabs;
     public GameObject machine_prefab;
-    private bool generated;
+    private bool awaitingRequestGeneration;
+    private CarGrid carGrid;
     
     // Start is called before the first frame update
     void Start()
     {
-        generated = false;
+        awaitingRequestGeneration = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (generated || !Game.Instance.finishedGeneratingLevel) return;
-        generateGrid();
-        generated = true;
+        if (awaitingRequestGeneration && Game.Instance.finishedGeneratingLevel)
+        {
+            carGrid = Game.Instance.Simulation.currentState;
+            generateGrid();
+            awaitingRequestGeneration = false;
+        }
     }
 
+    public void InstantiateLevel()
+    {
+        Game.Instance.GenerateNewCar();
+        awaitingRequestGeneration = true;
+
+    }
     void generateGrid()
     {
-        CarGrid grid = Game.Instance.Simulation.currentState;
         
-        for (int x = 0; x < grid.Squares.GetLength(0); ++x) {
-            for (int y = grid.Squares.GetLength(1) - 1; y >= 0; --y) 
+        for (int x = 0; x < carGrid.Squares.GetLength(0); ++x) {
+            for (int y = carGrid.Squares.GetLength(1) - 1; y >= 0; --y) 
             {
-                GridSquare square = grid.Squares[x, y].Clone();
+                GridSquare square = carGrid.Squares[x, y].Clone();
                 generateCarElement(square);
             }
         }
@@ -66,7 +75,6 @@ public class CarElementsGenerator : MonoBehaviour
 
                 break;
             case CarObjectType.Machine:
-                print(((MachineCarObject) square.ContainedObject).MachineType);
                 prefab = machine_prefab;
                 child = Instantiate(prefab, objectPosition, Quaternion.identity);
                 child.GetComponent<MachineObject>().square = square;
