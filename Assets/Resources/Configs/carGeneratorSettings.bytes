@@ -6,6 +6,11 @@ height: 5
 numMachinesMin: 2
 numMachinesMax: 5
 
+# Probability of hydro machine type
+machineTypeProbabilities:
+    Hydro : 0.7
+    Aero : 0.3
+
 # Number of obstacles to generate (random between min and max)
 numObstaclesMin: 5
 numObstaclesMax: 10
