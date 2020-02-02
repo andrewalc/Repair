@@ -11,22 +11,16 @@ public class CameraShift : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void AnimateForward()
     {
-        // left click
-        if (Input.GetMouseButtonDown(0))
-        {
-            transform.GetComponent<Animator>().Play("CabinCamForward");
-        }
-        // right click
-        if (Input.GetMouseButtonDown(1))
-        {
-            transform.GetComponent<Animator>().Play("CabinCamBackward");
-        }
+        transform.GetComponent<Animator>().Play("CabinCamForward");
     }
 
+    public void AnimateBackward()
+    {
+        transform.GetComponent<Animator>().Play("CabinCamBackward");
+    }
     public void shiftForward()
     {
         transform.parent.position = new Vector3(transform.parent.position.x - unitShift, transform.parent.position.y, transform.parent.position.z);
