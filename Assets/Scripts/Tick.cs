@@ -35,7 +35,6 @@ public class Tick : MonoBehaviour
             _timeUntilTick += _timePerTick;
             if (TickEvent != null)
             {
-                print("ticking source");
                 TickEvent();
             }
         }

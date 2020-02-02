@@ -20,6 +20,7 @@ public class IrrigationUI : MonoBehaviour {
 
     public void Close()
     {
+        UiDisable.Instance.disabled = false;
         Destroy(gameObject);
     }
 

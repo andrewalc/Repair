@@ -7,8 +7,11 @@ public class MachineHover : MonoBehaviour
 {
     void OnMouseOver()
     {
-        MachineObject machineState = GetComponent<MachineObject>();
-        HoverManager.Instance.Display(machineState.square);
+        if (!UiDisable.Instance.disabled)
+        {
+            MachineObject machineState = GetComponent<MachineObject>();
+            HoverManager.Instance.Display(machineState.square); 
+        }
     }
 
     void OnMouseExit()

@@ -8,11 +8,13 @@ public class IrrigationPanelActivation : MonoBehaviour
     GameObject IrrigationPanelInstance;
     
     void OnMouseOver(){
-        if(Input.GetMouseButtonDown(0))
+        if(!UiDisable.Instance.disabled && Input.GetMouseButtonDown(0))
         {
             if (IrrigationPanelInstance != null) {
                 Destroy(IrrigationPanelInstance);
-            } else {
+            } else
+            {
+                UiDisable.Instance.disabled = true;
                 IrrigationPanelInstance = Instantiate(IrrigationPanelPrefab);
                 IrrigationPanelInstance.GetComponent<IrrigationUI>().Init();
             }
