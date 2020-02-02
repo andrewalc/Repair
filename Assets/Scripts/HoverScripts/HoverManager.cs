@@ -24,6 +24,11 @@ public class HoverManager : MonoBehaviour
 
     public void Display(GridSquare square)
     {
+        if (!Game.Instance.finishedLoadingConfigs)
+        {
+            return;
+        }
+        
         if (square.ContainedObject.Type == CarObjectType.Plant)
         {
             PlantCarObject plant = (PlantCarObject) square.ContainedObject;
@@ -40,19 +45,20 @@ public class HoverManager : MonoBehaviour
             float watergen;
             int level = machine.level;
             
+            
             if (machine.MachineType == MachineCarObject.MachineTypes.Aero)
             {
-                pollution = 2;
-                watergen = 3;
+                pollution = Game.Instance.SimulationSettings.aeroPollutionRate;
+                watergen = Game.Instance.SimulationSettings.aeroWaterGenRate;
             }
             else
             {
-                pollution = 1;
-                watergen = 5;
+                pollution = Game.Instance.SimulationSettings.hydroPollutionRate;
+                watergen = Game.Instance.SimulationSettings.hydroWaterGenRate;
             }
 
-            t1.text = "AirQuality/sec: " + pollution;
-            t2.text = "Water/sec: " + watergen;
+            t1.text = "AirQuality/tick: " + pollution;
+            t2.text = "Water/tick: " + watergen;
             t3.text = "Level: " + level;
         }
         
