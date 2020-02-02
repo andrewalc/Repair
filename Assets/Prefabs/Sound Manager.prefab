@@ -1010,6 +1010,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTracks:
   - {fileID: 11400000, guid: eb0d07875a3742f45b706523cc45750d, type: 2}
+  - {fileID: 11400000, guid: c0e9dd697a43abc46bede1de175dc4a0, type: 2}
+  - {fileID: 11400000, guid: 1e278bee9f8cbe04c8dd75e9b0b23fe7, type: 2}
+  - {fileID: 11400000, guid: d5e226e162ac65f40ac44af4539f7dfc, type: 2}
+  - {fileID: 11400000, guid: 7bc97a3a627b17540a431698995983ea, type: 2}
   musicLayers:
   - {fileID: 3876290766557414774}
   - {fileID: 3876290766400603797}
