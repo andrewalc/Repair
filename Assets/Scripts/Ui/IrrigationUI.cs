@@ -37,12 +37,6 @@ public class IrrigationUI : MonoBehaviour {
                 var button = Instantiate(PipePrefab, pipeGrid.transform);
 
                 button.GetComponent<PipeButton>().Init(pipeState.Empty, x, y);
-                
-                bool visible = (y % 2 == 0) != (x % 2 == 0);
-                
-                if (!visible) {
-                    button.GetComponent<Image>().color = new Color(1, 1, 1, 0.1f);
-                }
             }
         }
     }
