@@ -1175,9 +1175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fee32cfd0eec4193aee126548a8beae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellPrefab: {fileID: 8722038459370083473, guid: 070a7c21ce639400898f59982d1f4e55,
-    type: 3}
-  updated: 0
 --- !u!114 &165513961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18204,6 +18201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2044534909}
   - component: {fileID: 2044534908}
+  - component: {fileID: 2044534910}
   m_Layer: 0
   m_Name: ClickManager
   m_TagString: Untagged
@@ -18239,6 +18237,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2044534910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044534907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb1f66b5b592401383fe27e97425477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2100611304
 GameObject:
   m_ObjectHideFlags: 0
@@ -18953,6 +18963,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: waterhud
       objectReference: {fileID: 0}
+    - target: {fileID: 5986028134213839422, guid: 405d42fb84661c6938ca7848d4f3e98d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7298642879866050605, guid: 405d42fb84661c6938ca7848d4f3e98d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19033,6 +19048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: airhud
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642604512282897160, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2346636819892115739, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
         type: 3}
