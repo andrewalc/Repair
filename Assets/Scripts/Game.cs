@@ -17,6 +17,9 @@ public class Game : MonoBehaviour
 
     private CarGeneratorConfig CarGenConfig = new CarGeneratorConfig();
 
+    public GameObject IrrigationPanelPrefab;
+    GameObject IrrigationPanelInstance;
+
     public Simulation Simulation
     {
         get
@@ -133,6 +136,15 @@ public class Game : MonoBehaviour
         {
             Simulation.Step();
             Debug.Log(Simulation.currentState);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IrrigationPanelInstance != null) {
+                Destroy(IrrigationPanelInstance);
+            } else {
+                IrrigationPanelInstance = Instantiate(IrrigationPanelPrefab);
+            }
         }
     }
 }
