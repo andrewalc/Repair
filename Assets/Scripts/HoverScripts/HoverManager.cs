@@ -9,6 +9,7 @@ public class HoverManager : MonoBehaviour
     public TextMeshProUGUI t1;
     public TextMeshProUGUI t2;
     public TextMeshProUGUI t3;
+    public TextMeshProUGUI t4;
     public static HoverManager Instance { get; private set; }
     
     // Start is called before the first frame update
@@ -36,6 +37,7 @@ public class HoverManager : MonoBehaviour
             t1.text = "";
             t2.text = "Health: " + plant.health;
             t3.text = "";
+            t4.text = "";
         }
         if (square.ContainedObject.Type == CarObjectType.Machine)
         {
@@ -44,6 +46,7 @@ public class HoverManager : MonoBehaviour
             float pollution;
             float watergen;
             int level = machine.level;
+            float cost = Game.Instance.SimulationSettings.avgReclaimCost;
             
             
             if (machine.MachineType == MachineCarObject.MachineTypes.Aero)
@@ -60,6 +63,7 @@ public class HoverManager : MonoBehaviour
             t1.text = "AirQuality/tick: " + pollution;
             t2.text = "Water/tick: " + watergen;
             t3.text = "Level: " + level;
+            t4.text = "Cost: " + cost;
         }
         
         transform.gameObject.SetActive(true);

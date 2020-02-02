@@ -26,6 +26,11 @@ deathRate: 25
 badAQCoefficient: .75
 badAQThreshold: 30
 
+# Item costs
+pipePrice: 2
+sprinklerPrice: 5
+avgReclaimCost: 20
+
 baseReproductionChance: 0.1
 goodReproductionChanceCoefficient: 1.5
 neutralReproductionChanceCoefficient: 1
