@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using DarkConfig;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Game : MonoBehaviour
 {
@@ -16,9 +17,41 @@ public class Game : MonoBehaviour
 
     private CarGeneratorConfig CarGenConfig = new CarGeneratorConfig();
 
-    public Simulation simulation;
+    public Simulation Simulation
+    {
+        get
+        {
+            return carSims[CurrCarNum];
+        }
+    }
 
-    public CarGrid currGrid { get; private set; }
+    public CarGrid CurrGrid
+    {
+        get
+        {
+            return carGrids[CurrCarNum];
+        }
+    }
+
+    public int CurrCarNum { get; private set; }
+
+    private List<Simulation> carSims = new List<Simulation>();
+    public IEnumerable<Simulation> CarSims
+    {
+        get
+        {
+            return carSims;
+        }
+    }
+
+    private List<CarGrid> carGrids = new List<CarGrid>();
+    public IEnumerable<CarGrid> CarGrids
+    {
+        get
+        {
+            return carGrids;
+        }
+    }
 
     void LoadConfigs()
     {
@@ -61,27 +94,40 @@ public class Game : MonoBehaviour
 
         yield return new WaitUntil(() => finishedLoadingConfigs);
 
-        currGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
+        CurrCarNum = -1;
+
+        yield return StartCoroutine(GenerateNewCar());
+
+        // TODO: provide a callback for when this is ready
+    }
+
+    public IEnumerator GenerateNewCar()
+    {
+        finishedGeneratingLevel = false;
+
+        CarGrid newGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
 
         // TODO: should we have a list of previous CarGrids, rather than just one current one?
-        GenerateLevel(CarGenConfig, currGrid, random);
+        GenerateLevel(CarGenConfig, newGrid, random);
         Debug.Log("Generating level...");
 
         yield return new WaitUntil(() => finishedGeneratingLevel);
         Debug.Log("Level generation finished, starting simulation...");
 
-        simulation = new Simulation(currGrid, SimulationSettings);
-        Debug.Log(simulation.currentState);
+        Simulation newSim = new Simulation(newGrid, SimulationSettings);
+        Debug.Log(newSim.currentState);
 
-        // TODO: provide a callback for when this is ready
+        carSims.Add(newSim);
+        carGrids.Add(newGrid);
+        CurrCarNum++;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            simulation.Step();
-            Debug.Log(simulation.currentState);
+            Simulation.Step();
+            Debug.Log(Simulation.currentState);
         }
     }
 }
