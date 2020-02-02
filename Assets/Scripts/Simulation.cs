@@ -44,8 +44,15 @@ public class Simulation {
         for (int x = 0; x < currentState.Width; ++x) {
             for (int y = 0; y < currentState.Height; ++y) {
                 if (currentState.Squares[x, y].ContainedObject.Type == CarObjectType.Machine) {
-                    newState.waterLevel += config.hydroWaterGenRate;
-                    // TODO aero machines
+                    MachineCarObject machineObj = (MachineCarObject)currentState.Squares[x, y].ContainedObject;
+                    if ( machineObj.MachineType == MachineCarObject.MachineTypes.Hydro)
+                    {
+                        newState.waterLevel += config.hydroWaterGenRate;
+                    }
+                    else
+                    {
+                        newState.waterLevel += config.aeroWaterGenRate;
+                    }
                 }
             }
         }
@@ -57,7 +64,14 @@ public class Simulation {
                 var contained = currentState.Squares[x, y].ContainedObject; 
                 if (contained.Type == CarObjectType.Machine) {
                     var machine = (MachineCarObject) contained;
-                    newState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.hydroPollutionRate;
+                    if ( machine.MachineType == MachineCarObject.MachineTypes.Hydro)
+                    {
+                        newState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.hydroPollutionRate;
+                    }
+                    else
+                    {
+                        newState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.aeroPollutionRate;
+                    }
                 } else if (contained.Type == CarObjectType.Plant) {
                     newState.airQuality += config.plantAQGenRate;
                 }
