@@ -32,6 +32,16 @@ public class CarGrid {
     public int Height => Squares.GetLength(1);
 
     public CarGrid(int width, int height) {
+        Init(width, height);
+    }
+
+    public void Clear()
+    {
+        Init(Width, Height);
+    }
+
+    private void Init(int width, int height)
+    {
         Squares = new GridSquare[width, height];
         for (int x = 0; x < width; ++x) {
             for (int y = 0; y < height; ++y) {
