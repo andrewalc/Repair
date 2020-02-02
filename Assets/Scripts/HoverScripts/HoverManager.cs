@@ -26,7 +26,11 @@ public class HoverManager : MonoBehaviour
     {
         if (square.ContainedObject.Type == CarObjectType.Plant)
         {
-            return;
+            PlantCarObject plant = (PlantCarObject) square.ContainedObject;
+
+            t1.text = "";
+            t2.text = "Health: " + plant.health;
+            t3.text = "";
         }
         if (square.ContainedObject.Type == CarObjectType.Machine)
         {
