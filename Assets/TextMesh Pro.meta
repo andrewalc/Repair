@@ -1,7 +1,18 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/TextMesh Pro.meta
 guid: f54d1bd14bd3ca042bd867b519fee8cc
 folderAsset: yes
 DefaultImporter:
+=======
+guid: d6eac69e0d0f14e6cb0dec0d0f865022
+NativeFormatImporter:
+>>>>>>> 34b6ebe38bdba930247e32905932d6b86971e3c4:Assets/Materials/Barrel.mat.meta
+=======
+guid: f54d1bd14bd3ca042bd867b519fee8cc
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 34b6ebe38bdba930247e32905932d6b86971e3c4
   externalObjects: {}
   userData: 
   assetBundleName: 

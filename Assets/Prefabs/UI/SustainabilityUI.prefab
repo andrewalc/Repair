@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4902221705603565723}
   - component: {fileID: 8618911605423379226}
-  - component: {fileID: 7446404656359898265}
   - component: {fileID: 5925108489295469360}
+  - component: {fileID: 6994018103949131729}
   m_Layer: 5
   m_Name: PlantMatterQuantity
   m_TagString: Untagged
@@ -46,19 +46,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674668224500252566}
   m_CullTransparentMesh: 0
---- !u!114 &7446404656359898265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674668224500252566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88854052259432aba82abe866915da7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textToUpdate: {fileID: 5925108489295469360}
 --- !u!114 &5925108489295469360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +157,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6994018103949131729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674668224500252566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b171c85cb0baa88528f25363c2cfdbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToUpdate: {fileID: 5925108489295469360}
 --- !u!1 &2027474429597815517
 GameObject:
   m_ObjectHideFlags: 0

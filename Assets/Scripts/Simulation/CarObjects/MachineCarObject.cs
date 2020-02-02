@@ -9,7 +9,7 @@
 
     public MachineTypes MachineType { get; set; }
 
-    public int level = 3;
+    public int level = 1;
     
     public float GetPlantGrowthModifier() {
         throw new System.NotImplementedException();
