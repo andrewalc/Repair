@@ -16,7 +16,39 @@ public class SimpleMachinePlacer : SimpleCarObjectPlacer
 
     protected override ICarObject GenerateCarObject()
     {
-        // TODO: Give the machine properties if necessary.
-        return new MachineCarObject();
+        IEnumerable<MachineCarObject.MachineTypes> possibleMachineTypes = Enum.GetValues(typeof(MachineCarObject.MachineTypes)).OfType<MachineCarObject.MachineTypes>();
+        
+        int selectedTypeIdx = SelectMachineType(possibleMachineTypes);
+        
+        MachineCarObject machineObject = new MachineCarObject()
+        {
+            MachineType = possibleMachineTypes.ElementAt(selectedTypeIdx)
+        };
+        Debug.Log("Machine: " + machineObject.MachineType);
+
+        return machineObject;
+    }
+
+    private int SelectMachineType(IEnumerable<MachineCarObject.MachineTypes> possibleMachineTypes)
+    {
+        double totalProbability = Config.machineTypeProbabilities.Values.Sum();
+
+        double randomVal = Random.NextDouble() * totalProbability;
+
+        int typeIdx = 0;
+        foreach(MachineCarObject.MachineTypes machineType in possibleMachineTypes)
+        {
+            randomVal -= Config.machineTypeProbabilities[machineType];
+            if (randomVal > 0)
+            {
+                typeIdx++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return typeIdx;
     }
 }

@@ -96,12 +96,12 @@ public class Game : MonoBehaviour
 
         CurrCarNum = -1;
 
-        yield return StartCoroutine(GenerateNewCar());
+        yield return StartCoroutine(GenerateNewCarInternal());
 
         // TODO: provide a callback for when this is ready
     }
 
-    public IEnumerator GenerateNewCar()
+    private IEnumerator GenerateNewCarInternal()
     {
         finishedGeneratingLevel = false;
 
@@ -120,6 +120,11 @@ public class Game : MonoBehaviour
         carSims.Add(newSim);
         carGrids.Add(newGrid);
         CurrCarNum++;
+    }
+
+    public void GenerateNewCar()
+    {
+        StartCoroutine(GenerateNewCarInternal());
     }
 
     void Update()
