@@ -59,6 +59,10 @@ public class CarGrid {
     public bool IsWatered(int x, int y) {
         var seenCells = new HashSet<Tuple<int, int>>();
 
+        if (x < 0 || x >= Width || y < 0 || y >= Height || seenCells.Contains(new Tuple<int, int>(x, y))) {
+            return false;
+        }
+        
         if (!Sprinklers[x, y]) {
             return false;
         }
@@ -70,24 +74,26 @@ public class CarGrid {
         if (x < 0 || x >= Width || y < 0 || y >= Height || seenCells.Contains(new Tuple<int, int>(x, y))) {
             return false;
         }
-        
+
         if (Squares[x, y].ContainedObject.Type == CarObjectType.Spigot) {
             return true;
         }
 
-        if (IsWatered(x - 1, y) && (PipeConnections[x - 1, y] & PipeConnection.Left) != 0) {
+        seenCells.Add(new Tuple<int, int>(x, y));
+        
+        if ((PipeConnections[x, y] & PipeConnection.Left) != 0 && IsWateredImpl(x - 1, y, seenCells)) {
             return true;
         }
 
-        if (IsWatered(x + 1, y) && (PipeConnections[x + 1, y] & PipeConnection.Right) != 0) {
+        if ((PipeConnections[x, y] & PipeConnection.Right) != 0 && IsWateredImpl(x + 1, y, seenCells)) {
             return true;
         }
 
-        if (IsWatered(x, y + 1) && (PipeConnections[x, y + 1] & PipeConnection.Top) != 0) {
+        if ((PipeConnections[x, y] & PipeConnection.Top) != 0 && IsWateredImpl(x, y + 1, seenCells)) {
             return true;
         }
 
-        if (IsWatered(x, y - 1) && (PipeConnections[x, y - 1] & PipeConnection.Bottom) != 0) {
+        if ((PipeConnections[x, y] & PipeConnection.Bottom) != 0 && IsWateredImpl(x, y - 1, seenCells)) {
             return true;
         }
 
@@ -99,20 +105,20 @@ public class CarGrid {
         bool diffY = firstY != secondY;
 
         if (!diffX && diffY) {
-            if (firstY > secondY) {
+            if (firstY < secondY) {
                 PipeConnections[firstX, firstY] |= PipeConnection.Bottom;
-                PipeConnections[secondX, secondX] |= PipeConnection.Top;
+                PipeConnections[secondX, secondY] |= PipeConnection.Top;
             } else {
                 PipeConnections[firstX, firstY] |= PipeConnection.Top;
-                PipeConnections[secondX, secondX] |= PipeConnection.Bottom;
+                PipeConnections[secondX, secondY] |= PipeConnection.Bottom;
             }
         } else if (!diffY && diffX) {
             if (firstX > secondX) {
                 PipeConnections[firstX, firstY] |= PipeConnection.Left;
-                PipeConnections[secondX, secondX] |= PipeConnection.Right;
+                PipeConnections[secondX, secondY] |= PipeConnection.Right;
             } else {
                 PipeConnections[firstX, firstY] |= PipeConnection.Right;
-                PipeConnections[secondX, secondX] |= PipeConnection.Left;
+                PipeConnections[secondX, secondY] |= PipeConnection.Left;
             }
         }
     }
@@ -132,10 +138,11 @@ public class CarGrid {
         for (int x = 0; x < Width; ++x) {
             for (int y = 0; y < Height; ++y) {
                 clone.Squares[x,y] = Squares[x, y].Clone();
+
+                clone.PipeConnections[x, y] = PipeConnections[x, y];
+                clone.Sprinklers[x, y] = Sprinklers[x, y];
             }
         }
-        
-        // TODO clone irrigation stuff
         
         clone.plantMatter = plantMatter;
         clone.waterLevel = waterLevel;
