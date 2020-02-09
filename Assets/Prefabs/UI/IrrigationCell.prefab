@@ -145,3 +145,5 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b99ac39db32d84c009f466ebece43e4f, type: 3}
   - name: spigot
     sprite: {fileID: 21300000, guid: 39adf7c988fe64e71a6b0302056de8d5, type: 3}
+  - name: border
+    sprite: {fileID: 21300000, guid: 8c3e600cca87445479d2df315e9d74b7, type: 3}

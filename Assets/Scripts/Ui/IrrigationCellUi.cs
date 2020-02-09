@@ -36,7 +36,7 @@ public class IrrigationCellUi : MonoBehaviour {
                 spriteName = "spigot";
                 break;
             case CarObjectType.Empty:
-                spriteName = null;
+                spriteName = "border";
                 break;
             default:
                 spriteName = null;
