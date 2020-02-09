@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum pipeState {
+public enum PipeState {
     Empty,
     Pipe,
     Sprinkler
@@ -10,7 +10,7 @@ public enum pipeState {
 
 public class PipeButton : MonoBehaviour {
     int x, y;
-    pipeState state = pipeState.Empty;
+    PipeState state = PipeState.Empty;
 
     [SerializeField] Sprite pipeSprite;
     [SerializeField] Sprite emptySprite;
@@ -18,7 +18,7 @@ public class PipeButton : MonoBehaviour {
 
     [SerializeField] Image ButtonImage;
     
-    public void Init(pipeState state, int x, int y) {
+    public void Init(PipeState state, int x, int y) {
         this.state = state;
         this.x = x;
         this.y = y;
@@ -50,7 +50,7 @@ public class PipeButton : MonoBehaviour {
                 gameState.AddPipeBetween((x - 1) / 2, y / 2, (x + 1) / 2, y / 2);
             }
             
-            state = state == pipeState.Empty ? pipeState.Pipe : pipeState.Empty;
+            state = state == PipeState.Empty ? PipeState.Pipe : PipeState.Empty;
         } else {
             // TODO can we place a sprinkler here?
 
@@ -63,7 +63,7 @@ public class PipeButton : MonoBehaviour {
                 
                 gameState.Sprinklers[x / 2, y / 2] = !gameState.Sprinklers[x / 2, y / 2];
                 gameState.plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
-                state = gameState.Sprinklers[x / 2, y / 2] ? pipeState.Sprinkler : pipeState.Empty;
+                state = gameState.Sprinklers[x / 2, y / 2] ? PipeState.Sprinkler : PipeState.Empty;
             }
         }
 
@@ -72,9 +72,9 @@ public class PipeButton : MonoBehaviour {
 
     void UpdateSprite() {
         switch (state) {
-            case pipeState.Empty: ButtonImage.sprite = emptySprite; break;
-            case pipeState.Pipe: ButtonImage.sprite = pipeSprite; break;
-            case pipeState.Sprinkler: ButtonImage.sprite = sprinklerSprite; break;
+            case PipeState.Empty: ButtonImage.sprite = emptySprite; break;
+            case PipeState.Pipe: ButtonImage.sprite = pipeSprite; break;
+            case PipeState.Sprinkler: ButtonImage.sprite = sprinklerSprite; break;
             default: throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
 
@@ -82,12 +82,12 @@ public class PipeButton : MonoBehaviour {
             var gameState = Game.Instance.Simulation.currentState;
             if (gameState.Squares[x / 2, y / 2].ContainedObject.Type == CarObjectType.Plant) {
                 ButtonImage.color =
-                    state == pipeState.Sprinkler ?
+                    state == PipeState.Sprinkler ?
                     new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0.1f);
             } else {
                 ButtonImage.color = new Color(1, 1, 1, 0f);
             }
-        } else if (state == pipeState.Empty) { 
+        } else if (state == PipeState.Empty) { 
             ButtonImage.color = new Color(1, 1, 1, 0.1f);
         } else {
             ButtonImage.color = new Color(1, 1, 1, 1);
