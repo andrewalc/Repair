@@ -40,8 +40,9 @@ public class SoundManager : MonoBehaviour
 		for (int i = 0; i < 5; ++i)
 		{
 			musicLayers[i].SetTrack(musicTracks[trackIndex].layers[i]);
-			musicLayers[i].AudioSource.Play();
+			
 		}
+		musicLayers[0].AudioSource.Play();
 		yield return null;
 	}
 
