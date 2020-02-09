@@ -46,21 +46,21 @@ public class Simulation {
     }
 
     public void Step() {
-        var newState = currentState.Clone();
+        var oldState = currentState.Clone();
         
         // ============= Update water levels =============
-        newState.waterLevel += config.baseWaterGenRate;
-        for (int x = 0; x < currentState.Width; ++x) {
-            for (int y = 0; y < currentState.Height; ++y) {
-                if (currentState.Squares[x, y].ContainedObject.Type == CarObjectType.Machine) {
-                    MachineCarObject machineObj = (MachineCarObject)currentState.Squares[x, y].ContainedObject;
+        currentState.waterLevel += config.baseWaterGenRate;
+        for (int x = 0; x < oldState.Width; ++x) {
+            for (int y = 0; y < oldState.Height; ++y) {
+                if (oldState.Squares[x, y].ContainedObject.Type == CarObjectType.Machine) {
+                    MachineCarObject machineObj = (MachineCarObject)oldState.Squares[x, y].ContainedObject;
                     if ( machineObj.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        newState.waterLevel += config.hydroWaterGenRate * machineObj.level;
+                        currentState.waterLevel += config.hydroWaterGenRate * machineObj.level;
                     }
                     else
                     {
-                        newState.waterLevel += config.aeroWaterGenRate * machineObj.level;
+                        currentState.waterLevel += config.aeroWaterGenRate * machineObj.level;
                     }
                 }
             }
@@ -68,32 +68,32 @@ public class Simulation {
         // TODO sprinklers
         
         // ============= Update air quality =============
-        for (int x = 0; x < currentState.Width; ++x) {
-            for (int y = 0; y < currentState.Height; ++y) {
-                var contained = currentState.Squares[x, y].ContainedObject; 
+        for (int x = 0; x < oldState.Width; ++x) {
+            for (int y = 0; y < oldState.Height; ++y) {
+                var contained = oldState.Squares[x, y].ContainedObject; 
                 if (contained.Type == CarObjectType.Machine) {
                     var machine = (MachineCarObject) contained;
                     if ( machine.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        newState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.hydroPollutionRate;
+                        currentState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.hydroPollutionRate;
                     }
                     else
                     {
-                        newState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.aeroPollutionRate;
+                        currentState.airQuality -= (config.maxMachineLevel - machine.level) / (float) config.maxMachineLevel * config.aeroPollutionRate;
                     }
                 } else if (contained.Type == CarObjectType.Plant) {
-                    newState.airQuality += config.plantAQGenRate;
+                    currentState.airQuality += config.plantAQGenRate;
                 }
             }
         }
 
         // ============= Update plants =============
-        for (int x = 0; x < currentState.Width; ++x) {
-            for (int y = currentState.Height - 1; y >= 0; --y) {
-                switch (currentState.Squares[x, y].ContainedObject.Type) {
+        for (int x = 0; x < oldState.Width; ++x) {
+            for (int y = oldState.Height - 1; y >= 0; --y) {
+                switch (oldState.Squares[x, y].ContainedObject.Type) {
                     case CarObjectType.Empty:
                         // ============= Spawn new plants =============
-                        foreach (var nearbyPlant in SurroundingObjects(x, y, c => c.Type == CarObjectType.Plant)) {
+                        foreach (var nearbyPlant in SurroundingObjects(oldState, x, y, c => c.Type == CarObjectType.Plant)) {
                             var plant = (PlantCarObject) nearbyPlant;
 
                             float chance = config.baseReproductionChance;
@@ -106,8 +106,8 @@ public class Simulation {
                             }
 
                             if (UnityEngine.Random.value <= chance) {
-                                newState.Squares[x, y].ContainedObject = new PlantCarObject();
-								plantSpawnEvent?.Invoke(newState.Squares[x, y]);
+                                currentState.Squares[x, y].ContainedObject = new PlantCarObject();
+								plantSpawnEvent?.Invoke(currentState.Squares[x, y]);
 								break;
                             }
                         }
@@ -115,11 +115,11 @@ public class Simulation {
                     case CarObjectType.Obstacle:
                         break;
                     case CarObjectType.Plant: {
-                        var plant = (PlantCarObject) newState.Squares[x, y].ContainedObject;
+                        var plant = (PlantCarObject) currentState.Squares[x, y].ContainedObject;
                         
                         // ============= Update plant health =============
-                        var delta = currentState.IsWatered(x, y) ? config.lifeRate : -config.deathRate;
-                        if (currentState.IsWatered(x, y) && currentState.airQuality <= config.badAQThreshold) {
+                        var delta = oldState.IsWatered(x, y) ? config.lifeRate : -config.deathRate;
+                        if (oldState.IsWatered(x, y) && oldState.airQuality <= config.badAQThreshold) {
                             delta *= config.badAQCoefficient;
                         }
                         
@@ -135,7 +135,7 @@ public class Simulation {
                         } else {
                             deltaPlantMatter *= config.badPMCoefficient;
                         }
-                        newState.plantMatter += deltaPlantMatter;
+                        currentState.plantMatter += deltaPlantMatter;
                     } break;
                     case CarObjectType.Spigot:
                         break;
@@ -147,30 +147,28 @@ public class Simulation {
             }
         }
 
-        newState.Sustainability = CalculateSustainability(newState);
-
-        currentState = newState;
+        currentState.Sustainability = CalculateSustainability(currentState);
     }
 
-    int NumSurroundingObjects(int x, int y, CarObjectType type) {
-        return SurroundingObjects(x, y, a => a.Type == type).Count();
+    int NumSurroundingObjects(CarGrid state, int x, int y, CarObjectType type) {
+        return SurroundingObjects(state, x, y, a => a.Type == type).Count();
     }
 
-    IEnumerable<ICarObject> SurroundingObjects(int x, int y, Func<ICarObject, bool> predicate) {
-        if (x > 0 && predicate(currentState.Squares[x - 1, y].ContainedObject)) {
-            yield return currentState.Squares[x - 1, y].ContainedObject;
+    IEnumerable<ICarObject> SurroundingObjects(CarGrid state, int x, int y, Func<ICarObject, bool> predicate) {
+        if (x > 0 && predicate(state.Squares[x - 1, y].ContainedObject)) {
+            yield return state.Squares[x - 1, y].ContainedObject;
         }
 
-        if (x < currentState.Width - 1 && predicate(currentState.Squares[x + 1, y].ContainedObject)) {
-            yield return currentState.Squares[x + 1, y].ContainedObject;
+        if (x < state.Width - 1 && predicate(state.Squares[x + 1, y].ContainedObject)) {
+            yield return state.Squares[x + 1, y].ContainedObject;
         }
 
-        if (y > 0 && predicate(currentState.Squares[x, y - 1].ContainedObject)) {
-            yield return currentState.Squares[x, y - 1].ContainedObject;
+        if (y > 0 && predicate(state.Squares[x, y - 1].ContainedObject)) {
+            yield return state.Squares[x, y - 1].ContainedObject;
         }
 
-        if (y < currentState.Height - 1 && predicate(currentState.Squares[x, y + 1].ContainedObject)) {
-            yield return currentState.Squares[x, y + 1].ContainedObject;
+        if (y < state.Height - 1 && predicate(state.Squares[x, y + 1].ContainedObject)) {
+            yield return state.Squares[x, y + 1].ContainedObject;
         }
     }
 
