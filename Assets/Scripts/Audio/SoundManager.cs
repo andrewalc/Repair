@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,17 +68,17 @@ public class SoundManager : MonoBehaviour
 
 	public void SetLevel()
 	{
-		int level = Mathf.FloorToInt(Game.Instance.Simulation.currentState.Sustainability / 20);
+		int level = Math.Min(musicLayers.Length, Mathf.FloorToInt(Game.Instance.Simulation.currentState.Sustainability / 20) + 1);
 		for(int i = 0; i< level; ++i)
 		{
-			if(musicLayers[i].AudioSource.volume != 1f)
+			if(!musicLayers[i].IsFadingIn() && musicLayers[i].IsFadedOut())
 			{
 				musicLayers[i].FadeIn();
 			}
 		}
-		for(int i = 4; i >= level; --i)
+		for(int i = musicLayers.Length - 1; i >= level; --i)
 		{
-			if (musicLayers[i].AudioSource.volume != 0f)
+			if (!musicLayers[i].IsFadingOut() && musicLayers[i].IsFadedIn())
 			{
 				musicLayers[i].FadeOut();
 			}

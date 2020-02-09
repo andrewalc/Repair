@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DarkConfig;
 using UnityEngine;
 
 public class Simulation {
@@ -179,11 +180,11 @@ public class Simulation {
 
         int goodPlantCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject).OfType<PlantCarObject>().Count(plant => plant.health > goodPlantHealth);
 
-        int totalMachineLevels = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level).Sum();
+        int totalMachineLevels = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level - 1).Sum();
 
         int machineCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Count();
 
-        int maxMachineLevel = Game.Instance.Simulation.config.maxMachineLevel;
+        int maxMachineLevel = Game.Instance.Simulation.config.maxMachineLevel - 1;
 
         float machineSustainability = (.6f * totalMachineLevels / (machineCount * maxMachineLevel));
 
