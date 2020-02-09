@@ -80,7 +80,7 @@ public abstract class DistanceBasedCarObjectPlacer : CoroutineCarGenerator
 
     public float[,] CalculateDistances(CarGrid grid, GridSquare first)
     {
-        return CarGridDijkstras.CalculateDistance(grid, first);
+        return CarGridDijkstras.CalculateDistance(grid, first, (square) => square.ContainedObject.BlocksIrrigation());
     }
 
     protected abstract int GetNumObjectsToGenerate();

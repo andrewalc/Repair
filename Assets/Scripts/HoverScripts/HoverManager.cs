@@ -34,11 +34,8 @@ public class HoverManager : MonoBehaviour
         Deactivate();
     }
 
-    public void Display(GridSquare desiredSquare)
+    public void Display(GridSquare square)
     {
-        // FIXME: This is a terrible hack. (We should already have the right square, why do we need to do this?)
-        GridSquare square = Game.Instance.Simulation.currentState.Squares[desiredSquare.X, desiredSquare.Y];
-
         if (disabled) {
             return;
         }

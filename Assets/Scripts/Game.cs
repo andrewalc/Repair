@@ -26,6 +26,10 @@ public class Game : MonoBehaviour
     {
         get
         {
+            if (CurrCarNum < 0 || carSims.Count <= CurrCarNum)
+            {
+                return null;
+            }
             return carSims[CurrCarNum];
         }
     }
@@ -76,12 +80,15 @@ public class Game : MonoBehaviour
         ICarGenerator carGenerator = new SimpleFullCarGenerator(this, config, carGrid, random);
         carGenerator.RegisterOnComplete(() =>
         {
+            // Init remaining calculated values in CarGrid.
+            carGrid.RecalculateExtraInfo();
+            
             finishedGeneratingLevel = true;
         });
         carGenerator.Start();
     }
 
-    IEnumerator Start()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -91,6 +98,10 @@ public class Game : MonoBehaviour
         {
             Debug.LogError("Can only have one game instance!");
         }
+    }
+
+    IEnumerator Start()
+    {
 
         // TODO: do we want a seed?
         random = new System.Random();
@@ -112,7 +123,6 @@ public class Game : MonoBehaviour
 
         CarGrid newGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
 
-        // TODO: should we have a list of previous CarGrids, rather than just one current one?
         GenerateLevel(CarGenConfig, newGrid, random);
         Debug.Log("Generating level...");
 

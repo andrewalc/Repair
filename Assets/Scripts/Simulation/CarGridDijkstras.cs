@@ -55,7 +55,7 @@ public static class CarGridDijkstras
     }
 
 
-    public static float[,] CalculateDistance(CarGrid grid, GridSquare first)
+    public static float[,] CalculateDistance(CarGrid grid, GridSquare first, PathBlockingPredicate blocksPath)
     {
         float[,] dists = new float[grid.Width(), grid.Height()];
         HashSet<Tuple<int, int>> closedList = new HashSet<Tuple<int,int>>();
@@ -85,7 +85,7 @@ public static class CarGridDijkstras
                     continue;
                 }
 
-                float newNeighborDist = currDist + ComputeStraightLineDist(grid, square.GetPos(), neighbor.GetPos());
+                float newNeighborDist = currDist + ComputeStraightLineDist(grid, square.GetPos(), neighbor.GetPos(), blocksPath);
                 if (newNeighborDist < dists[neighbor.X, neighbor.Y])
                 {
                     dists[neighbor.X, neighbor.Y] = newNeighborDist;
@@ -98,14 +98,15 @@ public static class CarGridDijkstras
         return dists;
     }
 
-    private static float ComputeStraightLineDist(CarGrid grid, Tuple<int, int> first, Tuple<int,int> second)
+    public delegate bool PathBlockingPredicate(GridSquare square);
+    private static float ComputeStraightLineDist(CarGrid grid, Tuple<int, int> first, Tuple<int,int> second, PathBlockingPredicate blocksPath)
     {
-        if (grid.Squares[first.Item1, first.Item2].ContainedObject.BlocksIrrigation())
+        if (blocksPath(grid.Squares[first.Item1, first.Item2]))
         {
             return float.PositiveInfinity;
         }
 
-        if (grid.Squares[second.Item1, second.Item2].ContainedObject.BlocksIrrigation())
+        if (blocksPath(grid.Squares[second.Item1, second.Item2]))
         {
             return float.PositiveInfinity;
         }

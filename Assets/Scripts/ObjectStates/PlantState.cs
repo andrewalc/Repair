@@ -52,7 +52,6 @@ public class PlantState : MonoBehaviour
 		if (square.ContainedObject.Type != CarObjectType.Plant) throw new Exception("PlantState does not have a gridsquare with CarObjectType \"Plant\"");
 		var plantObject = (PlantCarObject)square.ContainedObject;
 		//TODO: Make plant states stored in the plant object and an enum
-		print(plantObject.health);
 		if(plantObject.health < 50)
 		{
 			return "sad";

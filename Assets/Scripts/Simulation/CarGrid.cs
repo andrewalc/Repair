@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DarkConfig;
 using UnityEngine;
@@ -54,6 +55,70 @@ public class CarGrid {
 
         Sprinklers = new bool[width, height];
         PipeConnections = new PipeConnection[width, height];
+    }
+
+    private delegate bool ObjectTypePredicate(GridSquare square);
+
+    private void CalculateMinDistsFromWater()
+    {
+        float[,] waterSourceDists = CalculateMinDistsFromObjects(square => square.ContainedObject.IsWaterSource(),
+                                                                    square => square.ContainedObject.BlocksIrrigation());
+        for (int x = 0; x < Width; ++x)
+        {
+            for (int y = 0; y < Height; ++y)
+            {
+                Squares[x, y].MinDistFromWaterSource = waterSourceDists[x, y];
+            }
+        }
+    }
+    
+    private void CalculateMinDistsFromPlants()
+    {
+        float[,] plantDists = CalculateMinDistsFromObjects(square => square.ContainedObject.Type == CarObjectType.Plant,
+                                                            square => square.ContainedObject.Type != CarObjectType.Plant && square.ContainedObject.Type != CarObjectType.Empty);
+        for (int x = 0; x < Width; ++x)
+        {
+            for (int y = 0; y < Height; ++y)
+            {
+                Squares[x, y].MinDistFromInitialPlants = plantDists[x, y];
+            }
+        }
+    }
+
+    private float[,] CalculateMinDistsFromObjects(ObjectTypePredicate typePredicate, CarGridDijkstras.PathBlockingPredicate blocksPath)
+    {
+        IEnumerable<GridSquare> relevantObjects =
+            this.SquaresEnumerable().Where((square) => typePredicate(square));
+        float[,,] relevantObjectDists = new float[Width,Height,relevantObjects.Count()];
+        int i = 0;
+        foreach (GridSquare relevantObject in relevantObjects)
+        {
+            float[,] objectDists = CarGridDijkstras.CalculateDistance(this, relevantObject, blocksPath);
+            for (int x = 0; x < Width; ++x)
+            {
+                for (int y = 0; y < Height; ++y)
+                {
+                    relevantObjectDists[x, y, i] = objectDists[x, y];
+                }
+            }
+
+            ++i;
+        }
+
+        float[,] results = new float[Width,Height];
+        for (int x = 0; x < Width; ++x)
+        {
+            for (int y = 0; y < Height; ++y)
+            {
+                results[x,y] = float.PositiveInfinity;
+                for (int sourceIdx = 0; sourceIdx < relevantObjectDists.GetLength(2); ++sourceIdx)
+                {
+                    results[x,y] = Math.Min(results[x,y], relevantObjectDists[x, y, sourceIdx]);
+                }
+            }
+        }
+
+        return results;
     }
 
     public bool IsWatered(int x, int y) {
@@ -200,5 +265,11 @@ public class CarGrid {
             }
         }
         return existing;
+    }
+
+    public void RecalculateExtraInfo()
+    {
+        CalculateMinDistsFromPlants();
+        CalculateMinDistsFromWater();
     }
 }

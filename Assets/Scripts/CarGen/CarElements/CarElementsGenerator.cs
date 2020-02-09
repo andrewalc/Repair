@@ -14,7 +14,10 @@ public class CarElementsGenerator : MonoBehaviour
     void Start()
     {
         awaitingRequestGeneration = false;
-		Game.Instance.Simulation.plantSpawnEvent += generateCarElement;
+        if (Game.Instance.Simulation != null)
+        {
+            Game.Instance.Simulation.plantSpawnEvent += generateCarElement;
+        }
     }
 
     // Update is called once per frame
