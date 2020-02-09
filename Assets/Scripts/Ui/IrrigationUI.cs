@@ -11,6 +11,8 @@ public class IrrigationUI : MonoBehaviour
     [SerializeField] GameObject CellPrefab;
     [SerializeField] GameObject PipePrefab;
 
+    private IrrigationCellUi[,] irrigationCells;
+
     void Awake()
     {
         HoverManager.Instance.disabled = true;
@@ -18,23 +20,30 @@ public class IrrigationUI : MonoBehaviour
 
     void OnDestroy()
     {
+        Game.Instance.Simulation.plantSpawnEvent -= OnPlantSpawned;
         HoverManager.Instance.disabled = false;
     }
 
     public void Close()
     {
+        Game.Instance.Simulation.plantSpawnEvent -= OnPlantSpawned;
         UiDisable.Instance.disabled = false;
         Destroy(gameObject);
     }
 
     public void Init()
     {
+        Game.Instance.Simulation.plantSpawnEvent += OnPlantSpawned;
+        
         foreach (Transform child in cellGrid.transform)
         {
             Destroy(child.gameObject);
         }
 
         CarGrid grid = Game.Instance.Simulation.currentState;
+        
+        irrigationCells = new IrrigationCellUi[grid.Width, grid.Height];
+        
         for (int y = 0; y < grid.Height; ++y)
         {
             for (int x = 0; x < grid.Width; ++x)
@@ -42,6 +51,7 @@ public class IrrigationUI : MonoBehaviour
                 var button = Instantiate(CellPrefab, cellGrid.transform);
                 var cell = button.GetComponent<IrrigationCellUi>();
                 cell.Init(grid.Squares[x, y].ContainedObject.Type);
+                irrigationCells[x, y] = cell;
             }
         }
 
@@ -56,6 +66,11 @@ public class IrrigationUI : MonoBehaviour
                 button.GetComponent<PipeButton>().Init(CalculatePipeState(x, y, grid), x, y);
             }
         }
+    }
+
+    private void OnPlantSpawned(GridSquare square)
+    {
+        irrigationCells[square.X, square.Y].Init(square.ContainedObject.Type);
     }
 
     private PipeState CalculatePipeState(int x, int y, CarGrid grid)
