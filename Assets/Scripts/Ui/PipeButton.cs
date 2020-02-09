@@ -45,7 +45,7 @@ public class PipeButton : MonoBehaviour {
             gameState.plantMatter -= Game.Instance.SimulationSettings.pipePrice;
 
             if (y % 2 == 1) {
-                gameState.AddPipeBetween(x / 2, (y = 1) / 2, x / 2, (y + 1) / 2);
+                gameState.AddPipeBetween(x / 2, (y - 1) / 2, x / 2, (y + 1) / 2);
             } else {
                 gameState.AddPipeBetween((x - 1) / 2, y / 2, (x + 1) / 2, y / 2);
             }

@@ -105,7 +105,8 @@ public class CarGrid {
         bool diffY = firstY != secondY;
 
         if (!diffX && diffY) {
-            if (firstY < secondY) {
+            if (firstY > secondY) {
+                // Y goes down as we approach the bottom of the car, so if the first is higher, it now has a bottom connection.
                 PipeConnections[firstX, firstY] |= PipeConnection.Bottom;
                 PipeConnections[secondX, secondY] |= PipeConnection.Top;
             } else {

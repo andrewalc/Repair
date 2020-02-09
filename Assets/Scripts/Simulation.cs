@@ -173,9 +173,9 @@ public class Simulation {
 
     private float CalculateSustainability(CarGrid newState)
     {
-        int numPlots = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).Where((obj) => !obj.BlocksIrrigation()).Count();
+        int numPlots = newState.SquaresEnumerable().Select((square) => square.ContainedObject).Count(obj => !obj.BlocksIrrigation());
 
-        int goodPlantCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<PlantCarObject>().Where((plant) => plant.health > goodPlantHealth).Count();
+        int goodPlantCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject).OfType<PlantCarObject>().Count(plant => plant.health > goodPlantHealth);
 
         int totalMachineLevels = newState.SquaresEnumerable().Select((square) => square.ContainedObject ).OfType<MachineCarObject>().Select((machine) => machine.level).Sum();
 
