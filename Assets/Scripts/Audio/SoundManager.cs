@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
 	public List<MusicTrack> musicTracks;
 	public MusicLayer[] musicLayers = new MusicLayer[5];
 	private int currentTrackIndex = 0;
+	private bool listenersSet = false;
 
 	public static SoundManager Instance { get; private set; }
 
@@ -48,6 +49,11 @@ public class SoundManager : MonoBehaviour
 
 	public void Update()
 	{
+		if (!listenersSet)
+		{
+			Tick.Instance.AddEventListener(SetLevel);
+		}
+
 		if (musicLayers[0].AudioSource.time >= musicTracks[currentTrackIndex].loopTime)
 		{
 			for(int i = 0; i < 5; ++i)
@@ -58,8 +64,9 @@ public class SoundManager : MonoBehaviour
 		}
 	}
 
-	public void SetLevel(int level)
+	public void SetLevel()
 	{
+		int level = Mathf.FloorToInt(Game.Instance.Simulation.currentState.Sustainability / 20);
 		for(int i = 0; i< level; ++i)
 		{
 			if(musicLayers[i].AudioSource.volume != 1f)
