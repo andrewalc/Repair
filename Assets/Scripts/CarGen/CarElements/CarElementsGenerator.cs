@@ -14,6 +14,7 @@ public class CarElementsGenerator : MonoBehaviour
     void Start()
     {
         awaitingRequestGeneration = false;
+		Game.Instance.Simulation.plantSpawnEvent += generateCarElement;
     }
 
     // Update is called once per frame
@@ -24,7 +25,9 @@ public class CarElementsGenerator : MonoBehaviour
             carGrid = Game.Instance.Simulation.currentState;
             generateGrid();
             awaitingRequestGeneration = false;
-        }
+			Game.Instance.Simulation.plantSpawnEvent -= generateCarElement; // make sure we don't reregister this listener
+			Game.Instance.Simulation.plantSpawnEvent += generateCarElement;
+		}
     }
 
     public void InstantiateLevel()

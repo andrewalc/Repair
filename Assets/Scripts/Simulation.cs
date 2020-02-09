@@ -12,6 +12,8 @@ public class Simulation {
     // TODO: this should be a config val.
     public static int goodPlantHealth = 100;
 
+	public event Action<GridSquare> plantSpawnEvent; 
+
     public Simulation(CarGrid grid, SimulationSettingsConfig config, int simNum) {
         currentState = grid.Clone();
 
@@ -105,7 +107,8 @@ public class Simulation {
 
                             if (UnityEngine.Random.value <= chance) {
                                 newState.Squares[x, y].ContainedObject = new PlantCarObject();
-                                break;
+								plantSpawnEvent?.Invoke(newState.Squares[x, y]);
+								break;
                             }
                         }
                         break;
