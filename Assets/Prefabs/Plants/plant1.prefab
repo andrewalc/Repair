@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03b4a46231094e9f89cf5a88d260346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: medium
   materialMap:
   - name: sad
     material: {fileID: 2100000, guid: dc0c95d11c4424b46b8652b9059251f5, type: 2}
