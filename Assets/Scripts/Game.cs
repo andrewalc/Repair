@@ -68,7 +68,17 @@ public class Game : MonoBehaviour
     
     public delegate void OnGameLoaded();
     public event OnGameLoaded GameLoaded;
+    
+    public delegate void OnBeginPlay();
+    public event OnBeginPlay BeginPlay;
 
+    public void BeginGame()
+    {
+        Tick.Instance.UnPause();
+
+        BeginPlay?.Invoke();
+    }
+    
     void LoadConfigs()
     {
         UnityPlatform.Setup();

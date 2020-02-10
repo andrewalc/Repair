@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
 
     public void DisableMyself()
     {
+        Game.Instance.BeginGame();
         gameObject.SetActive(false);
     }
 }

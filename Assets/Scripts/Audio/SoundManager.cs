@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour
 	private int currentTrackIndex = 0;
 	private bool listenersSet = false;
 
+	public MusicLayer menuMusic;
+
 	private Coroutine levelStartCoroutine;
 
 	public static SoundManager Instance { get; private set; }
@@ -53,6 +55,16 @@ public class SoundManager : MonoBehaviour
 			Tick.Instance.AddEventListener(SetLevel);
 			Game.Instance.LevelEnded += OnLevelEnded;
 			Game.Instance.LevelGenerated += OnLevelGenerated;
+			
+			if (Game.Instance.finishedLoadingConfigs)
+			{
+				OnGameLoaded();
+			}
+			else
+			{
+				Game.Instance.GameLoaded += OnGameLoaded;
+			}
+			
 			listenersSet = true;
 		}
 
@@ -64,6 +76,12 @@ public class SoundManager : MonoBehaviour
 				musicLayers[i].AudioSource.Play();
 			}
 		}
+	}
+
+	private void OnGameLoaded()
+	{
+		menuMusic.SetVolume(1.0f);
+		menuMusic.AudioSource.Play();
 	}
 
 	private void OnLevelGenerated(Simulation sim)
@@ -78,6 +96,12 @@ public class SoundManager : MonoBehaviour
 
 	private IEnumerator StartLevelMusic()
 	{
+		if (menuMusic.IsFadedIn())
+		{
+			menuMusic.FadeOut();
+			yield return new WaitUntil(() => menuMusic.IsFadedOut());
+		}
+		
 		if (musicLayers[0].IsFadingOut())
 		{
 			yield return new WaitUntil(() => musicLayers[0].IsFadedOut());

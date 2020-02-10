@@ -20,17 +20,10 @@ public class TrainGenerator : MonoBehaviour
         
         Tick.Instance.AddEventListener(CheckLevelState);
 
-        if (Game.Instance.finishedLoadingConfigs)
-        {
-            OnGameLoaded();
-        }
-        else
-        {
-            Game.Instance.GameLoaded += OnGameLoaded;
-        }
+        Game.Instance.BeginPlay += OnBeginPlay;
     }
 
-    public void OnGameLoaded()
+    public void OnBeginPlay()
     {
         if (trains.Count == 1)
         {
