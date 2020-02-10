@@ -29,7 +29,7 @@ public class MusicLayer : MonoBehaviour
 	public IEnumerator FadeInRoutine()
 	{
 		var audioSource = audioSources[playingAudioIndex];
-		while(audioSource.volume < .9f)
+		while(audioSource.volume < .99f)
 		{
 			if (IsFadingOut())
 			{
@@ -37,7 +37,7 @@ public class MusicLayer : MonoBehaviour
 				break;
 			}
 			
-			audioSource.volume = Mathf.Lerp(audioSource.volume, 1f, .5f * Time.deltaTime);
+			audioSource.volume = Mathf.Lerp(audioSource.volume, 1f, Time.deltaTime);
 			yield return null;
 		}
 		audioSource.volume = 1f;
@@ -56,7 +56,7 @@ public class MusicLayer : MonoBehaviour
 	public IEnumerator FadeOutRoutine()
 	{
 		var audioSource = audioSources[playingAudioIndex];
-		while (audioSource.volume > .1f)
+		while (audioSource.volume > .01f)
 		{
 			if (IsFadingIn())
 			{
@@ -64,7 +64,7 @@ public class MusicLayer : MonoBehaviour
 				break;
 			}
 			
-			audioSource.volume = Mathf.Lerp(audioSource.volume, 0f, .5f * Time.deltaTime);
+			audioSource.volume = Mathf.Lerp(audioSource.volume, 0f, Time.deltaTime);
 			yield return null;
 		}
 		audioSource.volume = 0f;
@@ -94,5 +94,10 @@ public class MusicLayer : MonoBehaviour
 	public void SwitchSource()
 	{
 		playingAudioIndex = (playingAudioIndex + 1) % 2;
+	}
+
+	public void SetVolume(float soundVolume)
+	{
+		AudioSource.volume = soundVolume;
 	}
 }

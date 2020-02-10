@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977168a410460434a8156ed904faf848, type: 3}
   m_Name: Christian
   m_EditorClassIdentifier: 
-  loopTime: 0
+  loopTime: 135
   layers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 0bd8549a1ffb59946b917bf2a30c29b7, type: 3}
+  - {fileID: 8300000, guid: e684730209dc70944987b11879dea0bc, type: 3}
+  - {fileID: 8300000, guid: fbeefff9a9db85f48bccb1395a637fac, type: 3}
+  - {fileID: 8300000, guid: a3513d85e08621a4e915631a4279a01d, type: 3}
+  - {fileID: 8300000, guid: 4d970e79c0a09c14a8d91bb28e148d76, type: 3}

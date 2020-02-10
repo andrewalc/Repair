@@ -12,6 +12,7 @@ public class IrrigationUI : MonoBehaviour
     [SerializeField] GameObject PipePrefab;
 
     private IrrigationCellUi[,] irrigationCells;
+    private PipeButton[,] pipeButtons;
 
     void Awake()
     {
@@ -21,18 +22,24 @@ public class IrrigationUI : MonoBehaviour
     void OnDestroy()
     {
         Game.Instance.Simulation.plantSpawnEvent -= OnPlantSpawned;
+        Game.Instance.LevelGenerated -= OnLevelGenerated;
+        Game.Instance.LevelEnded -= OnLevelEnded;
         HoverManager.Instance.disabled = false;
     }
 
     public void Close()
     {
         Game.Instance.Simulation.plantSpawnEvent -= OnPlantSpawned;
+        Game.Instance.LevelGenerated -= OnLevelGenerated;
+        Game.Instance.LevelEnded -= OnLevelEnded;
         UiDisable.Instance.disabled = false;
         Destroy(gameObject);
     }
 
     public void Init()
     {
+        Game.Instance.LevelGenerated += OnLevelGenerated;
+        Game.Instance.LevelEnded += OnLevelEnded;
         Game.Instance.Simulation.plantSpawnEvent += OnPlantSpawned;
         
         foreach (Transform child in cellGrid.transform)
@@ -40,9 +47,19 @@ public class IrrigationUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        if (null != pipeButtons)
+        {
+            foreach (PipeButton button in pipeButtons)
+            {
+                Destroy(button.gameObject);
+            }
+        }
+
+
         CarGrid grid = Game.Instance.Simulation.currentState;
         
         irrigationCells = new IrrigationCellUi[grid.Width, grid.Height];
+        pipeButtons = new PipeButton[grid.Width*2-1, grid.Height*2-1];
         
         for (int y = 0; y < grid.Height; ++y)
         {
@@ -62,10 +79,23 @@ public class IrrigationUI : MonoBehaviour
                 var button = Instantiate(PipePrefab, pipeGrid.transform);
 
                 PipeState state = CalculatePipeState(x, y, grid);
-
-                button.GetComponent<PipeButton>().Init(CalculatePipeState(x, y, grid), x, y);
+                
+                pipeButtons[x,y] = button.GetComponent<PipeButton>();
+                
+                pipeButtons[x,y].Init(CalculatePipeState(x, y, grid), x, y);
             }
         }
+    }
+
+    private void OnLevelGenerated(Simulation sim)
+    {
+        Init();
+    }
+
+    private void OnLevelEnded(Simulation sim)
+    {
+        sim.plantSpawnEvent -= OnPlantSpawned;
+        Close();
     }
 
     private void OnPlantSpawned(GridSquare square)

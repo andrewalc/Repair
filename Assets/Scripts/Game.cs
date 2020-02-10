@@ -20,8 +20,6 @@ public class Game : MonoBehaviour
     public GameObject IrrigationPanelPrefab;
     GameObject IrrigationPanelInstance;
 
-    public SoundManager soundManager;
-
     public Simulation Simulation
     {
         get
@@ -61,6 +59,15 @@ public class Game : MonoBehaviour
             return carGrids;
         }
     }
+
+    public delegate void OnLevelGenerated(Simulation newLevel);
+    public event OnLevelGenerated LevelGenerated;
+    
+    public delegate void OnLevelEnded(Simulation newLevel);
+    public event OnLevelEnded LevelEnded;
+    
+    public delegate void OnGameLoaded();
+    public event OnGameLoaded GameLoaded;
 
     void LoadConfigs()
     {
@@ -112,14 +119,13 @@ public class Game : MonoBehaviour
 
         CurrCarNum = -1;
 
-        //yield return StartCoroutine(GenerateNewCarInternal());
-
-        // TODO: provide a callback for when this is ready
+        GameLoaded?.Invoke();
     }
 
     private IEnumerator GenerateNewCarInternal()
     {
         finishedGeneratingLevel = false;
+        LevelEnded?.Invoke(Simulation);
 
         CarGrid newGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
 
@@ -139,17 +145,9 @@ public class Game : MonoBehaviour
         }
         CurrCarNum++;
         Tick.Instance.AddEventListener(newSim.Step);
-        Debug.Log("Current sim num: " + carSims.Count + " curr car num: " + CurrCarNum);
 
-        // Change the music.
-        if ( null != soundManager)
-        {
-            soundManager.PlayNewTrack();
-        }
-        else
-        {
-            Debug.LogWarning("No sound manager.");
-        }
+        LevelGenerated?.Invoke(newSim);
+        Debug.Log("Current sim num: " + carSims.Count + " curr car num: " + CurrCarNum);
     }
 
     public void GenerateNewCar()

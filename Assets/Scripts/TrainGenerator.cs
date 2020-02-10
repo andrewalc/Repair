@@ -7,10 +7,7 @@ public class TrainGenerator : MonoBehaviour
     public GameObject trainPrefab;
     public GameObject startingTrain;
     private List<GameObject> trains;
-    public int currentTrainIndex;
-
-    public bool generated;
-    public bool firstCar;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,52 +17,40 @@ public class TrainGenerator : MonoBehaviour
         }
         trains = new List<GameObject>();
         trains.Add(startingTrain);
-        StartCoroutine(GenFirstCar());
         
         Tick.Instance.AddEventListener(CheckLevelState);
-    }
 
-
-    IEnumerator GenFirstCar()
-    {
-        yield return null;
-        /*GenerateLevel(0);
-        yield return new WaitUntil( () => Game.Instance.finishedGeneratingLevel);*/
-        CreateTrainCar();
-        while (true)
+        if (Game.Instance.finishedLoadingConfigs)
         {
-            yield return null;
-            if (!generated)
-            {
-            GenerateLevel(trains.Count - 2);
-            generated = true;
-            }
+            OnGameLoaded();
+        }
+        else
+        {
+            Game.Instance.GameLoaded += OnGameLoaded;
         }
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    public void OnGameLoaded()
     {
-//        if (Input.GetMouseButtonDown(0))
-//        {
-//            CreateTrainCar();
-//            FindObjectOfType<CameraShift>().AnimateForward();
-//        }
-//
-//        if (Input.GetMouseButtonDown(1))
-//        {
-//            FindObjectOfType<CameraShift>().AnimateBackward();
-//        }
+        if (trains.Count == 1)
+        {
+            // Create a second train car and generate the contents in the first.
+            CreateTrainCar();
+        }
     }
 
     public void CreateTrainCar()
     {
-        generated = false;
         Vector3 trainPos = startingTrain.transform.position;
-        print(trains.Count);    
+        
+        print("New train: " + trains.Count);
+        
         GameObject newTrain = Instantiate(trainPrefab, new Vector3(trainPos.x - (33f * trains.Count), trainPos.y, trainPos.z), Quaternion.identity);
         newTrain.transform.parent = transform;
         trains.Add(newTrain);
+        
+        // Always generate for the second-newest train, because we want an empty car at the front.
+        GenerateLevel(trains.Count - 2);
     }
 
     public void GenerateLevel(int index)
@@ -75,7 +60,7 @@ public class TrainGenerator : MonoBehaviour
 
     public void CheckLevelState()
     {
-        if (!generated || !Game.Instance.finishedGeneratingLevel)
+        if (!Game.Instance.finishedGeneratingLevel)
         {
             return;
         }
