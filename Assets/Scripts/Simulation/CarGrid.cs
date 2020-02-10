@@ -140,11 +140,16 @@ public class CarGrid {
             return false;
         }
 
+        seenCells.Add(new Tuple<int, int>(x, y));
+        
         if (Squares[x, y].ContainedObject.Type == CarObjectType.Spigot) {
             return true;
         }
 
-        seenCells.Add(new Tuple<int, int>(x, y));
+        if (Squares[x, y].ContainedObject.BlocksIrrigation())
+        {
+            return false;
+        }
         
         if ((PipeConnections[x, y] & PipeConnection.Left) != 0 && IsWateredImpl(x - 1, y, seenCells)) {
             return true;
