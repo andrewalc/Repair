@@ -41,7 +41,7 @@ public class IrrigationUI : MonoBehaviour
         Game.Instance.LevelGenerated += OnLevelGenerated;
         Game.Instance.LevelEnded += OnLevelEnded;
         Game.Instance.Simulation.plantSpawnEvent += OnPlantSpawned;
-        
+
         foreach (Transform child in cellGrid.transform)
         {
             Destroy(child.gameObject);
@@ -57,17 +57,17 @@ public class IrrigationUI : MonoBehaviour
 
 
         CarGrid grid = Game.Instance.Simulation.currentState;
-        
+
         irrigationCells = new IrrigationCellUi[grid.Width, grid.Height];
-        pipeButtons = new PipeButton[grid.Width*2-1, grid.Height*2-1];
-        
+        pipeButtons = new PipeButton[grid.Width * 2 - 1, grid.Height * 2 - 1];
+
         for (int y = 0; y < grid.Height; ++y)
         {
             for (int x = 0; x < grid.Width; ++x)
             {
                 var button = Instantiate(CellPrefab, cellGrid.transform);
                 var cell = button.GetComponent<IrrigationCellUi>();
-                cell.Init(grid.Squares[x, y].ContainedObject.Type);
+                cell.Init(x, y, grid.Squares[x, y].ContainedObject.Type, grid.Sprinklers[x, y]);
                 irrigationCells[x, y] = cell;
             }
         }
@@ -79,10 +79,10 @@ public class IrrigationUI : MonoBehaviour
                 var button = Instantiate(PipePrefab, pipeGrid.transform);
 
                 PipeState state = CalculatePipeState(x, y, grid);
-                
-                pipeButtons[x,y] = button.GetComponent<PipeButton>();
-                
-                pipeButtons[x,y].Init(CalculatePipeState(x, y, grid), x, y);
+
+                pipeButtons[x, y] = button.GetComponent<PipeButton>();
+
+                pipeButtons[x, y].Init(CalculatePipeState(x, y, grid), x, y);
             }
         }
     }
@@ -100,7 +100,8 @@ public class IrrigationUI : MonoBehaviour
 
     private void OnPlantSpawned(GridSquare square)
     {
-        irrigationCells[square.X, square.Y].Init(square.ContainedObject.Type);
+        CarGrid grid = Game.Instance.Simulation.currentState;
+        irrigationCells[square.X, square.Y].Init(square.X, square.Y,square.ContainedObject.Type, grid.Sprinklers[square.X,square.Y]);
     }
 
     private PipeState CalculatePipeState(int x, int y, CarGrid grid)

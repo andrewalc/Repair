@@ -117,7 +117,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8722038459370083474}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6455724593806058567}
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6455724593806058567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +150,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: a602b0ad4b26648afa0394d073616d6a, type: 3}
   - name: plant
     sprite: {fileID: 21300000, guid: 53a609be3893a4e29aa8bcb3e9800450, type: 3}
-  - name: plantwithsprinker
+  - name: plantwithsprinkler
     sprite: {fileID: 21300000, guid: 66f441491e0fb47d89d69a7957cefdb1, type: 3}
   - name: sprinkler
     sprite: {fileID: 21300000, guid: b99ac39db32d84c009f466ebece43e4f, type: 3}

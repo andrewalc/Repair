@@ -2,13 +2,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PipeState {
+public enum PipeState
+{
     Empty,
     Pipe,
     Sprinkler
 }
 
-public class PipeButton : MonoBehaviour {
+public class PipeButton : MonoBehaviour
+{
     int x, y;
     PipeState state = PipeState.Empty;
 
@@ -17,81 +19,86 @@ public class PipeButton : MonoBehaviour {
     [SerializeField] Sprite sprinklerSprite;
 
     [SerializeField] Image ButtonImage;
-    
-    public void Init(PipeState state, int x, int y) {
+
+    public void Init(PipeState state, int x, int y)
+    {
         this.state = state;
         this.x = x;
         this.y = y;
 
-        if (x % 2 == 1 && y % 2 == 1) {
+        if (x % 2 == 1 && y % 2 == 1 ||
+            x % 2 == 0 && y % 2 == 0)
+        {
             Destroy(GetComponent<Button>());
             Destroy(GetComponent<Image>());
-        } else {
+        }
+        else
+        {
             UpdateSprite();
         }
     }
 
-    public void Toggle() {
+    public void Toggle()
+    {
         var gameState = Game.Instance.Simulation.currentState;
-        
-        if ((x % 2 == 0) != (y % 2 == 0)) {
-            
-            // can we afford it?
-            if (gameState.plantMatter < Game.Instance.SimulationSettings.pipePrice) {
-                Debug.Log("Can't afford the pipe");
-                return;
-            }
-            
-            gameState.plantMatter -= Game.Instance.SimulationSettings.pipePrice;
 
-            if (y % 2 == 1) {
-                gameState.AddPipeBetween(x / 2, (y - 1) / 2, x / 2, (y + 1) / 2);
-            } else {
-                gameState.AddPipeBetween((x - 1) / 2, y / 2, (x + 1) / 2, y / 2);
-            }
-            
-            state = state == PipeState.Empty ? PipeState.Pipe : PipeState.Empty;
-        } else {
-            // TODO can we place a sprinkler here?
-
-            if (gameState.Squares[x / 2, y / 2].ContainedObject.Type == CarObjectType.Plant) {
-                // can we afford it?
-                if (gameState.plantMatter < Game.Instance.SimulationSettings.sprinklerPrice) {
-                    Debug.Log("Can't afford the sprinkler");
-                    return;
-                }
-                
-                gameState.Sprinklers[x / 2, y / 2] = !gameState.Sprinklers[x / 2, y / 2];
-                gameState.plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
-                state = gameState.Sprinklers[x / 2, y / 2] ? PipeState.Sprinkler : PipeState.Empty;
-            }
+        if ((x % 2 == 0) == (y % 2 == 0))
+        {
+            // This is not a pipe, but an empty space or possible sprinkler.
+            return;
         }
 
+        // can we afford it?
+        if (gameState.plantMatter < Game.Instance.SimulationSettings.pipePrice)
+        {
+            Debug.Log("Can't afford the pipe");
+            return;
+        }
+
+        if (state == PipeState.Pipe)
+        {
+            // Can't add a pipe in a place where we already have one.
+            return;
+        }
+
+        gameState.plantMatter -= Game.Instance.SimulationSettings.pipePrice;
+
+        if (y % 2 == 1)
+        {
+            gameState.AddPipeBetween(x / 2, (y - 1) / 2, x / 2, (y + 1) / 2);
+        }
+        else
+        {
+            gameState.AddPipeBetween((x - 1) / 2, y / 2, (x + 1) / 2, y / 2);
+        }
+
+        state = state == PipeState.Empty ? PipeState.Pipe : PipeState.Empty;
         UpdateSprite();
     }
 
-    void UpdateSprite() {
-        switch (state) {
-            case PipeState.Empty: ButtonImage.sprite = emptySprite; break;
-            case PipeState.Pipe: ButtonImage.sprite = pipeSprite; break;
-            case PipeState.Sprinkler: ButtonImage.sprite = sprinklerSprite; break;
-            default: throw new ArgumentOutOfRangeException(nameof(state), state, null);
+    void UpdateSprite()
+    {
+        switch (state)
+        {
+            case PipeState.Pipe:
+                ButtonImage.sprite = pipeSprite;
+                break;
+            default:
+                ButtonImage.sprite = emptySprite;
+                break;
         }
 
-        if ((x % 2 == 0) == (y % 2 == 0) && x % 2 == 0) {
-            var gameState = Game.Instance.Simulation.currentState;
-            if (gameState.Squares[x / 2, y / 2].ContainedObject.Type == CarObjectType.Plant) {
-                ButtonImage.color =
-                    state == PipeState.Sprinkler ?
-                    new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0.1f);
-            } else {
-                ButtonImage.color = new Color(1, 1, 1, 0f);
-            }
-        } else if (state == PipeState.Empty) { 
-            ButtonImage.color = new Color(1, 1, 1, 0.1f);
-        } else {
+        if ((x % 2 == 0) == (y % 2 == 0) && x % 2 == 0)
+        {
+            // Do nothing - this is not a pipe, but a sprinkler.
+        }
+        else if (state == PipeState.Empty)
+        {
+            ButtonImage.color = new Color(1, 1, 1, 0.7f);
+        }
+        else
+        {
             ButtonImage.color = new Color(1, 1, 1, 1);
         }
     }
 }
-
