@@ -71,7 +71,7 @@ public static class CarGridDijkstras
         dists[first.X, first.Y] = 0;
 
         PriorityQueue squareQueue = new PriorityQueue( grid.SquarePositions(), dists );
-        while (squareQueue.Count() > 0)
+        while (squareQueue.Any())
         {
             Tuple<int, int> itemPos = squareQueue.Pop();
             closedList.Add(itemPos);
@@ -98,15 +98,10 @@ public static class CarGridDijkstras
         return dists;
     }
 
-    public delegate bool PathBlockingPredicate(GridSquare square);
+    public delegate bool PathBlockingPredicate(GridSquare square, GridSquare intoSquare);
     private static float ComputeStraightLineDist(CarGrid grid, Tuple<int, int> first, Tuple<int,int> second, PathBlockingPredicate blocksPath)
     {
-        if (blocksPath(grid.Squares[first.Item1, first.Item2]))
-        {
-            return float.PositiveInfinity;
-        }
-
-        if (blocksPath(grid.Squares[second.Item1, second.Item2]))
+        if (blocksPath(grid.Squares[first.Item1, first.Item2], grid.Squares[second.Item1, second.Item2]))
         {
             return float.PositiveInfinity;
         }

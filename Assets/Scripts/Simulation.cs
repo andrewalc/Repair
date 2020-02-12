@@ -66,7 +66,6 @@ public class Simulation {
                 }
             }
         }
-        // TODO sprinklers
         
         // ============= Update air quality =============
         for (int x = 0; x < oldState.Width; ++x) {
@@ -88,6 +87,8 @@ public class Simulation {
             }
         }
 
+        oldState.CalculateWaterDists();
+        
         // ============= Update plants =============
         for (int x = 0; x < oldState.Width; ++x) {
             for (int y = oldState.Height - 1; y >= 0; --y) {
@@ -117,7 +118,9 @@ public class Simulation {
                         break;
                     case CarObjectType.Plant: {
                         var plant = (PlantCarObject) currentState.Squares[x, y].ContainedObject;
-                        
+                       
+                        // TODO: Do this in order of distance from water?
+                        // TODO: Reduce water level?!
                         // ============= Update plant health =============
                         var delta = oldState.IsWatered(x, y) ? config.lifeRate : -config.deathRate;
                         if (oldState.IsWatered(x, y) && oldState.airQuality <= config.badAQThreshold) {

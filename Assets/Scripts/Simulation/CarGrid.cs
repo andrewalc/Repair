@@ -26,6 +26,8 @@ public class CarGrid {
     public bool[,] Sprinklers;
     public PipeConnection[,] PipeConnections;
 
+    private float[,] minWaterDists;
+    
     public float airQuality = 0;
     public float plantMatter = 0;
     public float waterLevel = 0;
@@ -55,6 +57,8 @@ public class CarGrid {
 
         Sprinklers = new bool[width, height];
         PipeConnections = new PipeConnection[width, height];
+
+        InitWaterDists();
     }
 
     private delegate bool ObjectTypePredicate(GridSquare square);
@@ -62,7 +66,7 @@ public class CarGrid {
     private void CalculateMinDistsFromWater()
     {
         float[,] waterSourceDists = CalculateMinDistsFromObjects(square => square.ContainedObject.IsWaterSource(),
-                                                                    square => square.ContainedObject.BlocksIrrigation());
+                                                                    (square, intoSquare) => square.ContainedObject.BlocksIrrigation() || intoSquare.ContainedObject.BlocksIrrigation());
         for (int x = 0; x < Width; ++x)
         {
             for (int y = 0; y < Height; ++y)
@@ -75,7 +79,8 @@ public class CarGrid {
     private void CalculateMinDistsFromPlants()
     {
         float[,] plantDists = CalculateMinDistsFromObjects(square => square.ContainedObject.Type == CarObjectType.Plant,
-                                                            square => square.ContainedObject.Type != CarObjectType.Plant && square.ContainedObject.Type != CarObjectType.Empty);
+                                                            (square, intoSquare) => (square.ContainedObject.Type != CarObjectType.Plant && square.ContainedObject.Type != CarObjectType.Empty) ||
+                                                                                                (intoSquare.ContainedObject.Type != CarObjectType.Plant && intoSquare.ContainedObject.Type != CarObjectType.Empty));
         for (int x = 0; x < Width; ++x)
         {
             for (int y = 0; y < Height; ++y)
@@ -121,53 +126,76 @@ public class CarGrid {
         return results;
     }
 
-    public bool IsWatered(int x, int y) {
-        var seenCells = new HashSet<Tuple<int, int>>();
-
-        if (x < 0 || x >= Width || y < 0 || y >= Height || seenCells.Contains(new Tuple<int, int>(x, y))) {
-            return false;
-        }
-        
+    public bool IsWatered(int x, int y)
+    {
         if (!Sprinklers[x, y]) {
             return false;
         }
         
-        return IsWateredImpl(x, y, seenCells);
+        return !float.IsPositiveInfinity(minWaterDists[x, y]);
     }
 
-    bool IsWateredImpl(int x, int y, HashSet<Tuple<int, int>> seenCells) {
-        if (x < 0 || x >= Width || y < 0 || y >= Height || seenCells.Contains(new Tuple<int, int>(x, y))) {
-            return false;
-        }
-
-        seenCells.Add(new Tuple<int, int>(x, y));
-        
-        if (Squares[x, y].ContainedObject.Type == CarObjectType.Spigot) {
-            return true;
-        }
-
-        if (Squares[x, y].ContainedObject.BlocksIrrigation())
+    public bool IsPipeConnected(GridSquare first, GridSquare second)
+    {
+        if (first.Y == second.Y)
         {
-            return false;
+            if (first.X + 1 == second.X)
+            {
+                return (PipeConnections[first.X, first.Y] & PipeConnection.Right) != 0;
+            }
+            else if (first.X - 1 == second.X)
+            {
+                return (PipeConnections[first.X, first.Y] & PipeConnection.Left) != 0;
+            }
         }
-        
-        if ((PipeConnections[x, y] & PipeConnection.Left) != 0 && IsWateredImpl(x - 1, y, seenCells)) {
-            return true;
-        }
-
-        if ((PipeConnections[x, y] & PipeConnection.Right) != 0 && IsWateredImpl(x + 1, y, seenCells)) {
-            return true;
-        }
-
-        if ((PipeConnections[x, y] & PipeConnection.Top) != 0 && IsWateredImpl(x, y + 1, seenCells)) {
-            return true;
-        }
-
-        if ((PipeConnections[x, y] & PipeConnection.Bottom) != 0 && IsWateredImpl(x, y - 1, seenCells)) {
-            return true;
+        else if (first.X == second.X)
+        {
+            if (first.Y + 1 == second.Y)
+            {
+                return (PipeConnections[first.X, first.Y] & PipeConnection.Top) != 0;
+            }
+            else if (first.Y - 1 == second.Y)
+            {
+                return (PipeConnections[first.X, first.Y] & PipeConnection.Bottom) != 0;
+            }
         }
 
         return false;
+    }
+
+    private void InitWaterDists()
+    {
+        minWaterDists = new float[this.Width, this.Height];
+        for (int x = 0; x < this.Width; ++x)
+        {
+            for (int y = 0; y < this.Height; ++y)
+            {
+                minWaterDists[x, y] = float.PositiveInfinity;
+            }
+        }
+    }
+    
+    public float[,] CalculateWaterDists()
+    {
+        InitWaterDists();
+
+        foreach (GridSquare spigotSquare in this.SquaresEnumerable()
+            .Where((square) => square.ContainedObject.IsWaterSource()))
+        {
+            float[,] waterDists = CarGridDijkstras.CalculateDistance(this, spigotSquare, (first, second) =>
+            {
+                return !IsPipeConnected(first, second);
+            });
+            for (int x = 0; x < this.Width; ++x)
+            {
+                for (int y = 0; y < this.Height; ++y)
+                {
+                    minWaterDists[x, y] = Math.Min(minWaterDists[x, y], waterDists[x, y]);
+                }
+            }
+        }
+
+        return minWaterDists;
     }
 
     public void AddPipeBetween(int firstX, int firstY, int secondX, int secondY) {
@@ -212,6 +240,8 @@ public class CarGrid {
 
                 clone.PipeConnections[x, y] = PipeConnections[x, y];
                 clone.Sprinklers[x, y] = Sprinklers[x, y];
+
+                clone.minWaterDists[x, y] = this.minWaterDists[x, y];
             }
         }
         
