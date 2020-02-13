@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a602b0ad4b26648afa0394d073616d6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12f86f3aa23e9e2be85dcc2875773a16, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fadd8b154145acb96034708f1ecf46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeSprite: {fileID: 21300000, guid: a602b0ad4b26648afa0394d073616d6a, type: 3}
-  emptySprite: {fileID: 21300000, guid: 5ace85834263fb24d8929c52fa1a2542, type: 3}
+  pipeSprite: {fileID: 21300000, guid: 12f86f3aa23e9e2be85dcc2875773a16, type: 3}
+  emptySprite: {fileID: 21300000, guid: 230eadadb9ccc46a18722c9f0b7972fb, type: 3}
   sprinklerSprite: {fileID: 21300000, guid: b99ac39db32d84c009f466ebece43e4f, type: 3}
   ButtonImage: {fileID: 8722038459370083474}

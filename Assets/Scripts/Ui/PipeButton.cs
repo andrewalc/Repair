@@ -16,7 +16,6 @@ public class PipeButton : MonoBehaviour
 
     [SerializeField] Sprite pipeSprite;
     [SerializeField] Sprite emptySprite;
-    [SerializeField] Sprite sprinklerSprite;
 
     [SerializeField] Image ButtonImage;
 
@@ -34,6 +33,11 @@ public class PipeButton : MonoBehaviour
         }
         else
         {
+            if (y % 2 == 1)
+            {
+                // We are a vertical pipe. Rotate.
+                this.transform.Rotate(Vector3.forward, 90.0f);
+            }
             UpdateSprite();
         }
     }
