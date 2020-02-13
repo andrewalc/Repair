@@ -173,9 +173,8 @@ public class IrrigationCellUi : MonoBehaviour
             return;
         }
 
-        gameState.Sprinklers[x, y] = true;
+        gameState.BuySprinkler(x,y);
         this.sprinkler = gameState.Sprinklers[x, y];
-        gameState.plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
 
         UpdateState();
     }

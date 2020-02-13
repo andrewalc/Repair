@@ -235,6 +235,18 @@ public class CarGrid {
         CalculateWaterDists();
     }
 
+    public void BuySprinkler(int x, int y)
+    {
+        if (plantMatter < Game.Instance.SimulationSettings.sprinklerPrice)
+        {
+            Debug.Log("Can't afford the sprinkler");
+            return;
+        }
+        
+        plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
+        Sprinklers[x, y] = true;
+    }
+    
     public void UpgradeMachineAt(int x, int y) {
         var containedObject = Squares[x, y].ContainedObject;
         if (containedObject.Type == CarObjectType.Machine) {

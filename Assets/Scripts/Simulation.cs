@@ -89,8 +89,6 @@ public class Simulation {
             }
         }
 
-        oldState.CalculateWaterDists();
-        
         // ============= Update plants =============
         for (int x = 0; x < oldState.Width; ++x) {
             for (int y = oldState.Height - 1; y >= 0; --y) {
@@ -155,8 +153,6 @@ public class Simulation {
 
         currentState.Sustainability = CalculateSustainability(currentState);
 
-        currentState.CalculateWaterDists();
-        
         OnSimTickFinished?.Invoke(this);
     }
 
