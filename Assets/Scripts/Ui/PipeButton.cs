@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,12 @@ public class PipeButton : MonoBehaviour
 
     [SerializeField] Image ButtonImage;
 
+    [SerializeField] private Color minWaterColor;
+
+    [SerializeField] private Color maxWaterColor;
+
+    [SerializeField] private Color noWaterColor;
+    
     public void Init(PipeState state, int x, int y)
     {
         this.state = state;
@@ -30,6 +37,7 @@ public class PipeButton : MonoBehaviour
         {
             Destroy(GetComponent<Button>());
             Destroy(GetComponent<Image>());
+            state = PipeState.Empty;
         }
         else
         {
@@ -38,8 +46,21 @@ public class PipeButton : MonoBehaviour
                 // We are a vertical pipe. Rotate.
                 this.transform.Rotate(Vector3.forward, 90.0f);
             }
+
             UpdateSprite();
+
+            Game.Instance.OnSimTickFinished += OnSimTick;
         }
+    }
+
+    public void OnDestroy()
+    {
+        Game.Instance.OnSimTickFinished -= OnSimTick;
+    }
+
+    private void OnSimTick(Simulation simulation)
+    {
+        UpdateColor(simulation);    
     }
 
     public void Toggle()
@@ -91,18 +112,55 @@ public class PipeButton : MonoBehaviour
                 ButtonImage.sprite = emptySprite;
                 break;
         }
+        
+        UpdateColor(Game.Instance.Simulation);
+    }
 
+    private void UpdateColor(Simulation simulation)
+    {
         if ((x % 2 == 0) == (y % 2 == 0) && x % 2 == 0)
         {
             // Do nothing - this is not a pipe, but a sprinkler.
         }
         else if (state == PipeState.Empty)
         {
-            ButtonImage.color = new Color(1, 1, 1, 0.7f);
+            ButtonImage.color = noWaterColor;
         }
         else
         {
-            ButtonImage.color = new Color(1, 1, 1, 1);
+            float inverseWaterDist = GetInverseWaterDist(simulation.currentState);
+            if (inverseWaterDist <= float.Epsilon)
+            {
+                ButtonImage.color = noWaterColor;
+            }
+
+            ButtonImage.color = Color.Lerp(minWaterColor, maxWaterColor, inverseWaterDist);
         }
+    }
+
+    private float GetInverseWaterDist(CarGrid state)
+    {
+        float minDist1 = float.PositiveInfinity;
+
+        float minDist2 = float.PositiveInfinity;
+        if (x % 2 == 1)
+        {
+            minDist1 = state.GetWaterTravelDist(x / 2, y / 2);
+            minDist2 = state.GetWaterTravelDist(x / 2 + 1, y / 2);
+        }
+
+        else
+        {
+            minDist1 = state.GetWaterTravelDist(x / 2, y / 2);
+            minDist2 = state.GetWaterTravelDist(x / 2, y / 2 + 1);
+        }
+
+        if (float.IsInfinity(minDist1) || float.IsInfinity(minDist2))
+        {
+            return 0;
+        }
+
+        float avgDist = (minDist1 + minDist2) / 2;
+        return 1.0f - (avgDist / (state.Width * state.Height));
     }
 }

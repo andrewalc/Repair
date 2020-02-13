@@ -13,6 +13,8 @@ public class Simulation {
     // TODO: this should be a config val.
     public static int goodPlantHealth = 100;
 
+    public event Action<Simulation> OnSimTickFinished;
+
 	public event Action<GridSquare> plantSpawnEvent; 
 
     public Simulation(CarGrid grid, SimulationSettingsConfig config, int simNum) {
@@ -152,6 +154,10 @@ public class Simulation {
         }
 
         currentState.Sustainability = CalculateSustainability(currentState);
+
+        currentState.CalculateWaterDists();
+        
+        OnSimTickFinished?.Invoke(this);
     }
 
     int NumSurroundingObjects(CarGrid state, int x, int y, CarObjectType type) {

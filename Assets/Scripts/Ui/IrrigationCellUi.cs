@@ -10,6 +10,8 @@ public class IrrigationCellUi : MonoBehaviour
         /// Name of the variable
         public string name;
 
+        public Color color;
+        
         /// Value of the variable
         public Sprite sprite;
     }
@@ -99,6 +101,7 @@ public class IrrigationCellUi : MonoBehaviour
                 if (sts.name.Equals(spriteName))
                 {
                     img.sprite = sts.sprite;
+                    img.color = sts.color;
                     break;
                 }
             }

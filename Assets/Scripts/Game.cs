@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DarkConfig;
 using UnityEngine;
 using System.Collections.Generic;
@@ -71,6 +72,8 @@ public class Game : MonoBehaviour
     
     public delegate void OnBeginPlay();
     public event OnBeginPlay BeginPlay;
+    
+    public event Action<Simulation> OnSimTickFinished;
 
     public void BeginGame()
     {
@@ -135,7 +138,12 @@ public class Game : MonoBehaviour
     private IEnumerator GenerateNewCarInternal()
     {
         finishedGeneratingLevel = false;
-        LevelEnded?.Invoke(Simulation);
+
+        if (Simulation != null)
+        {
+            LevelEnded?.Invoke(Simulation);
+            Simulation.OnSimTickFinished -= SendSimTickFinished;
+        }
 
         CarGrid newGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
 
@@ -156,8 +164,15 @@ public class Game : MonoBehaviour
         CurrCarNum++;
         Tick.Instance.AddEventListener(newSim.Step);
 
+        newSim.OnSimTickFinished += SendSimTickFinished;
+        
         LevelGenerated?.Invoke(newSim);
         Debug.Log("Current sim num: " + carSims.Count + " curr car num: " + CurrCarNum);
+    }
+
+    private void SendSimTickFinished(Simulation sim)
+    {
+        OnSimTickFinished?.Invoke(sim);
     }
 
     public void GenerateNewCar()

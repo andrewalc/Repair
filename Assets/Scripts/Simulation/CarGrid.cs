@@ -137,6 +137,12 @@ public class CarGrid {
 
     public bool IsPipeConnected(GridSquare first, GridSquare second)
     {
+        if (first.ContainedObject.BlocksIrrigation() ||
+            second.ContainedObject.BlocksIrrigation())
+        {
+            return false;
+        }
+        
         if (first.Y == second.Y)
         {
             if (first.X + 1 == second.X)
@@ -198,6 +204,11 @@ public class CarGrid {
         return minWaterDists;
     }
 
+    public float GetWaterTravelDist(int x, int y)
+    {
+        return minWaterDists[x, y];
+    }
+    
     public void AddPipeBetween(int firstX, int firstY, int secondX, int secondY) {
         bool diffX = firstX != secondX;
         bool diffY = firstY != secondY;
@@ -220,6 +231,8 @@ public class CarGrid {
                 PipeConnections[secondX, secondY] |= PipeConnection.Left;
             }
         }
+
+        CalculateWaterDists();
     }
 
     public void UpgradeMachineAt(int x, int y) {
