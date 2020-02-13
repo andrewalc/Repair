@@ -31,6 +31,10 @@ public class IrrigationCellUi : MonoBehaviour
 
     [SerializeField] private Color unhealthyPlantColor;
 
+    [SerializeField] private Color waterFlowingColor;
+
+    [SerializeField] private Color noWaterFlowingColor;
+    
     void Awake()
     {
         img = GetComponent<Image>();
@@ -129,21 +133,29 @@ public class IrrigationCellUi : MonoBehaviour
 
     private void UpdateColor(Simulation simulation)
     {
-        if (type != CarObjectType.Plant)
+        if (type == CarObjectType.Empty)
         {
-            return;
+            if (simulation.currentState.IsWatered(x, y))
+            {
+                img.color = waterFlowingColor;
+            }
+            else
+            {
+                img.color = noWaterFlowingColor;
+            }
         }
-
-        if (simulation.currentState.IsWatered(x, y))
+        else if (type == CarObjectType.Plant)
         {
-            img.color = healthyPlantColor;
-        }
-        else
-        {
-            img.color = unhealthyPlantColor;
+            if (simulation.currentState.IsWatered(x, y))
+            {
+                img.color = healthyPlantColor;
+            }
+            else
+            {
+                img.color = unhealthyPlantColor;
+            }
         }
     }
-    
 
     public void OnClick()
     {
