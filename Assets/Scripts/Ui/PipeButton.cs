@@ -121,19 +121,22 @@ public class PipeButton : MonoBehaviour
         if ((x % 2 == 0) == (y % 2 == 0) && x % 2 == 0)
         {
             // Do nothing - this is not a pipe, but a sprinkler.
+            return;
         }
-        else if (state == PipeState.Empty)
+        
+        if (state == PipeState.Empty)
+        {
+            ButtonImage.color = noWaterColor;
+            return;
+        }
+        
+        float inverseWaterDist = GetInverseWaterDist(simulation.currentState);
+        if (inverseWaterDist <= float.Epsilon)
         {
             ButtonImage.color = noWaterColor;
         }
         else
         {
-            float inverseWaterDist = GetInverseWaterDist(simulation.currentState);
-            if (inverseWaterDist <= float.Epsilon)
-            {
-                ButtonImage.color = noWaterColor;
-            }
-
             ButtonImage.color = Color.Lerp(minWaterColor, maxWaterColor, inverseWaterDist);
         }
     }

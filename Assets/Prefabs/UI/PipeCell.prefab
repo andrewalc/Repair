@@ -144,6 +144,6 @@ MonoBehaviour:
   pipeSprite: {fileID: 21300000, guid: 12f86f3aa23e9e2be85dcc2875773a16, type: 3}
   emptySprite: {fileID: 21300000, guid: 230eadadb9ccc46a18722c9f0b7972fb, type: 3}
   ButtonImage: {fileID: 8722038459370083474}
-  minWaterColor: {r: 1, g: 1, b: 1, a: 1}
+  minWaterColor: {r: 0.34901962, g: 0.69803923, b: 1, a: 1}
   maxWaterColor: {r: 0.34901962, g: 0.69803923, b: 1, a: 1}
   noWaterColor: {r: 1, g: 1, b: 1, a: 1}
