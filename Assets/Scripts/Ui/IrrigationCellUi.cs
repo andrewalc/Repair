@@ -27,6 +27,10 @@ public class IrrigationCellUi : MonoBehaviour
 
     private bool sprinkler;
 
+    [SerializeField] private Color healthyPlantColor;
+
+    [SerializeField] private Color unhealthyPlantColor;
+
     void Awake()
     {
         img = GetComponent<Image>();
@@ -40,8 +44,22 @@ public class IrrigationCellUi : MonoBehaviour
         this.sprinkler = sprinkler;
         
         UpdateState();
+        
+        // Register for the SimTick. Prevent double-register.
+        Game.Instance.OnSimTickFinished -= OnSimTick;
+        Game.Instance.OnSimTickFinished += OnSimTick;
+    }
+    
+    public void OnDisable()
+    {
+        Game.Instance.OnSimTickFinished -= OnSimTick;
     }
 
+    private void OnSimTick(Simulation sim)
+    {
+        UpdateColor(sim);
+    }
+    
     private string DetermineSpriteName()
     {
         string spriteName;
@@ -102,11 +120,30 @@ public class IrrigationCellUi : MonoBehaviour
                 {
                     img.sprite = sts.sprite;
                     img.color = sts.color;
+                    UpdateColor(Game.Instance.Simulation);
                     break;
                 }
             }
         }
     }
+
+    private void UpdateColor(Simulation simulation)
+    {
+        if (type != CarObjectType.Plant)
+        {
+            return;
+        }
+
+        if (simulation.currentState.IsWatered(x, y))
+        {
+            img.color = healthyPlantColor;
+        }
+        else
+        {
+            img.color = unhealthyPlantColor;
+        }
+    }
+    
 
     public void OnClick()
     {

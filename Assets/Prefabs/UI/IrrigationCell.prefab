@@ -166,3 +166,5 @@ MonoBehaviour:
   - name: border
     color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
     sprite: {fileID: 21300000, guid: da168f470e5e44daf9d275ae196faeda, type: 3}
+  healthyPlantColor: {r: 0.37254903, g: 1, b: 0.3882353, a: 1}
+  unhealthyPlantColor: {r: 1, g: 1, b: 1, a: 1}
