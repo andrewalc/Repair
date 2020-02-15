@@ -4,10 +4,10 @@ using TMPro;
 
 public abstract class TextIntDisplay : MonoBehaviour
 {
-    private int amountToDisplay;
+    protected int amountToDisplay;
 
     [SerializeField]
-    private TMP_Text textToUpdate;
+    protected TMP_Text textToUpdate;
 
     protected virtual void Start()
     {
