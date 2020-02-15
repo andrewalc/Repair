@@ -266,11 +266,8 @@ public class Simulation
 
     private float CalculateSustainability(CarGrid newState)
     {
-        int numPlots = newState.SquaresEnumerable().Where((square) =>
-                !square.ContainedObject.BlocksIrrigation() && !square.ContainedObject.IsWaterSource())
-            .Count((square) => square.MinDistFromWaterSource < float.PositiveInfinity &&
-                               square.MinDistFromInitialPlants < float.PositiveInfinity);
-
+        int numPlots = newState.CalculatePossiblePlantPlots();
+            
         int goodPlantCount = newState.SquaresEnumerable().Select((square) => square.ContainedObject)
             .OfType<PlantCarObject>().Count(plant => plant.health > goodPlantHealth);
 

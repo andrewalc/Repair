@@ -23,4 +23,11 @@ public class CarGeneratorConfig
 
     public int numSpigotsMin = 1;
     public int numSpigotsMax = 1;
+    
+    public int minAvailablePlantPlots = 10;
+    public int maxAvailablePlantPlots = 30;
+    
+    public int maxLevelGenAttempts = 30;
+    
+    public float timeBudgetPerFrameMillis = 5.0f;
 }

@@ -3,8 +3,8 @@ width: 10
 height: 5
 
 # Number of machines to generate (random between min and max)
-numMachinesMin: 2
-numMachinesMax: 5
+numMachinesMin: 6
+numMachinesMax: 10
 
 # Probability of hydro machine type
 machineTypeProbabilities:
@@ -12,17 +12,27 @@ machineTypeProbabilities:
     Aero : 0.3
 
 # Number of obstacles to generate (random between min and max)
-numObstaclesMin: 5
-numObstaclesMax: 10
+numObstaclesMin: 10
+numObstaclesMax: 20
 
 # Number of plants to generate (random between min and max)
 numPlantsMin: 3
 numPlantsMax: 6
 
 # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
-plantDistanceDifficultyRatioMin: 0.5
-plantDistanceDifficultyRatioMax: 0.8
+plantDistanceDifficultyRatioMin: 0.1
+plantDistanceDifficultyRatioMax: 0.4
 
 # Number of spigots to generate (random between min and max)
 numSpigotsMin: 1
 numSpigotsMax: 1
+
+# Minimum and maximum number of eventually-available places for plants to grow.
+minAvailablePlantPlots: 15
+maxAvailablePlantPlots: 25
+
+# Max level generation attempts before we give up.
+maxLevelGenAttempts: 30
+
+# Maximum time per frame to budget for generation
+timeBudgetPerFrameMillis: 10.0

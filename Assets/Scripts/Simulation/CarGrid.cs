@@ -387,4 +387,13 @@ public class CarGrid {
     {
         ResourceChanged?.Invoke(oldValue, resource);
     }
+
+    public int CalculatePossiblePlantPlots()
+    {
+        return this.SquaresEnumerable().Where((square) =>
+                     !square.ContainedObject.BlocksIrrigation() && !square.ContainedObject.IsWaterSource())
+                 .Count((square) => square.MinDistFromWaterSource < float.PositiveInfinity &&
+                                    square.MinDistFromInitialPlants < float.PositiveInfinity);
+
+    }
 }

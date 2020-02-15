@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public abstract class CoroutineCarGenerator : ICarGenerator
 {
@@ -27,6 +29,17 @@ public abstract class CoroutineCarGenerator : ICarGenerator
         }
     }
 
+    protected float PerFrameBudget
+    {
+        get { return Config.timeBudgetPerFrameMillis; }
+    }
+
+    protected Stopwatch Timer
+    {
+        get;
+        private set;
+    }
+
     public delegate IEnumerator GenerationProcess();
     private GenerationProcess generationProcess;
 
@@ -34,6 +47,8 @@ public abstract class CoroutineCarGenerator : ICarGenerator
     {
         this.host = host;
         this.config = config;
+        
+        Timer = new Stopwatch();
     }
 
     public CoroutineCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse)
@@ -41,6 +56,8 @@ public abstract class CoroutineCarGenerator : ICarGenerator
         this.host = host;
         this.config = config;
         this.resultGrid = gridToUse;
+        
+        Timer = new Stopwatch();
     }
 
     public void Start()

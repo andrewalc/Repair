@@ -103,9 +103,6 @@ public class Game : MonoBehaviour
         ICarGenerator carGenerator = new SimpleFullCarGenerator(this, config, carGrid, random);
         carGenerator.RegisterOnComplete(() =>
         {
-            // Init remaining calculated values in CarGrid.
-            carGrid.RecalculateExtraInfo();
-            
             finishedGeneratingLevel = true;
         });
         carGenerator.Start();

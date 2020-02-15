@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Diagnostics;
 
 public abstract class SimpleCarObjectPlacer : CoroutineCarGenerator
 {
@@ -11,7 +12,7 @@ public abstract class SimpleCarObjectPlacer : CoroutineCarGenerator
         get;
         private set;
     }
-
+    
     public SimpleCarObjectPlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
     {
         Random = random;
@@ -21,6 +22,9 @@ public abstract class SimpleCarObjectPlacer : CoroutineCarGenerator
     {
         int numCarObjectsToGenerate = GetNumObjectsToGenerate();
 
+        float startTime = Timer.ElapsedMilliseconds;
+        Timer.Start();
+        
         for ( int i = 0; i < numCarObjectsToGenerate; ++i)
         {
             IEnumerable<GridSquare> possibleSquares = ResultGrid.SquaresEnumerable().Where(
@@ -40,7 +44,13 @@ public abstract class SimpleCarObjectPlacer : CoroutineCarGenerator
 
             ResultGrid.SetSquare(selectedSquare);
 
-            yield return null;
+            if (Timer.ElapsedMilliseconds - startTime > PerFrameBudget)
+            {
+                Timer.Stop();
+                yield return null;
+                startTime = Timer.ElapsedMilliseconds;
+                Timer.Start();
+            }
         }
     }
 

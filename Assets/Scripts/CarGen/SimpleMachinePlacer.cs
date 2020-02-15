@@ -24,7 +24,6 @@ public class SimpleMachinePlacer : SimpleCarObjectPlacer
         {
             MachineType = possibleMachineTypes.ElementAt(selectedTypeIdx)
         };
-        Debug.Log("Machine: " + machineObject.MachineType);
 
         return machineObject;
     }

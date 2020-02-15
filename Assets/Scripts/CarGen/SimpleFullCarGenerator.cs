@@ -9,7 +9,8 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     private System.Random random;
 
-    public SimpleFullCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
+    public SimpleFullCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse,
+        System.Random random) : base(host, config, gridToUse)
     {
         this.random = random;
 
@@ -28,29 +29,63 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
     protected override IEnumerator PlaceObjects()
     {
         bool validLevel = false;
-        while (!validLevel)
+        int attempts = 0;
+
+        float startTime = Timer.ElapsedMilliseconds;
+        Timer.Start();
+
+        while (!validLevel && attempts < Config.maxLevelGenAttempts)
         {
+            ++attempts;
             foreach (ICarGenerator generator in subGenerators)
             {
                 bool generatorComplete = false;
-                GenerationComplete eventHandler = () =>
-                {
-                    generatorComplete = true;
-                };
+                GenerationComplete eventHandler = () => { generatorComplete = true; };
 
                 generator.RegisterOnComplete(eventHandler);
 
                 generator.Start();
-                yield return new WaitUntil(() => generatorComplete);
+                WaitUntil generatorWait = new WaitUntil(() => generatorComplete);
+                while (generatorWait.MoveNext())
+                {
+                    if (Timer.ElapsedMilliseconds - startTime > PerFrameBudget)
+                    {
+                        Timer.Stop();
+                        yield return null;
+                        startTime = Timer.ElapsedMilliseconds;
+                        Timer.Start();
+                    }
+                }
 
                 generator.UnregisterOnComplete(eventHandler);
+            }
+
+            // Init remaining calculated values in CarGrid.
+            ResultGrid.RecalculateExtraInfo();
+
+            if (attempts >= Config.maxLevelGenAttempts)
+            {
+                Debug.Log("Max level gen attempts reached, level constraints ignored.");
+                break;
             }
 
             validLevel = CheckLevelConstraints(ResultGrid);
             if (!validLevel)
             {
-                Debug.Log("Invalid level, re-generating.");
+                //Debug.Log("Invalid level, re-generating.");
                 ResultGrid.Clear();
+            }
+            else
+            {
+                break;
+            }
+
+            if (Timer.ElapsedMilliseconds - startTime > PerFrameBudget)
+            {
+                Timer.Stop();
+                yield return null;
+                startTime = Timer.ElapsedMilliseconds;
+                Timer.Start();
             }
         }
     }
@@ -58,13 +93,26 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
     private bool CheckLevelConstraints(CarGrid grid)
     {
         // Check if there is at least one plant.
-        if (grid.SquaresEnumerable().Select((square) => square.ContainedObject.Type == CarObjectType.Plant).Count() == 0)
+        if (!grid.SquaresEnumerable().Select((square) => square.ContainedObject.Type == CarObjectType.Plant).Any())
         {
-            Debug.Log("Level does not have any plants.");
+            //Debug.Log("Level does not have any plants.");
             return false;
         }
 
+        int possiblePlantPlots = grid.CalculatePossiblePlantPlots();
+        if (possiblePlantPlots < Config.minAvailablePlantPlots)
+        {
+            //Debug.Log("Level does not have enough eventual plant plots.");
+            return false;
+        }
+
+        if (possiblePlantPlots > Config.maxAvailablePlantPlots)
+        {
+            //Debug.Log("Level has too many eventual plant plots.");
+            return false;
+        }
+
+
         return true;
     }
-
 }

@@ -21,6 +21,9 @@ public abstract class DistanceBasedCarObjectPlacer : CoroutineCarGenerator
     {
         int numCarObjectsToGenerate = GetNumObjectsToGenerate();
 
+        float startTime = Timer.ElapsedMilliseconds;
+        Timer.Start();
+        
         for (int i = 0; i < numCarObjectsToGenerate; ++i)
         {
             IEnumerable<GridSquare> possibleSquares = ResultGrid.SquaresEnumerable().Where(
@@ -54,7 +57,7 @@ public abstract class DistanceBasedCarObjectPlacer : CoroutineCarGenerator
 
             if (sortedPossibleSquares.Count() <= 0)
             {
-                Debug.LogWarning("Warning: No valid squares for object.");
+                //Debug.LogWarning("Warning: No valid squares for object.");
                 break;
             }
 
@@ -74,7 +77,13 @@ public abstract class DistanceBasedCarObjectPlacer : CoroutineCarGenerator
 
             ResultGrid.SetSquare(selectedSquare);
 
-            yield return null;
+            if (Timer.ElapsedMilliseconds - startTime > PerFrameBudget)
+            {
+                Timer.Stop();
+                yield return null;
+                startTime = Timer.ElapsedMilliseconds;
+                Timer.Start();
+            }
         }
     }
 

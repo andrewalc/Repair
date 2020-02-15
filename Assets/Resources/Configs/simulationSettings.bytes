@@ -1,58 +1,49 @@
 # tickSpeed of auto resource generation in seconds
-tickSpeed: 2
+tickSpeed: 1.0
 
 plantStartingHealth: 75
 plantMaxHealth: 150
 
-baseWaterGenRate: 1
-hydroWaterGenRate: 2
-aeroWaterGenRate: 1
-sprinklerUseRate: 1
+maxResourceValues:
+    PlantMatter: 9999
+    AirQuality: 100
+    Water: 100
+
+baseWaterGenRate: 0
+hydroWaterGenRate: 0.5
+aeroWaterGenRate: 0.25
+sprinklerUseRate: 0.5
 
 irrigationRefundMultiplier: 0.5
 
 # Air Quality
 hydroPollutionRate: 1
 aeroPollutionRate: 2
-plantAQGenRate: 0.25
+plantAQGenRate: 1
 
 # Plant Material
-basePMGenRate: 2
-badPMCoefficient: 0.5
-neutralPMCoefficient: 1
-goodPMCoefficient: 1.5
+basePMGenRate: 0.5
+badPMCoefficient: 0.2
+neutralPMCoefficient: 0.5
+goodPMCoefficient: 1
 
 # Plant Health
-lifeRate: 12.5
-deathRate: 25
+lifeRate: 1
+deathRate: 0.5
 badAQCoefficient: .75
 badAQThreshold: 30
 
 # Item costs
-pipePrice: 2
-sprinklerPrice: 5
-avgReclaimCost: 20
+pipePrice: 10
+sprinklerPrice: 20
+avgReclaimCost: 100
 
-baseReproductionChance: 0.1
-goodReproductionChanceCoefficient: 1.5
+baseReproductionChance: 0.01
+goodReproductionChanceCoefficient: 4
 neutralReproductionChanceCoefficient: 1
-badReproductionChanceCoefficient: 0.5
+badReproductionChanceCoefficient: 0.2
 
 maxMachineLevel: 3
-
-# How much the plant health changes every ticksBeforePlantHealthChanges ticks.
-# Added if it's adequately watered, subtracted if it's not.
-plantWateredHealthGain: 10
-
-# How many ticks between watered-state-driven health changes for a plant.
-ticksBeforePlantHealthChanges: 3
-
-# How much plant matter a plant produces as a multiple of its health.
-# e.g. a plant with 120 health will produce 120 * 0.2 = 24 plant matter per tick.
-plantMatterHealthMultiplier: 0.2
-
-# Chance that a plant will reproduce to an adjacent square in a tick as a multiple of its health.
-plantChanceOfReproducingMultiplier: 0.1
 
 # Test grid for simulation work.
 testGrids:
