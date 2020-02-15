@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4245283, g: 1, b: 0.50404084, a: 0.69411767}
+  m_Color: {r: 0.46666667, g: 0.84705883, b: 0.50404084, a: 0.69411767}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -143,10 +143,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteMap:
   - name: machine
-    color: {r: 0.9811321, g: 0.37023854, b: 0.37023854, a: 1}
+    color: {r: 1, g: 0.42745098, b: 0.42745098, a: 1}
     sprite: {fileID: 21300000, guid: a1ad162e1c59b48b2812474749ce227d, type: 3}
   - name: obstacle
-    color: {r: 0.98039216, g: 0.36862746, b: 0.36862746, a: 1}
+    color: {r: 1, g: 0.42745098, b: 0.42745098, a: 1}
     sprite: {fileID: 21300000, guid: 35d33c40b015a446a9e17d33a2b923d2, type: 3}
   - name: pipe
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,18 +155,18 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     sprite: {fileID: 21300000, guid: 53a609be3893a4e29aa8bcb3e9800450, type: 3}
   - name: plantwithsprinkler
-    color: {r: 0.37254903, g: 1, b: 0.3882353, a: 1}
+    color: {r: 0.46652934, g: 0.84708935, b: 0.506096, a: 1}
     sprite: {fileID: 21300000, guid: 66f441491e0fb47d89d69a7957cefdb1, type: 3}
   - name: sprinkler
     color: {r: 1, g: 1, b: 1, a: 1}
     sprite: {fileID: 21300000, guid: b99ac39db32d84c009f466ebece43e4f, type: 3}
   - name: spigot
-    color: {r: 0.3490566, g: 0.6979829, b: 1, a: 1}
+    color: {r: 0.34879074, g: 0.7019913, b: 1, a: 1}
     sprite: {fileID: 21300000, guid: 39adf7c988fe64e71a6b0302056de8d5, type: 3}
   - name: border
     color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
     sprite: {fileID: 21300000, guid: da168f470e5e44daf9d275ae196faeda, type: 3}
-  healthyPlantColor: {r: 0.37254903, g: 1, b: 0.3882353, a: 1}
+  healthyPlantColor: {r: 0.46666667, g: 0.84705883, b: 0.5058824, a: 1}
   unhealthyPlantColor: {r: 1, g: 1, b: 1, a: 1}
-  waterFlowingColor: {r: 0.34901962, g: 0.69803923, b: 1, a: 1}
+  waterFlowingColor: {r: 0.34901962, g: 0.7019608, b: 1, a: 1}
   noWaterFlowingColor: {r: 1, g: 1, b: 1, a: 1}
