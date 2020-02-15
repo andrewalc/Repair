@@ -12,6 +12,8 @@ public class SimulationSettingsConfig
     public float aeroWaterGenRate;
     public float sprinklerUseRate;
 
+    public float irrigationRefundMultiplier;
+
     public int maxMachineLevel;
 
     // Air Quality

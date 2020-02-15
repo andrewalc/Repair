@@ -73,30 +73,20 @@ public class PipeButton : MonoBehaviour
             return;
         }
 
-        // can we afford it?
-        if (gameState.plantMatter < Game.Instance.SimulationSettings.pipePrice)
-        {
-            Debug.Log("Can't afford the pipe");
-            return;
-        }
-
-        if (state == PipeState.Pipe)
-        {
-            // Can't add a pipe in a place where we already have one.
-            return;
-        }
-
-        gameState.plantMatter -= Game.Instance.SimulationSettings.pipePrice;
-
+        bool success;
         if (y % 2 == 1)
         {
-            gameState.AddPipeBetween(x / 2, (y - 1) / 2, x / 2, (y + 1) / 2);
+            success = gameState.TogglePipeBetween(x / 2, (y - 1) / 2, x / 2, (y + 1) / 2);
         }
         else
         {
-            gameState.AddPipeBetween((x - 1) / 2, y / 2, (x + 1) / 2, y / 2);
+            success = gameState.TogglePipeBetween((x - 1) / 2, y / 2, (x + 1) / 2, y / 2);
         }
 
+        if (!success)
+        {
+            return;
+        }
         state = state == PipeState.Empty ? PipeState.Pipe : PipeState.Empty;
         UpdateSprite();
     }

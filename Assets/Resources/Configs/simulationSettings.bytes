@@ -9,6 +9,8 @@ hydroWaterGenRate: 2
 aeroWaterGenRate: 1
 sprinklerUseRate: 1
 
+irrigationRefundMultiplier: 0.5
+
 # Air Quality
 hydroPollutionRate: 1
 aeroPollutionRate: 2

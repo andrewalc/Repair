@@ -161,19 +161,7 @@ public class IrrigationCellUi : MonoBehaviour
     {
         var gameState = Game.Instance.Simulation.currentState;
 
-        if (gameState.Sprinklers[x, y])
-        {
-            return;
-        }
-
-        // can we afford it?
-        if (gameState.plantMatter < Game.Instance.SimulationSettings.sprinklerPrice)
-        {
-            Debug.Log("Can't afford the sprinkler");
-            return;
-        }
-
-        gameState.BuySprinkler(x,y);
+        gameState.ToggleSprinkler(x,y);
         this.sprinkler = gameState.Sprinklers[x, y];
 
         UpdateState();

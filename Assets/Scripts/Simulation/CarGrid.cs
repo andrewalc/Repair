@@ -142,7 +142,12 @@ public class CarGrid {
         {
             return false;
         }
-        
+
+        return IsPipePlaced(first, second);
+    }
+
+    private bool IsPipePlaced(GridSquare first, GridSquare second)
+    {
         if (first.Y == second.Y)
         {
             if (first.X + 1 == second.X)
@@ -168,6 +173,7 @@ public class CarGrid {
 
         return false;
     }
+    
 
     private void InitWaterDists()
     {
@@ -209,42 +215,70 @@ public class CarGrid {
         return minWaterDists[x, y];
     }
     
-    public void AddPipeBetween(int firstX, int firstY, int secondX, int secondY) {
+    public bool TogglePipeBetween(int firstX, int firstY, int secondX, int secondY) {
         bool diffX = firstX != secondX;
         bool diffY = firstY != secondY;
+
+        if (IsPipePlaced(Squares[firstX, firstY], Squares[secondX, secondY]))
+        {
+            plantMatter += Game.Instance.SimulationSettings.pipePrice *
+                           Game.Instance.SimulationSettings.irrigationRefundMultiplier;
+        }
+        else
+        {
+            // can we afford it?
+            if (plantMatter < Game.Instance.SimulationSettings.pipePrice)
+            {
+                Debug.Log("Can't afford the pipe");
+                return false;
+            }
+
+            plantMatter -= Game.Instance.SimulationSettings.pipePrice;
+        }
 
         if (!diffX && diffY) {
             if (firstY > secondY) {
                 // Y goes down as we approach the bottom of the car, so if the first is higher, it now has a bottom connection.
-                PipeConnections[firstX, firstY] |= PipeConnection.Bottom;
-                PipeConnections[secondX, secondY] |= PipeConnection.Top;
+                PipeConnections[firstX, firstY] ^= PipeConnection.Bottom;
+                PipeConnections[secondX, secondY] ^= PipeConnection.Top;
             } else {
-                PipeConnections[firstX, firstY] |= PipeConnection.Top;
-                PipeConnections[secondX, secondY] |= PipeConnection.Bottom;
+                PipeConnections[firstX, firstY] ^= PipeConnection.Top;
+                PipeConnections[secondX, secondY] ^= PipeConnection.Bottom;
             }
         } else if (!diffY && diffX) {
             if (firstX > secondX) {
-                PipeConnections[firstX, firstY] |= PipeConnection.Left;
-                PipeConnections[secondX, secondY] |= PipeConnection.Right;
+                PipeConnections[firstX, firstY] ^= PipeConnection.Left;
+                PipeConnections[secondX, secondY] ^= PipeConnection.Right;
             } else {
-                PipeConnections[firstX, firstY] |= PipeConnection.Right;
-                PipeConnections[secondX, secondY] |= PipeConnection.Left;
+                PipeConnections[firstX, firstY] ^= PipeConnection.Right;
+                PipeConnections[secondX, secondY] ^= PipeConnection.Left;
             }
         }
 
         CalculateWaterDists();
+
+        return true;
     }
 
-    public void BuySprinkler(int x, int y)
+    public bool ToggleSprinkler(int x, int y)
     {
-        if (plantMatter < Game.Instance.SimulationSettings.sprinklerPrice)
+        if (Sprinklers[x, y])
         {
-            Debug.Log("Can't afford the sprinkler");
-            return;
+            plantMatter += Game.Instance.SimulationSettings.sprinklerPrice * Game.Instance.SimulationSettings.irrigationRefundMultiplier;
         }
-        
-        plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
-        Sprinklers[x, y] = true;
+        else
+        {
+            if (plantMatter < Game.Instance.SimulationSettings.sprinklerPrice)
+            {
+                Debug.Log("Can't afford the sprinkler");
+                return false;
+            }
+            
+            plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
+        }
+
+        Sprinklers[x, y] = !Sprinklers[x,y];
+        return true;
     }
     
     public void UpgradeMachineAt(int x, int y) {
