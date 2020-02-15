@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class ResourceDisplay : MonoBehaviour
 {
@@ -7,14 +8,21 @@ public abstract class ResourceDisplay : MonoBehaviour
 
     [SerializeField]
     private Material material;
+	[SerializeField]
+	private TMP_Text valueText;
 
     protected abstract ResourceType TypeID { get; }
+
+	//Just so we stop having git issues with the damn materials
+	private float startFillAmount;
 
     void Start()
     {
         Game.Instance.OnSimTickFinished += UpdateLevel;
 
         Game.Instance.ResourceChanged += OnResourceChanged;
+
+		startFillAmount = material.GetFloat("_Level");
     }
     
     public void UpdateLevel(Simulation sim)
@@ -27,6 +35,7 @@ public abstract class ResourceDisplay : MonoBehaviour
         levelToDisplay = UpdateLevelToDisplay(sim);
 
         material.SetFloat("_Level", levelToDisplay/100.0f);
+		valueText.text = Mathf.Round(levelToDisplay).ToString();
     }
 
     private void OnResourceChanged(Simulation sim, float oldValue, ResourceEntry newValue)
@@ -40,4 +49,9 @@ public abstract class ResourceDisplay : MonoBehaviour
     }
 
     protected abstract float UpdateLevelToDisplay(Simulation sim);
+
+	private void OnDestroy()
+	{
+		material.SetFloat("_Level", startFillAmount);
+	}
 }
