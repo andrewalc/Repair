@@ -16,11 +16,15 @@ public class Simulation
 
     public event Action<Simulation> OnSimTickFinished;
 
-    public event Action<GridSquare> plantSpawnEvent;
+    public event Action<GridSquare> PlantSpawnEvent;
+
+    public delegate void ResourceChangedEvent(float oldValue, ResourceEntry newEntry);
+    public event ResourceChangedEvent ResourceChanged;
 
     public Simulation(CarGrid grid, SimulationSettingsConfig config, int simNum)
     {
         currentState = grid.Clone();
+        currentState.ResourceChanged += OnResourceChanged;
 
         SimNum = simNum;
 
@@ -56,12 +60,17 @@ public class Simulation
         this.config = config;
     }
 
+    private void OnResourceChanged(float oldValue, ResourceEntry resource)
+    {
+        ResourceChanged?.Invoke(oldValue, resource);
+    }
+
     public void Step()
     {
         var oldState = currentState.Clone();
 
         // ============= Update water levels =============
-        currentState.waterLevel += config.baseWaterGenRate;
+        float waterLevelChange = config.baseWaterGenRate;
         for (int x = 0; x < oldState.Width; ++x)
         {
             for (int y = 0; y < oldState.Height; ++y)
@@ -71,17 +80,20 @@ public class Simulation
                     MachineCarObject machineObj = (MachineCarObject) oldState.Squares[x, y].ContainedObject;
                     if (machineObj.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        currentState.waterLevel += config.hydroWaterGenRate * machineObj.level;
+                        waterLevelChange += config.hydroWaterGenRate * machineObj.level;
                     }
                     else
                     {
-                        currentState.waterLevel += config.aeroWaterGenRate * machineObj.level;
+                        waterLevelChange += config.aeroWaterGenRate * machineObj.level;
                     }
                 }
             }
         }
 
+        currentState.ChangeResource(ResourceType.Water, waterLevelChange);
+
         // ============= Update air quality =============
+        float airQualityChange = 0.0f;
         for (int x = 0; x < oldState.Width; ++x)
         {
             for (int y = 0; y < oldState.Height; ++y)
@@ -92,21 +104,27 @@ public class Simulation
                     var machine = (MachineCarObject) contained;
                     if (machine.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        currentState.airQuality -= (config.maxMachineLevel - machine.level) /
+                        airQualityChange -= (config.maxMachineLevel - machine.level) /
                             (float) config.maxMachineLevel * config.hydroPollutionRate;
                     }
                     else
                     {
-                        currentState.airQuality -= (config.maxMachineLevel - machine.level) /
+                        airQualityChange -= (config.maxMachineLevel - machine.level) /
                             (float) config.maxMachineLevel * config.aeroPollutionRate;
                     }
                 }
                 else if (contained.Type == CarObjectType.Plant)
                 {
-                    currentState.airQuality += config.plantAQGenRate;
+                    airQualityChange += config.plantAQGenRate;
                 }
             }
         }
+
+        currentState.ChangeResource(ResourceType.AirQuality, airQualityChange);
+
+        float waterLevel = currentState.GetResourceValue(ResourceType.Water);
+
+        float plantMatterChange = 0;
 
         // ============= Update plants =============
         foreach (GridSquare square in oldState.SquaresEnumerable()
@@ -139,7 +157,7 @@ public class Simulation
                         if (Random.value <= chance)
                         {
                             currentState.Squares[x, y].ContainedObject = new PlantCarObject();
-                            plantSpawnEvent?.Invoke(currentState.Squares[x, y]);
+                            PlantSpawnEvent?.Invoke(currentState.Squares[x, y]);
                             break;
                         }
                     }
@@ -156,26 +174,26 @@ public class Simulation
                     bool isWatered = oldState.IsWatered(x, y);
                     if (isWatered)
                     {
-                        if (currentState.waterLevel <= 0.0f)
+                        if (waterLevel <= 0.0f)
                         {
                             // If there is no water left, we're not watered.
                             isWatered = false;
                         }
 
-                        if (currentState.waterLevel < config.sprinklerUseRate)
+                        if (waterLevel < config.sprinklerUseRate)
                         {
-                            currentState.waterLevel = 0;
+                            waterLevel = 0;
                         }
                         else
                         {
-                            currentState.waterLevel -= config.sprinklerUseRate;
+                            waterLevel -= config.sprinklerUseRate;
                         }
                     }
 
                     // ============= Update plant health =============
 
                     var delta = isWatered ? config.lifeRate : -config.deathRate;
-                    if (isWatered && oldState.airQuality <= config.badAQThreshold)
+                    if (isWatered && oldState.GetResourceValue(ResourceType.AirQuality) <= config.badAQThreshold)
                     {
                         delta *= config.badAQCoefficient;
                     }
@@ -198,7 +216,7 @@ public class Simulation
                         deltaPlantMatter *= config.badPMCoefficient;
                     }
 
-                    currentState.plantMatter += deltaPlantMatter;
+                    plantMatterChange += deltaPlantMatter;
                 }
                     break;
                 case CarObjectType.Spigot:
@@ -209,6 +227,9 @@ public class Simulation
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        currentState.SetResource(ResourceType.Water, waterLevel);
+        currentState.ChangeResource(ResourceType.PlantMatter, plantMatterChange);
 
         currentState.Sustainability = CalculateSustainability(currentState);
 

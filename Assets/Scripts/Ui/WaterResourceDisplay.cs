@@ -3,8 +3,13 @@ using UnityEngine.UI;
 
 public class WaterResourceDisplay : ResourceDisplay
 {
-    protected override float UpdateLevelToDisplay()
+    protected override ResourceType TypeID
     {
-        return Game.Instance.Simulation.currentState.waterLevel;
+        get { return ResourceType.Water; }
+    }
+
+    protected override float UpdateLevelToDisplay(Simulation sim)
+    {
+        return sim.currentState.GetResourceValue(ResourceType.Water);
     }
 }

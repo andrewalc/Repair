@@ -16,7 +16,7 @@ public class CarElementsGenerator : MonoBehaviour
         awaitingRequestGeneration = false;
         if (Game.Instance.Simulation != null)
         {
-            Game.Instance.Simulation.plantSpawnEvent += generateCarElement;
+            Game.Instance.Simulation.PlantSpawnEvent += generateCarElement;
         }
     }
 
@@ -30,7 +30,7 @@ public class CarElementsGenerator : MonoBehaviour
         Game.Instance.LevelGenerated += OnLevelGenerated;
         if (Game.Instance.Simulation != null)
         {
-            Game.Instance.Simulation.plantSpawnEvent -= generateCarElement;
+            Game.Instance.Simulation.PlantSpawnEvent -= generateCarElement;
         }
 
         Game.Instance.GenerateNewCar();
@@ -45,7 +45,7 @@ public class CarElementsGenerator : MonoBehaviour
             carGrid = newSim.currentState;
             generateGrid();
             awaitingRequestGeneration = false;
-            newSim.plantSpawnEvent += generateCarElement;
+            newSim.PlantSpawnEvent += generateCarElement;
         }
     }
     

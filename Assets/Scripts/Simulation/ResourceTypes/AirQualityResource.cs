@@ -1,20 +1,11 @@
-public static class AirQualityResource
+public class AirQualityResource : ResourceEntry
 {
-    public static float value;
-    public static float max;
-
-    public static void changeAirQuality(float change)
+    public AirQualityResource(float max) : base(max)
     {
-        value += change;
-        
-        if (value < 0)
-        {
-            value = 0;
-        }
+    }
 
-        if (value > max)
-        {
-            value = max;
-        }
+    public override ResourceType TypeID
+    {
+        get { return ResourceType.AirQuality; }
     }
 }

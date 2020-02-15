@@ -14,7 +14,7 @@ public class HydroMachine : MonoBehaviour
 
     void addPollution()
     {
-        AirQualityResource.changeAirQuality(PollutionRate);
-        print(AirQualityResource.value);
+        /*AirQualityResource.changeAirQuality(PollutionRate);
+        print(AirQualityResource.value);*/
     }
 }

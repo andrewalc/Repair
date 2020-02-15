@@ -14,7 +14,21 @@ public class Tick : MonoBehaviour
     private void Start()
     {
         _timeUntilTick = _timePerTick;
+        if (Game.Instance.finishedLoadingConfigs)
+        {
+            OnGameLoaded();
+        }
+        else
+        {
+            Game.Instance.GameLoaded += OnGameLoaded;
+        }
+        
         paused = true;
+    }
+
+    private void OnGameLoaded()
+    {
+        _timePerTick = Game.Instance.SimulationSettings.tickSpeed;
     }
 
     public void UnPause()

@@ -1,20 +1,11 @@
-﻿public static class WaterResource
+﻿public class WaterResource : ResourceEntry
 {
-    public static float value;
-    public static float max;
-
-    public static void updateWater(float amount)
+    public WaterResource(float max) : base(max)
     {
-        value += amount;
-        
-        if (value < 0)
-        {
-            value = 0;
-        }
+    }
 
-        if (value > max)
-        {
-            value = max;
-        }
+    public override ResourceType TypeID
+    {
+        get { return ResourceType.Water; }
     }
 }

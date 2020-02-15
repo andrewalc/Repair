@@ -21,7 +21,7 @@ public class IrrigationUI : MonoBehaviour
 
     void OnDestroy()
     {
-        Game.Instance.Simulation.plantSpawnEvent -= OnPlantSpawned;
+        Game.Instance.Simulation.PlantSpawnEvent -= OnPlantSpawned;
         Game.Instance.LevelGenerated -= OnLevelGenerated;
         Game.Instance.LevelEnded -= OnLevelEnded;
         HoverManager.Instance.disabled = false;
@@ -29,7 +29,7 @@ public class IrrigationUI : MonoBehaviour
 
     public void Close()
     {
-        Game.Instance.Simulation.plantSpawnEvent -= OnPlantSpawned;
+        Game.Instance.Simulation.PlantSpawnEvent -= OnPlantSpawned;
         Game.Instance.LevelGenerated -= OnLevelGenerated;
         Game.Instance.LevelEnded -= OnLevelEnded;
         UiDisable.Instance.disabled = false;
@@ -40,7 +40,7 @@ public class IrrigationUI : MonoBehaviour
     {
         Game.Instance.LevelGenerated += OnLevelGenerated;
         Game.Instance.LevelEnded += OnLevelEnded;
-        Game.Instance.Simulation.plantSpawnEvent += OnPlantSpawned;
+        Game.Instance.Simulation.PlantSpawnEvent += OnPlantSpawned;
 
         foreach (Transform child in cellGrid.transform)
         {
@@ -94,7 +94,7 @@ public class IrrigationUI : MonoBehaviour
 
     private void OnLevelEnded(Simulation sim)
     {
-        sim.plantSpawnEvent -= OnPlantSpawned;
+        sim.PlantSpawnEvent -= OnPlantSpawned;
         Close();
     }
 

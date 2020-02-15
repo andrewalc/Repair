@@ -10,13 +10,13 @@ public class PurchaseMachineUpgrade : MonoBehaviour
             MachineObject machineState = GetComponent<MachineObject>();
             MachineCarObject square = (MachineCarObject) machineState.square.ContainedObject;
 
-            float plantMatter = Game.Instance.Simulation.currentState.plantMatter;
+            float plantMatter = Game.Instance.Simulation.currentState.GetResourceValue(ResourceType.PlantMatter);
             float upgradeCost = Game.Instance.SimulationSettings.avgReclaimCost;
 
             if (square.level > 0 && plantMatter > upgradeCost)
             {
                 Game.Instance.Simulation.currentState.UpgradeMachineAt(machineState.square.X, machineState.square.Y);
-                Game.Instance.Simulation.currentState.plantMatter -= upgradeCost;
+                Game.Instance.Simulation.currentState.ChangeResource(ResourceType.PlantMatter, -upgradeCost);
             }
         }
     }

@@ -3,9 +3,12 @@
 [ConfigMandatory]
 public class SimulationSettingsConfig
 {
+    
     public float tickSpeed;
     public float plantStartingHealth;
     public float plantMaxHealth;
+    
+    public Dictionary<ResourceType, float> maxResourceValues;
     
     public float baseWaterGenRate;
     public float hydroWaterGenRate;

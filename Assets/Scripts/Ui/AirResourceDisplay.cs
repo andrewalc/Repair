@@ -3,8 +3,13 @@ using UnityEngine.UI;
 
 public class AirResourceDisplay : ResourceDisplay
 {
-    protected override float UpdateLevelToDisplay()
+    protected override ResourceType TypeID
     {
-        return Game.Instance.Simulation.currentState.airQuality;
+        get { return ResourceType.AirQuality; }
+    }
+
+    protected override float UpdateLevelToDisplay(Simulation sim)
+    {
+        return sim.currentState.GetResourceValue(ResourceType.AirQuality);
     }
 }

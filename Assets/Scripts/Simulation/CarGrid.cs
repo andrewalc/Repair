@@ -28,17 +28,19 @@ public class CarGrid {
 
     private float[,] minWaterDists;
     
-    public float airQuality = 0;
-    public float plantMatter = 0;
-    public float waterLevel = 0;
-
     public float Sustainability = 0;
+
+    private ResourceManager resources = new ResourceManager();
 
     public int Width => Squares.GetLength(0);
     public int Height => Squares.GetLength(1);
 
+    public event Simulation.ResourceChangedEvent ResourceChanged;
+
     public CarGrid(int width, int height) {
         Init(width, height);
+        
+        resources.ResourceChanged += OnResourceChanged;
     }
 
     public void Clear()
@@ -221,19 +223,19 @@ public class CarGrid {
 
         if (IsPipePlaced(Squares[firstX, firstY], Squares[secondX, secondY]))
         {
-            plantMatter += Game.Instance.SimulationSettings.pipePrice *
-                           Game.Instance.SimulationSettings.irrigationRefundMultiplier;
+            ChangeResource(ResourceType.PlantMatter, Game.Instance.SimulationSettings.pipePrice *
+                           Game.Instance.SimulationSettings.irrigationRefundMultiplier);
         }
         else
         {
             // can we afford it?
-            if (plantMatter < Game.Instance.SimulationSettings.pipePrice)
+            if (GetResourceValue(ResourceType.PlantMatter) < Game.Instance.SimulationSettings.pipePrice)
             {
                 Debug.Log("Can't afford the pipe");
                 return false;
             }
 
-            plantMatter -= Game.Instance.SimulationSettings.pipePrice;
+            ChangeResource(ResourceType.PlantMatter, -Game.Instance.SimulationSettings.pipePrice);
         }
 
         if (!diffX && diffY) {
@@ -264,17 +266,17 @@ public class CarGrid {
     {
         if (Sprinklers[x, y])
         {
-            plantMatter += Game.Instance.SimulationSettings.sprinklerPrice * Game.Instance.SimulationSettings.irrigationRefundMultiplier;
+            ChangeResource(ResourceType.PlantMatter, Game.Instance.SimulationSettings.sprinklerPrice * Game.Instance.SimulationSettings.irrigationRefundMultiplier);
         }
         else
         {
-            if (plantMatter < Game.Instance.SimulationSettings.sprinklerPrice)
+            if (GetResourceValue(ResourceType.PlantMatter) < Game.Instance.SimulationSettings.sprinklerPrice)
             {
                 Debug.Log("Can't afford the sprinkler");
                 return false;
             }
             
-            plantMatter -= Game.Instance.SimulationSettings.sprinklerPrice;
+            ChangeResource(ResourceType.PlantMatter, -Game.Instance.SimulationSettings.sprinklerPrice);
         }
 
         Sprinklers[x, y] = !Sprinklers[x,y];
@@ -304,8 +306,7 @@ public class CarGrid {
             }
         }
         
-        clone.plantMatter = plantMatter;
-        clone.waterLevel = waterLevel;
+        clone.resources.CopyFrom(this.resources);
         
         return clone;
     }
@@ -365,5 +366,25 @@ public class CarGrid {
     {
         CalculateMinDistsFromPlants();
         CalculateMinDistsFromWater();
+    }
+
+    public ResourceEntry ChangeResource(ResourceType type, float value)
+    {
+        return resources.AddToResource(type, value);
+    }
+    
+    public ResourceEntry SetResource(ResourceType type, float value)
+    {
+        return resources.SetResource(type, value);
+    }
+
+    public float GetResourceValue(ResourceType type)
+    {
+        return resources.GetValue(type);
+    }
+
+    public void OnResourceChanged(float oldValue, ResourceEntry resource)
+    {
+        ResourceChanged?.Invoke(oldValue, resource);
     }
 }

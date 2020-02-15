@@ -9,22 +9,22 @@ public abstract class TextIntDisplay : MonoBehaviour
     [SerializeField]
     private TMP_Text textToUpdate;
 
-    void Start()
+    protected virtual void Start()
     {
-        Tick.Instance.AddEventListener(UpdateAmount);
+        Game.Instance.OnSimTickFinished += UpdateAmount;
     }
 
-    protected virtual void UpdateAmount()
+    protected virtual void UpdateAmount(Simulation sim)
     {
         if (!Game.Instance.finishedGeneratingLevel)
         {
             return;
         }
 
-        amountToDisplay = GetAmount();
+        amountToDisplay = GetAmount(sim);
 
         textToUpdate.text = amountToDisplay.ToString();
     }
 
-    protected abstract int GetAmount();
+    protected abstract int GetAmount(Simulation sim);
 }

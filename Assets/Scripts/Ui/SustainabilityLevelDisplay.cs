@@ -5,8 +5,8 @@ using System.Linq;
 public class SustainabilityLevelDisplay : TextIntDisplay
 {
 
-    protected override int GetAmount()
+    protected override int GetAmount(Simulation sim)
     {
-        return (int)Game.Instance.Simulation.currentState.Sustainability;
+        return (int)sim.currentState.Sustainability;
     }
 }

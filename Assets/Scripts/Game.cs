@@ -72,6 +72,9 @@ public class Game : MonoBehaviour
     
     public delegate void OnBeginPlay();
     public event OnBeginPlay BeginPlay;
+
+    public delegate void ResourceChangedEvent(Simulation sim, float oldValue, ResourceEntry newValue);
+    public event ResourceChangedEvent ResourceChanged;
     
     public event Action<Simulation> OnSimTickFinished;
 
@@ -143,6 +146,7 @@ public class Game : MonoBehaviour
         {
             LevelEnded?.Invoke(Simulation);
             Simulation.OnSimTickFinished -= SendSimTickFinished;
+            Simulation.ResourceChanged -= OnResourceChanged;
         }
 
         CarGrid newGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
@@ -165,6 +169,7 @@ public class Game : MonoBehaviour
         Tick.Instance.AddEventListener(newSim.Step);
 
         newSim.OnSimTickFinished += SendSimTickFinished;
+        newSim.ResourceChanged += OnResourceChanged;
         
         LevelGenerated?.Invoke(newSim);
         Debug.Log("Current sim num: " + carSims.Count + " curr car num: " + CurrCarNum);
@@ -175,6 +180,11 @@ public class Game : MonoBehaviour
         OnSimTickFinished?.Invoke(sim);
     }
 
+    private void OnResourceChanged(float oldValue, ResourceEntry newValue)
+    {
+        ResourceChanged?.Invoke(Simulation, oldValue, newValue);
+    }
+    
     public void GenerateNewCar()
     {
         StartCoroutine(GenerateNewCarInternal());

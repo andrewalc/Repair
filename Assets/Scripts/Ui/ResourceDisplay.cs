@@ -8,22 +8,36 @@ public abstract class ResourceDisplay : MonoBehaviour
     [SerializeField]
     private Material material;
 
+    protected abstract ResourceType TypeID { get; }
+
     void Start()
     {
-        Tick.Instance.AddEventListener(UpdateLevel);
+        Game.Instance.OnSimTickFinished += UpdateLevel;
+
+        Game.Instance.ResourceChanged += OnResourceChanged;
     }
     
-    public void UpdateLevel()
+    public void UpdateLevel(Simulation sim)
     {
         if ( !Game.Instance.finishedGeneratingLevel )
         {
             return;
         }
 
-        levelToDisplay = UpdateLevelToDisplay();
+        levelToDisplay = UpdateLevelToDisplay(sim);
 
         material.SetFloat("_Level", levelToDisplay/100.0f);
     }
 
-    protected abstract float UpdateLevelToDisplay();
+    private void OnResourceChanged(Simulation sim, float oldValue, ResourceEntry newValue)
+    {
+        if (newValue.TypeID != TypeID)
+        {
+            return;
+        }
+        
+        UpdateLevel(sim);
+    }
+
+    protected abstract float UpdateLevelToDisplay(Simulation sim);
 }
