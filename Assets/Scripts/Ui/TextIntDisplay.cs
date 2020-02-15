@@ -12,6 +12,11 @@ public abstract class TextIntDisplay : MonoBehaviour
     protected virtual void Start()
     {
         Game.Instance.OnSimTickFinished += UpdateAmount;
+
+        if (null != Game.Instance.Simulation)
+        {
+            UpdateAmount(Game.Instance.Simulation);
+        }
     }
 
     protected virtual void UpdateAmount(Simulation sim)
