@@ -86,15 +86,16 @@ public class ResourceManager
     private ResourceEntry CreateResourceType(ResourceType type)
     {
         float maxOfType = GetMaxForType(type);
+        float startingValue = GetDefaultForType(type);
 
         switch (type)
         {
             case ResourceType.Water:
-                return new WaterResource(maxOfType);
+                return new WaterResource(maxOfType, startingValue);
             case ResourceType.AirQuality:
-                return new AirQualityResource(maxOfType);
+                return new AirQualityResource(maxOfType, startingValue);
             case ResourceType.PlantMatter:
-                return new PlantMatterResource(maxOfType);
+                return new PlantMatterResource(maxOfType, startingValue);
             default:
                 throw new System.NotImplementedException();
         }
@@ -111,6 +112,18 @@ public class ResourceManager
 
         return value;
     }
+    
+    private float GetDefaultForType(ResourceType type)
+    {
+        float value = 0;
+        if (!Game.Instance.SimulationSettings.startingResourceValues.TryGetValue(type, out value))
+        {
+            return 0.0f;
+        }
+
+        return value;
+    }
+
 
     public void CopyFrom(ResourceManager other)
     {

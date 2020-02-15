@@ -104,13 +104,11 @@ public class Simulation
                     var machine = (MachineCarObject) contained;
                     if (machine.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        airQualityChange -= (config.maxMachineLevel - machine.level) /
-                            (float) config.maxMachineLevel * config.hydroPollutionRate;
+                        airQualityChange -= (config.maxMachineLevel - machine.level) * config.hydroPollutionRate;
                     }
                     else
                     {
-                        airQualityChange -= (config.maxMachineLevel - machine.level) /
-                            (float) config.maxMachineLevel * config.aeroPollutionRate;
+                        airQualityChange -= (config.maxMachineLevel - machine.level) * config.aeroPollutionRate;
                     }
                 }
                 else if (contained.Type == CarObjectType.Plant)

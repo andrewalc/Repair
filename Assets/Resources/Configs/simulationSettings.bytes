@@ -9,6 +9,11 @@ maxResourceValues:
     AirQuality: 100
     Water: 100
 
+startingResourceValues:
+    PlantMatter: 40
+    AirQuality: 50
+    Water: 0
+
 baseWaterGenRate: 0
 hydroWaterGenRate: 0.5
 aeroWaterGenRate: 0.25

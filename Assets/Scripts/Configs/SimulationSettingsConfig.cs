@@ -10,6 +10,8 @@ public class SimulationSettingsConfig
     
     public Dictionary<ResourceType, float> maxResourceValues;
     
+    public Dictionary<ResourceType, float> startingResourceValues;
+    
     public float baseWaterGenRate;
     public float hydroWaterGenRate;
     public float aeroWaterGenRate;

@@ -9,6 +9,12 @@ public abstract class ResourceEntry
     {
         this.max = max;
     }
+    
+    public ResourceEntry(float max, float startingValue)
+    {
+        this.max = max;
+        this.value = startingValue;
+    }
 
     public void Change(float change)
     {

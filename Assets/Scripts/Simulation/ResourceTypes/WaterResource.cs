@@ -4,6 +4,10 @@
     {
     }
 
+    public WaterResource(float max, float startingValue) : base(max, startingValue)
+    {
+    }
+
     public override ResourceType TypeID
     {
         get { return ResourceType.Water; }
