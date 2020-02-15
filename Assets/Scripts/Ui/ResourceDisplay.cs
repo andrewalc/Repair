@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class ResourceDisplay : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public abstract class ResourceDisplay : MonoBehaviour
 
     [SerializeField]
     private Material material;
+	[SerializeField]
+	private TMP_Text valueText;
 
     protected abstract ResourceType TypeID { get; }
 
@@ -27,6 +30,7 @@ public abstract class ResourceDisplay : MonoBehaviour
         levelToDisplay = UpdateLevelToDisplay(sim);
 
         material.SetFloat("_Level", levelToDisplay/100.0f);
+		valueText.text = Mathf.Round(levelToDisplay).ToString();
     }
 
     private void OnResourceChanged(Simulation sim, float oldValue, ResourceEntry newValue)
