@@ -123,7 +123,7 @@ public class SoundManager : MonoBehaviour
 			return;
 		}
 
-		int level = Math.Min(musicLayers.Length, Mathf.FloorToInt(Game.Instance.Simulation.currentState.Sustainability / 20) + 1);
+		int level = Math.Max(0, Math.Min(musicLayers.Length, Mathf.FloorToInt(Game.Instance.Simulation.currentState.Sustainability / 20) + 1));
 		for(int i = 0; i< level; ++i)
 		{
 			if(!musicLayers[i].IsFadingIn() && musicLayers[i].IsFadedOut())

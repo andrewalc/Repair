@@ -62,12 +62,11 @@ public class CarElementsGenerator : MonoBehaviour
     void generateCarElement(GridSquare square)
     {
         CarObjectType type = square.ContainedObject.Type;
-        CarGrid grid = Game.Instance.Simulation.currentState;
         var position = transform.position;
         Vector3 objectPosition = new Vector3(
             position.x + (square.X * 2.4f),
             position.y + 1,
-            (position.z + (square.Y - (grid.Squares.GetLength(1)))* 2.2f)
+            (position.z + (square.Y - (carGrid.Squares.GetLength(1)))* 2.2f)
         );
         GameObject prefab;
         GameObject child;
