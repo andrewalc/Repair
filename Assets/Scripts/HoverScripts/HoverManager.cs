@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.UI;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class HoverManager : MonoBehaviour
 {
-    public TextMeshProUGUI t1;
-    public TextMeshProUGUI t2;
-    public TextMeshProUGUI t3;
-    public TextMeshProUGUI t4;
+	[Header("Machine")]
+	[SerializeField] private GameObject machinePanel;
+	[SerializeField] private TextMeshProUGUI t1;
+	[SerializeField] private TextMeshProUGUI t2;
+	[SerializeField] private TextMeshProUGUI t3;
+	[SerializeField] private TextMeshProUGUI t4;
+	[Header("Plant")]
+	[SerializeField] private GameObject plantPanel;
+	[SerializeField] private Image plantHealthDisplay;
+	[SerializeField] private Sprite badSprite;
+	[SerializeField] private Sprite mediumSprite;
+	[SerializeField] private Sprite goodSprite;
+
     public static HoverManager Instance { get; private set; }
 
     bool _disabled;
@@ -51,16 +60,26 @@ public class HoverManager : MonoBehaviour
         if (square.ContainedObject.Type == CarObjectType.Plant)
         {
             PlantCarObject plant = (PlantCarObject) square.ContainedObject;
+			plantPanel.SetActive(true);
 
-            t1.text = "";
-            t2.text = "Health: " + plant.health;
-            t3.text = "";
-            t4.text = "";
-        }
+			if (plant.health < 50)
+			{
+				plantHealthDisplay.sprite = badSprite;
+			}
+			else if (plant.health < 100)
+			{
+				plantHealthDisplay.sprite = mediumSprite;
+			}
+			else
+			{
+				plantHealthDisplay.sprite = goodSprite;
+			}
+		}
         
         if (square.ContainedObject.Type == CarObjectType.Machine)
         {
             MachineCarObject machine = (MachineCarObject) square.ContainedObject;
+			machinePanel.SetActive(true);
 
             float pollution;
             float watergen;
@@ -78,8 +97,8 @@ public class HoverManager : MonoBehaviour
                 watergen = settings.hydroWaterGenRate;
             }
 
-            t1.text = "AirQuality/tick: " + pollution;
-            t2.text = "Water/tick: " + watergen;
+            t1.text = "Pollution Rate: " + pollution.ToString("F2");
+            t2.text = "Water Rate: " + watergen.ToString("F2");
             t3.text = "Level: " + level + "/" + settings.maxMachineLevel;
             t4.text = "Cost: " + cost;
         }
@@ -90,5 +109,7 @@ public class HoverManager : MonoBehaviour
     public void Deactivate()
     {
         transform.gameObject.SetActive(false);
+		machinePanel.SetActive(false);
+		plantPanel.SetActive(false);
     }
 }
