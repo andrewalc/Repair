@@ -18,8 +18,9 @@ public class HoverManager : MonoBehaviour
 	[SerializeField] private Sprite badSprite;
 	[SerializeField] private Sprite mediumSprite;
 	[SerializeField] private Sprite goodSprite;
+	[SerializeField] private Gradient healthGradient;
 
-    public static HoverManager Instance { get; private set; }
+	public static HoverManager Instance { get; private set; }
 
     bool _disabled;
     public bool disabled {
@@ -74,6 +75,7 @@ public class HoverManager : MonoBehaviour
 			{
 				plantHealthDisplay.sprite = goodSprite;
 			}
+			plantHealthDisplay.color = healthGradient.Evaluate(plant.health / 150);
 		}
         
         if (square.ContainedObject.Type == CarObjectType.Machine)
