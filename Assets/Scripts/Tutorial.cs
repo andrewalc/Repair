@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
 
     public void DisableMyself()
     {
+		SoundManager.Instance.PlaySound(SoundNames.click); //hacky;
         Game.Instance.BeginGame();
         gameObject.SetActive(false);
     }

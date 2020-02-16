@@ -8,6 +8,11 @@ public class InSceneMenu : MonoBehaviour
 {
     public GameObject cam;
     
+	//This probably shouldn't be here but I don't know where else to put it
+	public void Click()
+	{
+		SoundManager.Instance.PlaySound(SoundNames.click);
+	}
 
     public void Transistion()
     {

@@ -156,7 +156,8 @@ public class Simulation
                         {
                             currentState.Squares[x, y].ContainedObject = new PlantCarObject();
                             PlantSpawnEvent?.Invoke(currentState.Squares[x, y]);
-                            break;
+							SoundManager.Instance.PlaySound(SoundNames.plantGrow); //Maybe this should be added to the PlantSpawnEvent, but I don't know where? So here this is
+							break;
                         }
                     }
 

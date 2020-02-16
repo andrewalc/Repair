@@ -106,6 +106,7 @@ public class Game : MonoBehaviour
             finishedGeneratingLevel = true;
         });
         carGenerator.Start();
+		SoundManager.Instance.PlaySound(SoundNames.chooChoo);
     }
 
     void Awake()

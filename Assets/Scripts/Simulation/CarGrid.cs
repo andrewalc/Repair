@@ -236,7 +236,8 @@ public class CarGrid {
             }
 
             ChangeResource(ResourceType.PlantMatter, -Game.Instance.SimulationSettings.pipePrice);
-        }
+			SoundManager.Instance.PlaySound(SoundNames.placePipe);
+		}
 
         if (!diffX && diffY) {
             if (firstY > secondY) {
@@ -277,7 +278,8 @@ public class CarGrid {
             }
             
             ChangeResource(ResourceType.PlantMatter, -Game.Instance.SimulationSettings.sprinklerPrice);
-        }
+			SoundManager.Instance.PlaySound(SoundNames.placeSprinkler);
+		}
 
         Sprinklers[x, y] = !Sprinklers[x,y];
         return true;
@@ -289,7 +291,8 @@ public class CarGrid {
             var machine = (MachineCarObject) containedObject;
             machine.level++;
             machine.level = Mathf.Clamp(machine.level, 1, Game.Instance.Simulation.config.maxMachineLevel);
-        }
+			SoundManager.Instance.PlaySound(SoundNames.reclaim);
+		}
     }
 
     public CarGrid Clone() {

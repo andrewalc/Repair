@@ -218,5 +218,6 @@ public enum SoundNames
 	placeSprinkler,
 	chooChoo,
 	plantGrow,
-	plantDie
+	win,
+	lose
 }
