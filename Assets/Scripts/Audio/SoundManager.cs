@@ -6,17 +6,22 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+	[Header("Music")]
 	public List<MusicTrack> musicTracks;
 	public MusicLayer[] musicLayers = new MusicLayer[5];
+	public MusicLayer menuMusic;
+	[Header("SFX")]
+	public AudioSource sfxPlayer;
+	[SerializeField] private List<SoundEffect> effects;
 	private int currentTrackIndex = 0;
 	private bool listenersSet = false;
+
+	private Dictionary<SoundNames, AudioClip> sfxLibrary = new Dictionary<SoundNames, AudioClip>();
 
 	private float sfxVolume = 1f;
 	private float musicVolume = 1f;
 	public float SFXVolume { get { return sfxVolume; } }
 	public float MusicVolume { get { return musicVolume; } }
-
-	public MusicLayer menuMusic;
 
 	private Coroutine levelStartCoroutine;
 
@@ -27,6 +32,11 @@ public class SoundManager : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
+		}
+
+		foreach(var sfx in effects)
+		{
+			sfxLibrary[sfx.soundName] = sfx.soundClip;
 		}
 	}
 
@@ -181,10 +191,26 @@ public class SoundManager : MonoBehaviour
 			menuMusic.SetVolume(MusicVolume);
 		}
 	}
+
+	public void PlaySound(SoundNames sfxName)
+	{
+		AudioClip clip = sfxLibrary[sfxName];
+
+		sfxPlayer.PlayOneShot(clip, SFXVolume);
+	}
+
+	[Serializable]
+	private struct SoundEffect
+	{
+		public SoundNames soundName;
+		public AudioClip soundClip;
+	}
+
+
 }
 
 
-public enum SoundEffects
+public enum SoundNames
 {
 	reclaim,
 	click,
