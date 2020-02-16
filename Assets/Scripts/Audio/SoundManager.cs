@@ -11,6 +11,11 @@ public class SoundManager : MonoBehaviour
 	private int currentTrackIndex = 0;
 	private bool listenersSet = false;
 
+	private float sfxVolume = 1f;
+	private float musicVolume = 1f;
+	public float SFXVolume { get { return sfxVolume; } }
+	public float MusicVolume { get { return musicVolume; } }
+
 	public MusicLayer menuMusic;
 
 	private Coroutine levelStartCoroutine;
@@ -80,7 +85,7 @@ public class SoundManager : MonoBehaviour
 
 	private void OnGameLoaded()
 	{
-		menuMusic.SetVolume(1.0f);
+		menuMusic.SetVolume(MusicVolume);
 		menuMusic.AudioSource.Play();
 	}
 
@@ -150,4 +155,42 @@ public class SoundManager : MonoBehaviour
 			}
 		}
 	}
+
+
+	public void SetSFXVolume(float volume)
+	{
+		if (volume > 1 || volume < 0) throw new Exception("Trying to set volume with invalid range");
+
+		this.sfxVolume = volume;
+	}
+
+	public void SetMusicVolume(float volume)
+	{
+		if (volume > 1 || volume < 0) throw new Exception("Trying to set volume with invalid range");
+
+		this.musicVolume = volume;
+		foreach(MusicLayer ml in musicLayers)
+		{
+			if (ml.IsFadedIn())
+			{
+				ml.SetVolume(MusicVolume);
+			}
+		}
+		if (menuMusic.IsFadedIn())
+		{
+			menuMusic.SetVolume(MusicVolume);
+		}
+	}
+}
+
+
+public enum SoundEffects
+{
+	reclaim,
+	click,
+	placePipe,
+	placeSprinkler,
+	chooChoo,
+	plantGrow,
+	plantDie
 }
