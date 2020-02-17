@@ -6817,7 +6817,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5905e-41, y: 0, z: 0, w: 395834880}
+  m_BoundingSphereOverride: {x: 0, y: 1, z: 1.3e-44, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -20535,6 +20535,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: waterhud
       objectReference: {fileID: 0}
+    - target: {fileID: 6647174115950958806, guid: 405d42fb84661c6938ca7848d4f3e98d,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647174115950958806, guid: 405d42fb84661c6938ca7848d4f3e98d,
+        type: 3}
+      propertyPath: m_margin.z
+      value: 8.634332
+      objectReference: {fileID: 0}
     - target: {fileID: 7298642879866050605, guid: 405d42fb84661c6938ca7848d4f3e98d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20619,7 +20629,7 @@ PrefabInstance:
     - target: {fileID: 5746717935729106287, guid: 2465cd16d16565f418bd301a2ea4ded8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00030517578
+      value: -0.00024414062
       objectReference: {fileID: 0}
     - target: {fileID: 6768574211478972228, guid: 2465cd16d16565f418bd301a2ea4ded8,
         type: 3}
@@ -20740,6 +20750,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1058517363}
     m_Modifications:
+    - target: {fileID: 133872570262434885, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 133872570262434885, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
+        type: 3}
+      propertyPath: m_margin.z
+      value: 8.550056
+      objectReference: {fileID: 0}
     - target: {fileID: 612355245627142628, guid: 4b35bdce7f1ddb959a3c63a487fbc351,
         type: 3}
       propertyPath: m_SizeDelta.x
