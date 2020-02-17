@@ -91,12 +91,12 @@ public class HoverManager : MonoBehaviour
             if (machine.MachineType == MachineCarObject.MachineTypes.Aero)
             {
                 pollution = (settings.maxMachineLevel - machine.level) * settings.aeroPollutionRate;
-                watergen = settings.aeroWaterGenRate * machine.level;
+                watergen = settings.aeroWaterGenRate * (machine.level - 1);
             }
             else
             {
                 pollution = (settings.maxMachineLevel - machine.level) * settings.hydroPollutionRate;
-                watergen = settings.hydroWaterGenRate * machine.level;
+                watergen = settings.hydroWaterGenRate * (machine.level - 1);
             }
 
             t1.text = "Pollution Rate: " + pollution.ToString("F2");

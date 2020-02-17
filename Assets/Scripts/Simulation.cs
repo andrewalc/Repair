@@ -80,11 +80,11 @@ public class Simulation
                     MachineCarObject machineObj = (MachineCarObject) oldState.Squares[x, y].ContainedObject;
                     if (machineObj.MachineType == MachineCarObject.MachineTypes.Hydro)
                     {
-                        waterLevelChange += config.hydroWaterGenRate * machineObj.level;
+                        waterLevelChange += config.hydroWaterGenRate * (machineObj.level - 1);
                     }
                     else
                     {
-                        waterLevelChange += config.aeroWaterGenRate * machineObj.level;
+                        waterLevelChange += config.aeroWaterGenRate * (machineObj.level - 1);
                     }
                 }
             }
