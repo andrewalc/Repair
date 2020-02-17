@@ -50,8 +50,8 @@ difficulties:
         height: 3
 
         # Number of machines to generate (random between min and max)
-        numMachinesMin: 2
-        numMachinesMax: 3
+        numMachinesMin: 1
+        numMachinesMax: 2
 
         # Probability of hydro machine type
         machineTypeProbabilities:
@@ -76,7 +76,7 @@ difficulties:
 
         # Minimum and maximum number of eventually-available places for plants to grow.
         minAvailablePlantPlots: 2
-        maxAvailablePlantPlots: 5
+        maxAvailablePlantPlots: 6
     ###### Difficulty Level 2
         # Number of levels at this difficulty
     -   numLevelsAtDifficulty: 5

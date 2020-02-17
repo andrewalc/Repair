@@ -1,7 +1,7 @@
 # tickSpeed of auto resource generation in seconds
 tickSpeed: 1.0
 
-plantStartingHealth: 74
+plantStartingHealth: 75
 plantMaxHealth: 150
 
 maxResourceValues:
@@ -14,7 +14,7 @@ startingResourceValues:
     AirQuality: 50
     Water: 0
 
-baseWaterGenRate: 0
+baseWaterGenRate: 1
 hydroWaterGenRate: 0.5
 aeroWaterGenRate: 0.25
 sprinklerUseRate: 0.5
