@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PurchaseMachineUpgrade : MonoBehaviour
 {
-    void OnMouseOver(){
+    void OnMouseOver()
+    {
         if (!UiDisable.Instance.disabled && Input.GetMouseButtonDown(0))
         {
             MachineObject machineState = GetComponent<MachineObject>();
@@ -13,10 +14,18 @@ public class PurchaseMachineUpgrade : MonoBehaviour
             float plantMatter = Game.Instance.Simulation.currentState.GetResourceValue(ResourceType.PlantMatter);
             float upgradeCost = Game.Instance.SimulationSettings.avgReclaimCost;
 
-            if (square.level > 0 && plantMatter > upgradeCost)
+            if (square.level > 0)
             {
-                Game.Instance.Simulation.currentState.UpgradeMachineAt(machineState.square.X, machineState.square.Y);
-                Game.Instance.Simulation.currentState.ChangeResource(ResourceType.PlantMatter, -upgradeCost);
+                if (plantMatter >= upgradeCost)
+                {
+                    Game.Instance.Simulation.currentState.UpgradeMachineAt(machineState.square.X,
+                        machineState.square.Y);
+                    Game.Instance.Simulation.currentState.ChangeResource(ResourceType.PlantMatter, -upgradeCost);
+                }
+                else
+                {
+                    SoundManager.Instance.PlaySound(SoundNames.notEnoughPlantMatter);
+                }
             }
         }
     }

@@ -232,6 +232,7 @@ public class CarGrid {
             if (GetResourceValue(ResourceType.PlantMatter) < Game.Instance.SimulationSettings.pipePrice)
             {
                 Debug.Log("Can't afford the pipe");
+                SoundManager.Instance.PlaySound(SoundNames.notEnoughPlantMatter);
                 return false;
             }
 
@@ -274,6 +275,7 @@ public class CarGrid {
             if (GetResourceValue(ResourceType.PlantMatter) < Game.Instance.SimulationSettings.sprinklerPrice)
             {
                 Debug.Log("Can't afford the sprinkler");
+                SoundManager.Instance.PlaySound(SoundNames.notEnoughPlantMatter);
                 return false;
             }
             

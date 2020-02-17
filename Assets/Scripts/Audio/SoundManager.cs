@@ -219,5 +219,6 @@ public enum SoundNames
 	chooChoo,
 	plantGrow,
 	win,
-	lose
+	lose,
+	notEnoughPlantMatter
 }
