@@ -3,7 +3,7 @@
 public class PlantCarObject : ICarObject {
     public CarObjectType Type => CarObjectType.Plant;
     
-    public float health = 100;
+    public float health = 74;
 
     public float GetPlantGrowthModifier() {
         throw new NotImplementedException();

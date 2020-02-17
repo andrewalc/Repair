@@ -11,8 +11,11 @@ public abstract class CoroutineCarGenerator : ICarGenerator
 
     private GenerationComplete generationComplete;
 
-    private CarGeneratorConfig config;
-    protected CarGeneratorConfig Config { get { return config; } }
+    private CarGenDifficultyLevelConfig config;
+    protected CarGenDifficultyLevelConfig Config { get { return config; } }
+    
+    private CarGeneratorConfig basicConfig;
+    protected CarGeneratorConfig BasicConfig { get { return basicConfig; } }
 
     private CarGrid resultGrid;
 
@@ -31,7 +34,7 @@ public abstract class CoroutineCarGenerator : ICarGenerator
 
     protected float PerFrameBudget
     {
-        get { return Config.timeBudgetPerFrameMillis; }
+        get { return BasicConfig.timeBudgetPerFrameMillis; }
     }
 
     protected Stopwatch Timer
@@ -43,19 +46,16 @@ public abstract class CoroutineCarGenerator : ICarGenerator
     public delegate IEnumerator GenerationProcess();
     private GenerationProcess generationProcess;
 
-    public CoroutineCarGenerator(MonoBehaviour host, CarGeneratorConfig config)
+    public CoroutineCarGenerator(MonoBehaviour host, CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid gridToUse = null)
     {
         this.host = host;
         this.config = config;
-        
-        Timer = new Stopwatch();
-    }
-
-    public CoroutineCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse)
-    {
-        this.host = host;
-        this.config = config;
+        this.basicConfig = basicConfig;
         this.resultGrid = gridToUse;
+        if (null == gridToUse)
+        {
+            this.resultGrid = new CarGrid(this.config.width, this.config.height);
+        }
         
         Timer = new Stopwatch();
     }

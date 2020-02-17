@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DistanceBasedPlantPlacer : DistanceBasedCarObjectPlacer
 {
-    public DistanceBasedPlantPlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse, random)
+    public DistanceBasedPlantPlacer(MonoBehaviour host, CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid gridToUse, System.Random random) : base(host, config, basicConfig, gridToUse, random)
     {}
 
     protected override int GetNumObjectsToGenerate()
@@ -14,6 +14,8 @@ public class DistanceBasedPlantPlacer : DistanceBasedCarObjectPlacer
 
     protected override ICarObject GenerateCarObject()
     {
-        return new PlantCarObject();
+        PlantCarObject newPlant = new PlantCarObject();
+        newPlant.health = Game.Instance.SimulationSettings.plantStartingHealth;
+        return newPlant;
     }
 }

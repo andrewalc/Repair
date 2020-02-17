@@ -12,7 +12,7 @@ public abstract class DistanceBasedCarObjectPlacer : CoroutineCarGenerator
         private set;
     }
 
-    public DistanceBasedCarObjectPlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
+    public DistanceBasedCarObjectPlacer(MonoBehaviour host, CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid gridToUse, System.Random random) : base(host, config, basicConfig, gridToUse)
     {
         Random = random;
     }

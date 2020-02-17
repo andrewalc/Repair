@@ -48,6 +48,9 @@ public class SimulationSettingsConfig
     public float goodReproductionChanceCoefficient;
     public float neutralReproductionChanceCoefficient;
     public float badReproductionChanceCoefficient;
+
+    public float machineSustainabilityContribution = 0.6f;
+    public float plantSustainabilityContribution = 0.4f;
     
     public List<CarGrid> testGrids = new List<CarGrid>();
 }

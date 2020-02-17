@@ -6,7 +6,7 @@ using System;
 
 public class SimpleSpigotPlacer : SimpleCarObjectPlacer
 {
-    public SimpleSpigotPlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse, random)
+    public SimpleSpigotPlacer(MonoBehaviour host, CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid gridToUse, System.Random random) : base(host, config, basicConfig, gridToUse, random)
     {}
 
     protected override int GetNumObjectsToGenerate()

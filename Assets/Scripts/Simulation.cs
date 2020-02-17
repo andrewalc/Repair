@@ -278,9 +278,17 @@ public class Simulation
 
         int maxMachineLevel = Game.Instance.Simulation.config.maxMachineLevel - 1;
 
-        float machineSustainability = (.6f * totalMachineLevels / (machineCount * maxMachineLevel));
+        float machineSustainability = 0.0f;
+        float machineSustainabilityModifier = 0.0f;
+        float plantSustainabilityModifier = 1.0f;
+        if (machineCount > 0)
+        {
+            machineSustainabilityModifier = config.machineSustainabilityContribution;
+            plantSustainabilityModifier = config.plantSustainabilityContribution;
+            machineSustainability = (machineSustainabilityModifier * totalMachineLevels / (machineCount * maxMachineLevel));
+        }
 
-        float plantSustainability = (.4f * goodPlantCount / numPlots);
+        float plantSustainability = (plantSustainabilityModifier * goodPlantCount / numPlots);
 
         float sustainability = (float) (100 * (machineSustainability + plantSustainability));
 

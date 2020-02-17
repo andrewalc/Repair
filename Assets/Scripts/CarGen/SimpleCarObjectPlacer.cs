@@ -13,7 +13,7 @@ public abstract class SimpleCarObjectPlacer : CoroutineCarGenerator
         private set;
     }
     
-    public SimpleCarObjectPlacer(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse, System.Random random) : base(host, config, gridToUse)
+    public SimpleCarObjectPlacer(MonoBehaviour host, CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid gridToUse, System.Random random) : base(host, config, basicConfig, gridToUse)
     {
         Random = random;
     }

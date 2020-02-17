@@ -9,8 +9,8 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
 
     private System.Random random;
 
-    public SimpleFullCarGenerator(MonoBehaviour host, CarGeneratorConfig config, CarGrid gridToUse,
-        System.Random random) : base(host, config, gridToUse)
+    public SimpleFullCarGenerator(MonoBehaviour host, CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid gridToUse,
+        System.Random random) : base(host, config, basicConfig, gridToUse)
     {
         this.random = random;
 
@@ -20,10 +20,10 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
     private void InitGenerators()
     {
         subGenerators = new List<ICarGenerator>();
-        subGenerators.Add(new SimpleSpigotPlacer(Host, Config, ResultGrid, random));
-        subGenerators.Add(new SimpleMachinePlacer(Host, Config, ResultGrid, random));
-        subGenerators.Add(new SimpleObstaclePlacer(Host, Config, ResultGrid, random));
-        subGenerators.Add(new DistanceBasedPlantPlacer(Host, Config, ResultGrid, random));
+        subGenerators.Add(new SimpleSpigotPlacer(Host, Config, BasicConfig, ResultGrid, random));
+        subGenerators.Add(new SimpleMachinePlacer(Host, Config, BasicConfig, ResultGrid, random));
+        subGenerators.Add(new SimpleObstaclePlacer(Host, Config, BasicConfig, ResultGrid, random));
+        subGenerators.Add(new DistanceBasedPlantPlacer(Host, Config, BasicConfig, ResultGrid, random));
     }
 
     protected override IEnumerator PlaceObjects()
@@ -34,7 +34,7 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
         float startTime = Timer.ElapsedMilliseconds;
         Timer.Start();
 
-        while (!validLevel && attempts < Config.maxLevelGenAttempts)
+        while (!validLevel && attempts < BasicConfig.maxLevelGenAttempts)
         {
             ++attempts;
             foreach (ICarGenerator generator in subGenerators)
@@ -63,7 +63,7 @@ public class SimpleFullCarGenerator : CoroutineCarGenerator
             // Init remaining calculated values in CarGrid.
             ResultGrid.RecalculateExtraInfo();
 
-            if (attempts >= Config.maxLevelGenAttempts)
+            if (attempts >= BasicConfig.maxLevelGenAttempts)
             {
                 Debug.Log("Max level gen attempts reached, level constraints ignored.");
                 break;

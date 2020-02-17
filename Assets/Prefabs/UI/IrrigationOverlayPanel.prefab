@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2275516752633992232}
   - component: {fileID: 2317602219539609872}
   - component: {fileID: 6933736829353339334}
+  - component: {fileID: 6754288874848019765}
   m_Layer: 0
   m_Name: GridLayout
   m_TagString: Untagged
@@ -62,13 +63,28 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 6
+  m_ChildAlignment: 0
   m_StartCorner: 2
   m_StartAxis: 0
   m_CellSize: {x: 25, y: 25}
   m_Spacing: {x: 14, y: 16}
   m_Constraint: 1
   m_ConstraintCount: 10
+--- !u!114 &6754288874848019765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851564637998909509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d044ef841094134db83853bce68e58a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridLayout: {fileID: 6933736829353339334}
+  gridSizeMultiplier: 1
+  gridCountOffset: 0
 --- !u!1 &2951874935882174862
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +350,7 @@ GameObject:
   - component: {fileID: 4834156987089643775}
   - component: {fileID: 1895098936765542405}
   - component: {fileID: 8897693034685923998}
+  - component: {fileID: 2448928271693516147}
   m_Layer: 0
   m_Name: Pipe Grid
   m_TagString: Untagged
@@ -357,8 +374,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -16.099995, y: -5.0999937}
+  m_AnchoredPosition: {x: 0.000014305, y: -6.62}
+  m_SizeDelta: {x: -16.1, y: -14.967}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1895098936765542405
 CanvasRenderer:
@@ -385,13 +402,28 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 6
-  m_ChildAlignment: 6
+  m_ChildAlignment: 0
   m_StartCorner: 2
   m_StartAxis: 0
   m_CellSize: {x: 12.5, y: 12.5}
   m_Spacing: {x: 7, y: 8}
   m_Constraint: 1
   m_ConstraintCount: 19
+--- !u!114 &2448928271693516147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5377415372854677035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d044ef841094134db83853bce68e58a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridLayout: {fileID: 8897693034685923998}
+  gridSizeMultiplier: 2
+  gridCountOffset: -1
 --- !u!1 &6415389593826289326
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,7 +842,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6, y: -5.2}
+  m_AnchoredPosition: {x: -6, y: -5.200012}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4208713592051385751

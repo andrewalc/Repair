@@ -1,38 +1,225 @@
-# Width and height of the car
-width: 10
-height: 5
-
-# Number of machines to generate (random between min and max)
-numMachinesMin: 6
-numMachinesMax: 10
-
-# Probability of hydro machine type
-machineTypeProbabilities:
-    Hydro : 0.7
-    Aero : 0.3
-
-# Number of obstacles to generate (random between min and max)
-numObstaclesMin: 10
-numObstaclesMax: 20
-
-# Number of plants to generate (random between min and max)
-numPlantsMin: 3
-numPlantsMax: 6
-
-# Plant distance ratio (0 to 1.0, the higher the further from the spigot)
-plantDistanceDifficultyRatioMin: 0.1
-plantDistanceDifficultyRatioMax: 0.4
-
-# Number of spigots to generate (random between min and max)
-numSpigotsMin: 1
-numSpigotsMax: 1
-
-# Minimum and maximum number of eventually-available places for plants to grow.
-minAvailablePlantPlots: 15
-maxAvailablePlantPlots: 25
-
 # Max level generation attempts before we give up.
 maxLevelGenAttempts: 30
 
 # Maximum time per frame to budget for generation
 timeBudgetPerFrameMillis: 10.0
+
+difficulties:
+###### Difficulty Level 0
+    # Number of levels at this difficulty
+    -   numLevelsAtDifficulty: 1
+    
+        # Width and height of the car
+        width: 2
+        height: 1
+
+        # Number of machines to generate (random between min and max)
+        numMachinesMin: 0
+        numMachinesMax: 0
+
+        # Probability of hydro machine type
+        machineTypeProbabilities:
+            Hydro : 1
+            Aero : 0
+
+        # Number of obstacles to generate (random between min and max)
+        numObstaclesMin: 0
+        numObstaclesMax: 0
+
+        # Number of plants to generate (random between min and max)
+        numPlantsMin: 1
+        numPlantsMax: 1
+
+        # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+        plantDistanceDifficultyRatioMin: 0.0
+        plantDistanceDifficultyRatioMax: 0.0
+
+        # Number of spigots to generate (random between min and max)
+        numSpigotsMin: 1
+        numSpigotsMax: 1
+
+        # Minimum and maximum number of eventually-available places for plants to grow.
+        minAvailablePlantPlots: 1
+        maxAvailablePlantPlots: 1
+    ###### Difficulty Level 1
+        # Number of levels at this difficulty
+    -   numLevelsAtDifficulty: 2
+    
+        # Width and height of the car
+        width: 3
+        height: 3
+
+        # Number of machines to generate (random between min and max)
+        numMachinesMin: 2
+        numMachinesMax: 3
+
+        # Probability of hydro machine type
+        machineTypeProbabilities:
+            Hydro : 1
+            Aero : 0
+
+        # Number of obstacles to generate (random between min and max)
+        numObstaclesMin: 0
+        numObstaclesMax: 5
+
+        # Number of plants to generate (random between min and max)
+        numPlantsMin: 1
+        numPlantsMax: 2
+
+        # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+        plantDistanceDifficultyRatioMin: 0.0
+        plantDistanceDifficultyRatioMax: 0.1
+
+        # Number of spigots to generate (random between min and max)
+        numSpigotsMin: 1
+        numSpigotsMax: 1
+
+        # Minimum and maximum number of eventually-available places for plants to grow.
+        minAvailablePlantPlots: 2
+        maxAvailablePlantPlots: 5
+    ###### Difficulty Level 2
+        # Number of levels at this difficulty
+    -   numLevelsAtDifficulty: 5
+    
+        # Width and height of the car
+        width: 4
+        height: 4
+
+        # Number of machines to generate (random between min and max)
+        numMachinesMin: 3
+        numMachinesMax: 5
+
+        # Probability of hydro machine type
+        machineTypeProbabilities:
+            Hydro : 0.8
+            Aero : 0.2
+
+        # Number of obstacles to generate (random between min and max)
+        numObstaclesMin: 2
+        numObstaclesMax: 7
+
+        # Number of plants to generate (random between min and max)
+        numPlantsMin: 2
+        numPlantsMax: 4
+
+        # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+        plantDistanceDifficultyRatioMin: 0.0
+        plantDistanceDifficultyRatioMax: 0.2
+
+        # Number of spigots to generate (random between min and max)
+        numSpigotsMin: 1
+        numSpigotsMax: 1
+
+        # Minimum and maximum number of eventually-available places for plants to grow.
+        minAvailablePlantPlots: 6
+        maxAvailablePlantPlots: 10
+    ###### Difficulty Level 3
+        # Number of levels at this difficulty
+    -   numLevelsAtDifficulty: 7
+    
+        # Width and height of the car
+        width: 6
+        height: 4
+
+        # Number of machines to generate (random between min and max)
+        numMachinesMin: 3
+        numMachinesMax: 5
+
+        # Probability of hydro machine type
+        machineTypeProbabilities:
+            Hydro : 0.7
+            Aero : 0.3
+
+        # Number of obstacles to generate (random between min and max)
+        numObstaclesMin: 4
+        numObstaclesMax: 10
+
+        # Number of plants to generate (random between min and max)
+        numPlantsMin: 3
+        numPlantsMax: 6
+
+        # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+        plantDistanceDifficultyRatioMin: 0.1
+        plantDistanceDifficultyRatioMax: 0.3
+
+        # Number of spigots to generate (random between min and max)
+        numSpigotsMin: 1
+        numSpigotsMax: 1
+
+        # Minimum and maximum number of eventually-available places for plants to grow.
+        minAvailablePlantPlots: 10
+        maxAvailablePlantPlots: 18
+    ###### Difficulty Level 4
+        # Number of levels at this difficulty
+    -   numLevelsAtDifficulty: 10
+    
+        # Width and height of the car
+        width: 8
+        height: 5
+
+        # Number of machines to generate (random between min and max)
+        numMachinesMin: 4
+        numMachinesMax: 8
+
+        # Probability of hydro machine type
+        machineTypeProbabilities:
+            Hydro : 0.6
+            Aero : 0.4
+
+        # Number of obstacles to generate (random between min and max)
+        numObstaclesMin: 8
+        numObstaclesMax: 18
+
+        # Number of plants to generate (random between min and max)
+        numPlantsMin: 4
+        numPlantsMax: 7
+
+        # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+        plantDistanceDifficultyRatioMin: 0.2
+        plantDistanceDifficultyRatioMax: 0.4
+
+        # Number of spigots to generate (random between min and max)
+        numSpigotsMin: 1
+        numSpigotsMax: 1
+
+        # Minimum and maximum number of eventually-available places for plants to grow.
+        minAvailablePlantPlots: 18
+        maxAvailablePlantPlots: 30
+
+    ##### Difficulty Level 5
+        # Num levels at this difficulty
+        # -1 means stay at this difficulty forever.
+    -   numLevelsAtDifficulty: -1
+    
+        # Width and height of the car
+        width: 10
+        height: 5
+
+        # Number of machines to generate (random between min and max)
+        numMachinesMin: 6
+        numMachinesMax: 10
+
+        # Probability of hydro machine type
+        machineTypeProbabilities:
+            Hydro : 0.5
+            Aero : 0.5
+
+        # Number of obstacles to generate (random between min and max)
+        numObstaclesMin: 10
+        numObstaclesMax: 25
+
+        # Number of plants to generate (random between min and max)
+        numPlantsMin: 3
+        numPlantsMax: 6
+
+        # Plant distance ratio (0 to 1.0, the higher the further from the spigot)
+        plantDistanceDifficultyRatioMin: 0.3
+        plantDistanceDifficultyRatioMax: 0.6
+
+        # Number of spigots to generate (random between min and max)
+        numSpigotsMin: 1
+        numSpigotsMax: 1
+
+        # Minimum and maximum number of eventually-available places for plants to grow.
+        minAvailablePlantPlots: 25
+        maxAvailablePlantPlots: 35

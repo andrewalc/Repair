@@ -1,7 +1,7 @@
 # tickSpeed of auto resource generation in seconds
 tickSpeed: 1.0
 
-plantStartingHealth: 75
+plantStartingHealth: 74
 plantMaxHealth: 150
 
 maxResourceValues:
@@ -49,6 +49,10 @@ neutralReproductionChanceCoefficient: 1
 badReproductionChanceCoefficient: 0.2
 
 maxMachineLevel: 3
+
+# These should add to 1.0 if you want all machines and plants to have to be happy for full sustainability.
+machineSustainabilityContribution: 0.6
+plantSustainabilityContribution: 0.4
 
 # Test grid for simulation work.
 testGrids:

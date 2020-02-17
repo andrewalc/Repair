@@ -3,6 +3,7 @@ using System.Collections;
 using DarkConfig;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Game : MonoBehaviour
 {
@@ -16,10 +17,17 @@ public class Game : MonoBehaviour
 
     public SimulationSettingsConfig SimulationSettings = new SimulationSettingsConfig();
 
-    private CarGeneratorConfig CarGenConfig = new CarGeneratorConfig();
+    private int currDifficulty = 0;
+    private int numLevelsBeforeThisDifficulty = 0;
+    private CarGeneratorConfig carGenConfig = new CarGeneratorConfig();
+
+    private CarGenDifficultyLevelConfig CarGenDifficultyConfig
+    {
+        get { return carGenConfig.difficulties[currDifficulty]; }
+    }
 
     [SerializeField] private TrainGenerator trainCarGenerator;
-    
+
     public Simulation Simulation
     {
         get
@@ -28,53 +36,52 @@ public class Game : MonoBehaviour
             {
                 return null;
             }
+
             return carSims[CurrCarNum];
         }
     }
 
     public CarGrid CurrGrid
     {
-        get
-        {
-            return carGrids[CurrCarNum];
-        }
+        get { return carGrids[CurrCarNum]; }
     }
 
     public int CurrCarNum { get; private set; }
 
     private List<Simulation> carSims = new List<Simulation>();
+
     public IEnumerable<Simulation> CarSims
     {
-        get
-        {
-            return carSims;
-        }
+        get { return carSims; }
     }
 
     private List<CarGrid> carGrids = new List<CarGrid>();
+
     public IEnumerable<CarGrid> CarGrids
     {
-        get
-        {
-            return carGrids;
-        }
+        get { return carGrids; }
     }
 
     public delegate void OnLevelGenerated(Simulation newLevel);
+
     public event OnLevelGenerated LevelGenerated;
-    
+
     public delegate void OnLevelEnded(Simulation newLevel);
+
     public event OnLevelEnded LevelEnded;
-    
+
     public delegate void OnGameLoaded();
+
     public event OnGameLoaded GameLoaded;
-    
+
     public delegate void OnBeginPlay();
+
     public event OnBeginPlay BeginPlay;
 
     public delegate void ResourceChangedEvent(Simulation sim, float oldValue, ResourceEntry newValue);
+
     public event ResourceChangedEvent ResourceChanged;
-    
+
     public event Action<Simulation> OnSimTickFinished;
 
     public void BeginGame()
@@ -83,7 +90,7 @@ public class Game : MonoBehaviour
 
         BeginPlay?.Invoke();
     }
-    
+
     void LoadConfigs()
     {
         UnityPlatform.Setup();
@@ -92,20 +99,18 @@ public class Game : MonoBehaviour
         Config.OnPreload += () =>
         {
             Config.Apply("simulationSettings", ref SimulationSettings);
-            Config.Apply("carGeneratorSettings", ref CarGenConfig);
+            Config.Apply("carGeneratorSettings", ref carGenConfig);
             finishedLoadingConfigs = true;
         };
     }
 
-    void GenerateLevel(CarGeneratorConfig config, CarGrid carGrid, System.Random random)
+    void GenerateLevel(CarGenDifficultyLevelConfig config, CarGeneratorConfig basicConfig, CarGrid carGrid,
+        System.Random random)
     {
-        ICarGenerator carGenerator = new SimpleFullCarGenerator(this, config, carGrid, random);
-        carGenerator.RegisterOnComplete(() =>
-        {
-            finishedGeneratingLevel = true;
-        });
+        ICarGenerator carGenerator = new SimpleFullCarGenerator(this, config, basicConfig, carGrid, random);
+        carGenerator.RegisterOnComplete(() => { finishedGeneratingLevel = true; });
         carGenerator.Start();
-		SoundManager.Instance.PlaySound(SoundNames.chooChoo);
+        SoundManager.Instance.PlaySound(SoundNames.chooChoo);
     }
 
     void Awake()
@@ -122,7 +127,6 @@ public class Game : MonoBehaviour
 
     IEnumerator Start()
     {
-
         // TODO: do we want a seed?
         random = new System.Random();
 
@@ -146,9 +150,11 @@ public class Game : MonoBehaviour
             Simulation.ResourceChanged -= OnResourceChanged;
         }
 
-        CarGrid newGrid = new CarGrid(CarGenConfig.width, CarGenConfig.height);
+        UpdateDifficulty();
 
-        GenerateLevel(CarGenConfig, newGrid, random);
+        CarGrid newGrid = new CarGrid(CarGenDifficultyConfig.width, CarGenDifficultyConfig.height);
+
+        GenerateLevel(CarGenDifficultyConfig, carGenConfig, newGrid, random);
         Debug.Log("Generating level...");
 
         yield return new WaitUntil(() => finishedGeneratingLevel);
@@ -159,17 +165,32 @@ public class Game : MonoBehaviour
 
         carSims.Add(newSim);
         carGrids.Add(newGrid);
-        if (CurrCarNum >= 0) {
-            Tick.Instance.RemoveEventListener(carSims[CurrCarNum].Step);   
+        if (CurrCarNum >= 0)
+        {
+            Tick.Instance.RemoveEventListener(carSims[CurrCarNum].Step);
         }
+
         CurrCarNum++;
         Tick.Instance.AddEventListener(newSim.Step);
 
         newSim.OnSimTickFinished += SimTicked;
         newSim.ResourceChanged += OnResourceChanged;
-        
+
         LevelGenerated?.Invoke(newSim);
         Debug.Log("Current sim num: " + carSims.Count + " curr car num: " + CurrCarNum);
+    }
+
+    private void UpdateDifficulty()
+    {
+        // Consider moving to the next difficulty.
+        // If negative levels at this difficulty, we stay at this difficulty forever. Or if it's the last.
+        while (CarGenDifficultyConfig.numLevelsAtDifficulty >= 0 &&
+               currDifficulty < carGenConfig.difficulties.Length - 1 &&
+               CarGrids.Count() - numLevelsBeforeThisDifficulty >= CarGenDifficultyConfig.numLevelsAtDifficulty)
+        {
+            numLevelsBeforeThisDifficulty += CarGenDifficultyConfig.numLevelsAtDifficulty;
+            currDifficulty++;
+        }
     }
 
     private void SendSimTickFinished(Simulation sim)
@@ -181,7 +202,7 @@ public class Game : MonoBehaviour
     {
         ResourceChanged?.Invoke(Simulation, oldValue, newValue);
     }
-    
+
     public void GenerateNewCar()
     {
         StartCoroutine(GenerateNewCarInternal());
@@ -192,23 +213,23 @@ public class Game : MonoBehaviour
         CheckLevelState(sim);
         SendSimTickFinished(sim);
     }
-   
+
     public void CheckLevelState(Simulation sim)
     {
         if (!finishedGeneratingLevel)
         {
             return;
         }
-    
-        // If we have reached max sustainability, we have won! Move to the next level.
+
+// If we have reached max sustainability, we have won! Move to the next level.
         if (sim.currentState.Sustainability >= 99)
         {
             SoundManager.Instance.PlaySound(SoundNames.win);
-            
+
             // TODO: We should show a win screen here, and wait for it to close before generating the next car.
 
             trainCarGenerator.CreateTrainCar();
             FindObjectOfType<CameraShift>().AnimateForward();
         }
-    } 
+    }
 }
