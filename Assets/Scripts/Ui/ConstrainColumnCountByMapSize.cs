@@ -14,7 +14,8 @@ public class ConstrainColumnCountByMapSize : MonoBehaviour
     void Start()
     {
         Game.Instance.LevelGenerated += OnLevelGenerated;
-        if (Game.Instance.finishedGeneratingLevel)
+        if (Game.Instance.finishedGeneratingLevel &&
+            null != Game.Instance.Simulation)
         {
             OnLevelGenerated(Game.Instance.Simulation);
         }
@@ -23,12 +24,6 @@ public class ConstrainColumnCountByMapSize : MonoBehaviour
     private void OnDisable()
     {
         Game.Instance.LevelGenerated -= OnLevelGenerated;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnLevelGenerated(Simulation sim)
