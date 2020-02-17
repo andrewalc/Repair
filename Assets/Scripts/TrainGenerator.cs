@@ -18,7 +18,6 @@ public class TrainGenerator : MonoBehaviour
         trains = new List<GameObject>();
         trains.Add(startingTrain);
         
-        Game.Instance.OnSimTickFinished += CheckLevelState;
 
         Game.Instance.BeginPlay += OnBeginPlay;
     }
@@ -51,17 +50,4 @@ public class TrainGenerator : MonoBehaviour
         trains[index].GetComponentInChildren<CarElementsGenerator>().InstantiateLevel();
     }
 
-    public void CheckLevelState(Simulation sim)
-    {
-        if (!Game.Instance.finishedGeneratingLevel)
-        {
-            return;
-        }
-
-        if (sim.currentState.Sustainability >= 100)
-        {
-            CreateTrainCar();
-            FindObjectOfType<CameraShift>().AnimateForward();
-        }
-    }
 }

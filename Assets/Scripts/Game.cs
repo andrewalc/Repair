@@ -18,9 +18,8 @@ public class Game : MonoBehaviour
 
     private CarGeneratorConfig CarGenConfig = new CarGeneratorConfig();
 
-    public GameObject IrrigationPanelPrefab;
-    GameObject IrrigationPanelInstance;
-
+    [SerializeField] private TrainGenerator trainCarGenerator;
+    
     public Simulation Simulation
     {
         get
@@ -166,7 +165,7 @@ public class Game : MonoBehaviour
         CurrCarNum++;
         Tick.Instance.AddEventListener(newSim.Step);
 
-        newSim.OnSimTickFinished += SendSimTickFinished;
+        newSim.OnSimTickFinished += SimTicked;
         newSim.ResourceChanged += OnResourceChanged;
         
         LevelGenerated?.Invoke(newSim);
@@ -187,4 +186,29 @@ public class Game : MonoBehaviour
     {
         StartCoroutine(GenerateNewCarInternal());
     }
+
+    private void SimTicked(Simulation sim)
+    {
+        CheckLevelState(sim);
+        SendSimTickFinished(sim);
+    }
+   
+    public void CheckLevelState(Simulation sim)
+    {
+        if (!finishedGeneratingLevel)
+        {
+            return;
+        }
+    
+        // If we have reached max sustainability, we have won! Move to the next level.
+        if (sim.currentState.Sustainability >= 99)
+        {
+            SoundManager.Instance.PlaySound(SoundNames.win);
+            
+            // TODO: We should show a win screen here, and wait for it to close before generating the next car.
+
+            trainCarGenerator.CreateTrainCar();
+            FindObjectOfType<CameraShift>().AnimateForward();
+        }
+    } 
 }

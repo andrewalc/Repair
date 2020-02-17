@@ -2755,7 +2755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c3403e6ae673f4ab2bc0b9689efdc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IrrigationPanelPrefab: {fileID: 0}
+  trainCarGenerator: {fileID: 925201804}
 --- !u!4 &355038867
 Transform:
   m_ObjectHideFlags: 0
@@ -8933,6 +8933,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923429951}
   m_CullTransparentMesh: 0
+--- !u!114 &925201804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2490948811914454686, guid: cf3f668a10b6c4188b419f232d39e1e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 815023568}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860c0b2d3609b46c6b043cb95719e3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &965056849
 GameObject:
   m_ObjectHideFlags: 0
@@ -20604,6 +20616,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5746717935729106287, guid: 2465cd16d16565f418bd301a2ea4ded8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00030517578
+      objectReference: {fileID: 0}
     - target: {fileID: 6768574211478972228, guid: 2465cd16d16565f418bd301a2ea4ded8,
         type: 3}
       propertyPath: m_LocalPosition.x
