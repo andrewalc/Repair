@@ -161,6 +161,13 @@ public class IrrigationCellUi : MonoBehaviour
     {
         var gameState = Game.Instance.Simulation.currentState;
 
+        if (gameState.Squares[x, y].ContainedObject.BlocksIrrigation() ||
+            gameState.Squares[x, y].ContainedObject.IsWaterSource())
+        {
+            // Don't place a sprinkler on an obstacle, machine, or spigot.
+            return;
+        }
+        
         gameState.ToggleSprinkler(x,y);
         this.sprinkler = gameState.Sprinklers[x, y];
 
