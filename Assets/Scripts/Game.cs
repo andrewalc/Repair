@@ -11,7 +11,11 @@ public class Game : MonoBehaviour
 
     public bool finishedLoadingConfigs { get; private set; }
 
-    public bool finishedGeneratingLevel { get; private set; }
+    private bool finishedGeneratingLevel = false;
+    public bool FinishedGeneratingLevel {
+        get { return finishedGeneratingLevel && Simulation != null; }
+        private set { finishedGeneratingLevel = value; }
+    }
 
     private System.Random random;
 
@@ -108,7 +112,7 @@ public class Game : MonoBehaviour
         System.Random random)
     {
         ICarGenerator carGenerator = new SimpleFullCarGenerator(this, config, basicConfig, carGrid, random);
-        carGenerator.RegisterOnComplete(() => { finishedGeneratingLevel = true; });
+        carGenerator.RegisterOnComplete(() => { FinishedGeneratingLevel = true; });
         carGenerator.Start();
         SoundManager.Instance.PlaySound(SoundNames.chooChoo);
     }
@@ -141,7 +145,7 @@ public class Game : MonoBehaviour
 
     private IEnumerator GenerateNewCarInternal()
     {
-        finishedGeneratingLevel = false;
+        FinishedGeneratingLevel = false;
 
         if (Simulation != null)
         {
@@ -216,7 +220,7 @@ public class Game : MonoBehaviour
 
     public void CheckLevelState(Simulation sim)
     {
-        if (!finishedGeneratingLevel)
+        if (!FinishedGeneratingLevel)
         {
             return;
         }

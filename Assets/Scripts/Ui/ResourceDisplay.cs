@@ -27,7 +27,7 @@ public abstract class ResourceDisplay : MonoBehaviour
     
     public void UpdateLevel(Simulation sim)
     {
-        if ( !Game.Instance.finishedGeneratingLevel )
+        if ( !Game.Instance.FinishedGeneratingLevel )
         {
             return;
         }

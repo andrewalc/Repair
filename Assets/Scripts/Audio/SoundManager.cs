@@ -133,7 +133,7 @@ public class SoundManager : MonoBehaviour
 
 	public void SetLevel()
 	{
-		if (!Game.Instance.finishedGeneratingLevel)
+		if (!Game.Instance.FinishedGeneratingLevel)
 		{
 			return;
 		}

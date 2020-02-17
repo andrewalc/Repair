@@ -21,7 +21,7 @@ public abstract class TextIntDisplay : MonoBehaviour
 
     protected virtual void UpdateAmount(Simulation sim)
     {
-        if (!Game.Instance.finishedGeneratingLevel)
+        if (!Game.Instance.FinishedGeneratingLevel)
         {
             return;
         }

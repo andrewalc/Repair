@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ConstrainColumnCountByMapSize : MonoBehaviour
 {
-    [SerializeField] private GridLayoutGroup gridLayout;
+    private GridLayoutGroup gridLayout;
     [SerializeField] private float gridSizeMultiplier = 1.0f;
     [SerializeField] private int gridCountOffset = 0;
     
@@ -14,8 +14,7 @@ public class ConstrainColumnCountByMapSize : MonoBehaviour
     void Start()
     {
         Game.Instance.LevelGenerated += OnLevelGenerated;
-        if (Game.Instance.finishedGeneratingLevel &&
-            null != Game.Instance.Simulation)
+        if (Game.Instance.FinishedGeneratingLevel)
         {
             OnLevelGenerated(Game.Instance.Simulation);
         }
@@ -28,6 +27,12 @@ public class ConstrainColumnCountByMapSize : MonoBehaviour
 
     private void OnLevelGenerated(Simulation sim)
     {
-        gridLayout.constraintCount = (int)(sim.currentState.Width * gridSizeMultiplier) + gridCountOffset;
+        if (null == gridLayout)
+        {
+            gridLayout = GetComponent<GridLayoutGroup>();
+        }
+
+        float gridSize = (sim.currentState.Width * gridSizeMultiplier);
+        gridLayout.constraintCount = (int)gridSize + gridCountOffset;
     }
 }
