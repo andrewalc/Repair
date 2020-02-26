@@ -6,7 +6,6 @@ public class Tutorial : MonoBehaviour
 {
     void Awake()
     {
-        DisableMyself();
     }
 
     public void Display()
