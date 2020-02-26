@@ -47,7 +47,7 @@ public class Game : MonoBehaviour
 
     public CarGrid CurrGrid
     {
-        get { return carGrids[CurrCarNum]; }
+        get { return Simulation.currentState; }
     }
 
     public int CurrCarNum { get; private set; }

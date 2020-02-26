@@ -20,6 +20,10 @@ public class HoverManager : MonoBehaviour
 	[SerializeField] private Sprite goodSprite;
 	[SerializeField] private Gradient healthGradient;
 
+	[SerializeField] private Color notEnoughPlantMatterColor;
+	[SerializeField] private Color noUpgradeAvailableColor;
+	[SerializeField] private Color canUpgradeColor;
+
 	public static HoverManager Instance { get; private set; }
 
     bool _disabled;
@@ -103,6 +107,19 @@ public class HoverManager : MonoBehaviour
             t2.text = "Water Rate: " + watergen.ToString("F2");
             t3.text = "Level: " + level + "/" + settings.maxMachineLevel;
             t4.text = "Cost: " + cost;
+
+            if (level >= settings.maxMachineLevel)
+            {
+	            t4.color = noUpgradeAvailableColor;
+            }
+            else if (Game.Instance.CurrGrid.GetResourceValue(ResourceType.PlantMatter) < cost)
+            {
+	            t4.color = notEnoughPlantMatterColor;
+            }
+            else
+            {
+	            t4.color = canUpgradeColor;
+            }
         }
         
         transform.gameObject.SetActive(true);

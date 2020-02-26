@@ -766,6 +766,9 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  notEnoughPlantMatterColor: {r: 1, g: 0.42745098, b: 0.42745098, a: 1}
+  noUpgradeAvailableColor: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
+  canUpgradeColor: {r: 0.46666667, g: 0.84705883, b: 0.5058824, a: 1}
 --- !u!1 &7134684860065042121
 GameObject:
   m_ObjectHideFlags: 0
