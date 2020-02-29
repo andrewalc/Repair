@@ -31,6 +31,11 @@ public class Tick : MonoBehaviour
         _timePerTick = Game.Instance.SimulationSettings.tickSpeed;
     }
 
+    public void Pause()
+    {
+        paused = true;
+    }
+
     public void UnPause()
     {
         paused = false;
@@ -70,5 +75,10 @@ public class Tick : MonoBehaviour
         } else {
             Debug.LogError("Can only have one tick manager instance!");
         }
+    }
+
+    public bool IsPaused()
+    {
+        return paused;
     }
 }

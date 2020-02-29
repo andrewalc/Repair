@@ -4,9 +4,12 @@ using DarkConfig;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Ui;
 
 public class Game : MonoBehaviour
 {
+    [SerializeField] private EscapeMenu escapeMenu;
+    
     public static Game Instance { get; private set; }
 
     public bool finishedLoadingConfigs { get; private set; }
@@ -234,6 +237,19 @@ public class Game : MonoBehaviour
 
             trainCarGenerator.CreateTrainCar();
             FindObjectOfType<CameraShift>().AnimateForward();
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyUp("escape"))
+        {
+            if (Simulation != null && !Tick.Instance.IsPaused())
+            {
+                escapeMenu.Activate();
+
+                Tick.Instance.Pause();
+            }
         }
     }
 }
